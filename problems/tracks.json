@@ -1,0 +1,18 @@
+{
+  "tracks": [
+    {
+      "id": "interview",
+      "title": "Past Interview Questions",
+      "subtitle": "Glencore and Millennium × AmplifyME screens in one bank, ranked from easiest to most challenging",
+      "ordering": "difficulty",
+      "intro": "Every retained question from both screens, ranked together by actual difficulty (level 1 → 5). The source of each question is shown as a badge; filter by source if you want, but the default view is the global ranking."
+    },
+    {
+      "id": "quant",
+      "title": "Quantitative Methods",
+      "subtitle": "Four progressive commodity-market cases, from describing one price series to testing whether a long-run relationship survives a structural break",
+      "ordering": "case",
+      "intro": "Work through the cases in order: each step uses the previous one, and each case ends with a written defence. All datasets are synthetic (fixed seeds) — built so that each concept is observable, never presented as market observations."
+    }
+  ]
+}

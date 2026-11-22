@@ -1,0 +1,20 @@
+{
+  "number": "2.4",
+  "title": "Spurious regression: levels against differences",
+  "type": "code",
+  "case": "case2",
+  "step": 4,
+  "difficulty": 3,
+  "data": ["crude_daily_synthetic.csv"],
+  "concepts": ["spurious regression", "non-stationary regressors", "t-statistics under I(1)", "regression in differences"],
+  "explain": {
+    "prompt": "The test code also runs a Monte Carlo on 200 pairs of independent random walks. In 4–6 sentences: what share of them shows a 'significant' slope in levels, and why? How does the regression in differences expose the coffee relationship as spurious, and why does it not, on its own, prove that Brent and WTI share a long-run equilibrium?",
+    "rubric": [
+      "With two independent random walks, roughly 9 regressions out of 10 show |t| > 1.96 in levels instead of 5 %: the t-statistic does not follow a t-distribution when the series are I(1) — it grows with the sample size.",
+      "Mechanism: the residual of a regression of one random walk on another is itself non-stationary; the line fits the shared drift of the sample, not a relationship.",
+      "Coffee: t ≈ 36 in levels, t ≈ 0.8 and R² ≈ 0.001 in differences → the 'relationship' exists only in the trends: spurious.",
+      "Brent–WTI: significant in differences (t ≈ 55) → real day-to-day co-movement. But a link in changes does not establish an equilibrium between levels; that requires a stationary residual in levels — a cointegration test (Case 3).",
+      "Differencing removes the long-run information: it is the safe fallback when there is no cointegration, not a free lunch."
+    ]
+  }
+}

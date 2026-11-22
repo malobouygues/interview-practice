@@ -1,0 +1,17 @@
+{
+  "number": "Q17",
+  "title": "Question de suivi générée par IA",
+  "type": "open",
+  "group": "Partie C — SQL",
+  "follows": "glencore/q16-loyal-and-satisfied-employees",
+  "difficulty": 2,
+  "sequence": 8,
+  "difficulty_why": "Written defence of the previous query: explain AND vs OR as intersection vs union with a concrete counter-example.",
+  "rubric": [
+    "States that AND keeps only rows meeting both conditions (intersection of the two sets).",
+    "States that OR keeps a row as soon as one condition holds (union of the two sets).",
+    "Says the OR result always contains the AND result, plus extra rows, so it would not match the requirement.",
+    "Gives a concrete row that passes with OR but not with AND (e.g. 9 years with 0.79, or 4 years with 0.99).",
+    "Links the choice back to the wording of the goal ('at least 5 years and at least 0.8')."
+  ]
+}

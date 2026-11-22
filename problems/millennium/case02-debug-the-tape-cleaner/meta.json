@@ -1,0 +1,11 @@
+{
+  "number": "Case 2",
+  "title": "Debug the Tape Cleaner",
+  "type": "code",
+  "debug": true,
+  "group": "Cases 1–2 — Nettoyer la tape",
+  "book_difficulty": "Medium",
+  "difficulty": 3,
+  "sequence": 12,
+  "difficulty_why": "Read shipped code against a 5-rule contract and find three bugs (ffill before sort, keep='last', bad prints kept)."
+}

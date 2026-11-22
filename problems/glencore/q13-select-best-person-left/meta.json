@@ -1,0 +1,10 @@
+{
+  "number": "Q13",
+  "title": "Select best person left (superhumans)",
+  "type": "code",
+  "group": "Partie B — Python : code",
+  "time_limit_min": 8,
+  "difficulty": 2,
+  "sequence": 6,
+  "difficulty_why": "Two ordered steps (filter, then argmax with key=); the named test punishes taking the max before filtering."
+}

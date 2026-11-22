@@ -1,0 +1,10 @@
+{
+  "number": "Case 8",
+  "title": "Size And Impact",
+  "type": "code",
+  "group": "Cases 6–9 — Construire la cotation",
+  "book_difficulty": "Hard",
+  "difficulty": 4,
+  "sequence": 17,
+  "difficulty_why": "Stateful sequence: each fill shifts the next quote, decay and ordering (quote before impact) must be exact."
+}

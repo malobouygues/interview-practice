@@ -1,0 +1,21 @@
+{
+  "number": "4.1",
+  "title": "Two regimes? Compare the relationship before and after a known date",
+  "type": "code",
+  "case": "case4",
+  "step": 1,
+  "difficulty": 4,
+  "data": ["crude_history_synthetic.csv"],
+  "concepts": ["known structural break", "sub-period comparison", "breaks distort cointegration tests", "economic reading of a regime change"],
+  "explain": {
+    "prompt": "In 5–7 sentences: how did the Brent–WTI relationship change on 1 January 2016 (spread level, spread volatility, short-run pass-through)? Each sub-period is strongly cointegrated, yet the full 2012–2019 sample is not (Engle-Granger p ≈ 0.28). Explain why, and what you would have concluded if you had only run the test on the full sample. Why must the break date come from outside the data?",
+    "rubric": [
+      "Before 2016 the WTI discount averaged ≈ 0.17 log points (≈ 16 %), after ≈ 0.06 (≈ 6 %); the spread is less volatile after; the daily pass-through (return β) rises from ≈ 0.59 to ≈ 0.89 and the return correlation from ≈ 0.79 to ≈ 0.88.",
+      "Economic reading: with the export ban, WTI was landlocked and partly priced off local US balances; once exports were allowed, arbitrage tied it more tightly to Brent — a smaller discount and a closer daily link.",
+      "Each regime is cointegrated (EG p ≈ 0 in both), but one regression over 2012–2019 forces a single equilibrium; the residual inherits the shift in the equilibrium level and looks non-stationary, so EG fails to reject (p ≈ 0.28).",
+      "A full-sample test alone would wrongly conclude 'no long-run relationship' (or, with another sample, a relationship with a wrong β): a structural break distorts cointegration tests just as it distorts ADF.",
+      "The date must be chosen a priori from an identifiable event (the end of the export ban); choosing it by scanning the data for the largest change would invalidate the usual test statistics.",
+      "Consequence: estimate and use the relationship within the current regime, and re-test it regularly on recent data."
+    ]
+  }
+}

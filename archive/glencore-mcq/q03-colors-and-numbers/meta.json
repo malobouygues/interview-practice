@@ -1,0 +1,14 @@
+{
+  "number": "Q3",
+  "title": "Colors and numbers",
+  "type": "mcq",
+  "group": "Partie A — Python : QCM",
+  "multi": false,
+  "options": [
+    {"key": "A", "code": "for index, color in [0, \"red\", 1, \"green\", 2, \"blue\"]:\n    print(index, color)"},
+    {"key": "B", "code": "for color, index in [(\"red\", \"green\", \"blue\"), (0, 1, 2)]:\n    print(index, color)"},
+    {"key": "C", "code": "for index, color in enumerate([\"red\", \"green\", \"blue\"]):\n    print(index, color)"},
+    {"key": "D", "code": "for color, index in enumerate([\"red\", \"green\", \"blue\"]):\n    print(index, color)"}
+  ],
+  "answer": ["C"]
+}

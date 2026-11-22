@@ -1,0 +1,17 @@
+{
+  "number": "2.1",
+  "title": "Before any statistic: why should Brent and WTI be linked?",
+  "type": "open",
+  "case": "case2",
+  "step": 1,
+  "difficulty": 2,
+  "concepts": ["economic mechanism", "arbitrage", "expected statistical signature", "control series"],
+  "rubric": [
+    "Names the mechanism: both are light sweet crudes; if one gets too cheap relative to the other (net of transport and quality), traders ship / refiners substitute — arbitrage ties the prices.",
+    "Says the link is through the spread, bounded by transport and logistics costs — not a fixed price ratio of exactly one.",
+    "Predicts the statistical signature: daily returns strongly correlated; levels moving together with a spread that fluctuates but does not drift away for good.",
+    "Lists what can weaken or break the link: pipeline / storage bottlenecks at the delivery point, export restrictions, freight shocks, regional supply events (e.g. a hurricane).",
+    "Explains why coffee is a useful control: no mechanism links it to crude, so any 'relationship' found in levels would have to be spurious.",
+    "States that the mechanism comes first because a statistical link without a mechanism is fragile and probably spurious."
+  ]
+}

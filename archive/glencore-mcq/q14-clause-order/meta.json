@@ -1,0 +1,15 @@
+{
+  "number": "Q14",
+  "title": "Clause order",
+  "type": "mcq",
+  "group": "Partie C — SQL",
+  "multi": false,
+  "option_language": "sql",
+  "options": [
+    {"key": "A", "code": "SELECT ...\nFROM ...\nGROUP BY ...\nORDER BY ...\nWHERE ..."},
+    {"key": "B", "code": "SELECT ...\nFROM ...\nWHERE ...\nORDER BY ...\nGROUP BY ..."},
+    {"key": "C", "code": "SELECT ...\nFROM ...\nWHERE ...\nGROUP BY ...\nORDER BY ..."},
+    {"key": "D", "code": "SELECT ...\nFROM ...\nGROUP BY ...\nWHERE ...\nORDER BY ..."}
+  ],
+  "answer": ["C"]
+}

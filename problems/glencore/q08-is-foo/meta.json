@@ -1,0 +1,9 @@
+{
+  "number": "Q8",
+  "title": "is_foo",
+  "type": "code",
+  "group": "Partie B — Python : code",
+  "difficulty": 1,
+  "sequence": 1,
+  "difficulty_why": "One comparison, one line; the only traps are == vs is and case sensitivity."
+}

@@ -1,0 +1,15 @@
+{
+  "number": "Q1",
+  "title": "Type of a literal",
+  "type": "mcq",
+  "group": "Partie A — Python : QCM",
+  "multi": false,
+  "options": [
+    {"key": "A", "text": "dict"},
+    {"key": "B", "text": "array"},
+    {"key": "C", "text": "map"},
+    {"key": "D", "text": "set"},
+    {"key": "E", "text": "list"}
+  ],
+  "answer": ["A"]
+}

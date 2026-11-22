@@ -1,0 +1,15 @@
+{
+  "number": "Q5",
+  "title": "Creating an exception",
+  "type": "mcq",
+  "group": "Partie A — Python : QCM",
+  "multi": true,
+  "instruction": "Check all valid answers",
+  "options": [
+    {"key": "A", "code": "throw Exception()"},
+    {"key": "B", "code": "raise Exception(\"Exception occurred!\")"},
+    {"key": "C", "code": "throw Exception(\"Exception occurred!\")"},
+    {"key": "D", "code": "raise Exception()"}
+  ],
+  "answer": ["B", "D"]
+}

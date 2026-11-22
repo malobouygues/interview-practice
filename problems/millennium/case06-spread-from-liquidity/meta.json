@@ -1,0 +1,10 @@
+{
+  "number": "Case 6",
+  "title": "Spread From Liquidity",
+  "type": "code",
+  "group": "Cases 6–9 — Construire la cotation",
+  "book_difficulty": "Hard",
+  "difficulty": 2,
+  "sequence": 9,
+  "difficulty_why": "A given formula plus a floor; the substance is explaining why spreads widen with volatility and illiquidity."
+}

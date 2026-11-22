@@ -1,0 +1,10 @@
+{
+  "number": "Case 10",
+  "title": "Track The Book",
+  "type": "code",
+  "group": "Cases 10–12 — Tenir le book et le risque",
+  "book_difficulty": "Hard",
+  "difficulty": 3,
+  "sequence": 15,
+  "difficulty_why": "Position/cash accounting with the maker-vs-client sign trap; cash + mark-to-market must reconcile exactly."
+}

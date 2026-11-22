@@ -1,0 +1,11 @@
+{
+  "number": "Case 14",
+  "title": "Debug the Hedge Optimizer",
+  "type": "code",
+  "debug": true,
+  "group": "Cases 13–14 — Hedger le risque résiduel",
+  "book_difficulty": "Expert",
+  "difficulty": 5,
+  "sequence": 23,
+  "difficulty_why": "Four defects across statistics and code: regression on price levels (spurious), no de-meaning, a 'variance' that is not one, wrong input decoding."
+}

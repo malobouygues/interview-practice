@@ -1,0 +1,9 @@
+{
+  "number": "Q9",
+  "title": "is_bool",
+  "type": "code",
+  "group": "Partie B — Python : code",
+  "difficulty": 1,
+  "sequence": 2,
+  "difficulty_why": "A single boolean expression with three conditions; no data structure, no edge case beyond negatives."
+}

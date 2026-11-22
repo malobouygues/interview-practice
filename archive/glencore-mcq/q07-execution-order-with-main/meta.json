@@ -1,0 +1,15 @@
+{
+  "number": "Q7",
+  "title": "Execution order with __main__",
+  "type": "mcq",
+  "group": "Partie A — Python : QCM",
+  "multi": false,
+  "options": [
+    {"key": "A", "text": "only B is executed"},
+    {"key": "B", "text": "A then C then B"},
+    {"key": "C", "text": "A then C"},
+    {"key": "D", "text": "A then B then C"},
+    {"key": "E", "text": "A then B"}
+  ],
+  "answer": ["D"]
+}

@@ -1,0 +1,20 @@
+{
+  "number": "1.1",
+  "title": "First look: describe the price and its returns",
+  "type": "code",
+  "case": "case1",
+  "step": 1,
+  "difficulty": 1,
+  "data": ["ttf_daily_synthetic.csv"],
+  "concepts": ["mean vs median", "variance & standard deviation", "skewness", "excess kurtosis"],
+  "explain": {
+    "prompt": "Compare `summary_stats` on the TTF **price level** and on its **daily log returns** (the test code prints both). In 4–6 sentences: (1) what does mean > median tell you about the level? (2) why is the standard deviation of the level not a risk number you can quote? (3) what does the excess kurtosis of returns mean for someone managing risk on this contract?",
+    "rubric": [
+      "Mean above median (≈ 21.9 vs 19.4 €/MWh) means a right-skewed level (skew ≈ 1.35): a few expensive periods pull the mean up; the median is the more typical price.",
+      "The level's standard deviation (≈ 6.4 €/MWh) depends on where the path happened to wander during this sample and grows with the sample length: it describes the sample, not a stable property of the market.",
+      "Risk is quoted on returns: about 2.1 % per day here, a quantity that is comparable across periods.",
+      "Excess kurtosis ≈ 4.4 on returns = fat tails: large daily moves are much more frequent than a normal distribution predicts, so a normal-based risk estimate understates tail risk.",
+      "States what the series is (daily front-month settlement in €/MWh) before interpreting the numbers."
+    ]
+  }
+}

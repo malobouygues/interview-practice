@@ -1,0 +1,22 @@
+{
+ "version": 1,
+ "problems": {
+  "glencore/q01-type-of-a-literal": {
+   "draft": {
+    "answer": [
+     "C"
+    ]
+   },
+   "elapsed_s": 13,
+   "status": "attempted"
+  },
+  "glencore/q08-is-foo": {
+   "draft": {
+    "code": "# Python code below\n# Use print(\"messages...\") to debug your solution.\n\ndef is_foo(param):\n    # Your code goes here\n    return param == \"foo\"\n\n# Use print(\"messages...\") to debug your solution.\nprint(is_foo(\"foo\"))",
+    "scratch": "print(Answer.is_foo(\"foo\"))\n"
+   },
+   "elapsed_s": 320,
+   "status": "attempted"
+  }
+ }
+}

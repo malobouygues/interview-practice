@@ -1,0 +1,10 @@
+{
+  "number": "Case 1",
+  "title": "Clean The Tape",
+  "type": "code",
+  "group": "Cases 1–2 — Nettoyer la tape",
+  "book_difficulty": "Medium",
+  "difficulty": 3,
+  "sequence": 11,
+  "difficulty_why": "pandas pipeline whose order matters (sort, dedupe, invalidate <= 0, forward-fill only), no mutation, look-ahead awareness."
+}

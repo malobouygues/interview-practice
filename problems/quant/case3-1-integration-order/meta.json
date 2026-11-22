@@ -1,0 +1,21 @@
+{
+  "number": "3.1",
+  "title": "Order of integration: I(0), I(1) — and why it matters",
+  "type": "code",
+  "case": "case3",
+  "step": 1,
+  "difficulty": 3,
+  "data": ["crude_daily_synthetic.csv", "ttf_daily_synthetic.csv"],
+  "concepts": ["order of integration", "I(0) / I(1) / I(2)", "differencing", "precondition for cointegration"],
+  "explain": {
+    "prompt": "In 4–6 sentences: what are the orders of integration of log Brent, log WTI and the log spread log(Brent) − log(WTI)? Why is it remarkable that the spread is I(0) while each price is I(1), and what does it suggest economically? Why must both prices be I(1) before testing for cointegration?",
+    "rubric": [
+      "log Brent and log WTI are I(1): unit root in levels (ADF does not reject, KPSS rejects), stationary after one difference.",
+      "The log spread is I(0): a combination of two I(1) series that is stationary — the definition of cointegration (here with a coefficient fixed at 1).",
+      "Economically: the WTI discount fluctuates around a stable value (≈ 6 %) and returns to it — the arbitrage of 2.1 at work; the two prices share one stochastic trend.",
+      "Cointegration is defined for series with the same order of integration (typically I(1)); with an I(0) series there is no common stochastic trend to share, and the test would be meaningless.",
+      "I(2) is rare in prices; if a series looks I(2), suspect a structural break first.",
+      "If the spread with coefficient 1 is already stationary, it can be studied directly without estimating β — but estimating β tests whether 1 is the right coefficient."
+    ]
+  }
+}

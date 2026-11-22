@@ -1,0 +1,10 @@
+{
+  "number": "Case 7",
+  "title": "Price One Request",
+  "type": "code",
+  "group": "Cases 6–9 — Construire la cotation",
+  "book_difficulty": "Hard",
+  "difficulty": 3,
+  "sequence": 10,
+  "difficulty_why": "Short code but four concepts: side convention (client BUY = maker sells), size penalty, outward tick rounding, float noise."
+}

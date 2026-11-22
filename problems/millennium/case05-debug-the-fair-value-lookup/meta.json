@@ -1,0 +1,11 @@
+{
+  "number": "Case 5",
+  "title": "Debug the Fair-Value Lookup",
+  "type": "code",
+  "debug": true,
+  "group": "Cases 4–5 — Prix de référence as-of",
+  "book_difficulty": "Hard",
+  "difficulty": 4,
+  "sequence": 16,
+  "difficulty_why": "Plausible-looking code that is subtly wrong on three conditions (strict <, no staleness, unsorted input)."
+}

@@ -1,0 +1,9 @@
+{
+  "number": "Case 13",
+  "title": "Hedge the Risk",
+  "type": "code",
+  "group": "Cases 13–14 — Hedger le risque résiduel",
+  "difficulty": 5,
+  "sequence": 22,
+  "difficulty_why": "Minimum-variance hedge restricted to tradable assets: covariance matrix, block formula, solve vs inverse, ridge, -0.0."
+}

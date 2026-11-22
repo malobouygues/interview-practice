@@ -1,0 +1,15 @@
+{
+  "number": "Q15",
+  "title": "What can be said about this JOIN?",
+  "type": "mcq",
+  "group": "Partie C — SQL",
+  "multi": true,
+  "instruction": "Several answers",
+  "options": [
+    {"key": "A", "text": "`JOIN` is equivalent to `INNER JOIN`"},
+    {"key": "B", "text": "`JOIN` is equivalent to `LEFT JOIN`"},
+    {"key": "C", "text": "The query will only output `product_id` with corresponding `order_id`"},
+    {"key": "D", "text": "The query may output some `product_id` without corresponding `order_id`"}
+  ],
+  "answer": ["A", "C"]
+}

@@ -1,0 +1,9 @@
+{
+  "number": "Q10",
+  "title": "next_week",
+  "type": "code",
+  "group": "Partie B — Python : code",
+  "difficulty": 1,
+  "sequence": 3,
+  "difficulty_why": "One standard-library idiom (date + timedelta); month/year/leap-year handling comes for free once you know it."
+}

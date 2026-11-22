@@ -1,0 +1,9 @@
+{
+  "number": "Case 3",
+  "title": "Measure Liquidity",
+  "type": "code",
+  "group": "Case 3 — Mesurer la liquidité",
+  "difficulty": 3,
+  "sequence": 13,
+  "difficulty_why": "Several pandas steps (pct_change std, request shares, min-max with a zero-range rule) combined into one score."
+}

@@ -1,0 +1,18 @@
+{
+  "number": "1.7",
+  "title": "Case debrief: defend your diagnosis of TTF to the PM",
+  "type": "open",
+  "case": "case1",
+  "step": 7,
+  "difficulty": 3,
+  "concepts": ["communicating a diagnosis", "nulls and p-values", "transformation choice", "limits"],
+  "rubric": [
+    "Opens with the conclusion in one sentence: the TTF level behaves like a unit-root (I(1)) process; daily log returns are stationary; the analysis works on returns.",
+    "Gives the evidence with the right nulls: ADF on the level cannot reject a unit root (p ≈ 0.91), KPSS rejects stationarity (p ≤ 0.01) — and the reverse on returns.",
+    "Explains why the level's mean and standard deviation are not meaningful (they wander with the sample) and quotes risk on returns (≈ 2.1 % a day, fat tails, excess kurtosis ≈ 4).",
+    "Says what the tests do NOT establish: a non-rejection is not proof; stationary returns do not mean constant volatility or predictability.",
+    "Names the main limits: three years of data (power), possible breaks, results under the chosen specification ('c', no deterministic trend visible).",
+    "Contrasts with a trend-stationary series (diesel demand): not every trend calls for differencing — shows the choice was reasoned, not automatic.",
+    "States what would change the conclusion or what comes next (e.g. a visible break → sub-period tests; a relationship with another price → cointegration, Case 3)."
+  ]
+}

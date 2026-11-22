@@ -1,0 +1,11 @@
+{
+  "number": "Case 12",
+  "title": "Debug the Risk-Limit Quoter",
+  "type": "code",
+  "debug": true,
+  "group": "Cases 10–12 — Tenir le book et le risque",
+  "book_difficulty": "Hard",
+  "difficulty": 4,
+  "sequence": 20,
+  "difficulty_why": "Three bugs mapped from two trader symptoms, plus a different sign convention from Case 11 that must NOT be 'fixed'."
+}

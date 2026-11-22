@@ -1,0 +1,20 @@
+{
+  "number": "2.3",
+  "title": "A simple OLS relationship: WTI on Brent",
+  "type": "code",
+  "case": "case2",
+  "step": 3,
+  "difficulty": 2,
+  "data": ["crude_daily_synthetic.csv"],
+  "concepts": ["bivariate OLS", "coefficient interpretation", "residuals", "R²", "t-statistic", "levels vs returns"],
+  "explain": {
+    "prompt": "You ran WTI on Brent in log levels and in log returns. In 4–6 sentences: interpret β in each regression (with units), say what the residual of the levels regression represents economically, and explain why you would not take the level regression's t-statistic of 271 at face value.",
+    "rubric": [
+      "Levels (logs): β ≈ 0.98 — in the long run a 1 % higher Brent goes with ≈ 0.98 % higher WTI (an elasticity); α ≈ 0.03 is not meaningful alone.",
+      "Returns: β ≈ 0.89 — on a given day WTI moves ≈ 0.89 % for a 1 % Brent move (short-run pass-through), R² ≈ 0.77.",
+      "The levels residual is the deviation of log WTI from its fitted relation with Brent ≈ the WTI discount relative to its usual level (a log spread).",
+      "OLS assumes stationary data and independent errors; in levels both series are I(1) and the residuals are highly persistent, so the standard errors and t-statistic are invalid — inflated.",
+      "Coffee on Brent also gets a 'significant' t ≈ 36 and R² ≈ 0.59 in levels: the level t-stat cannot separate a real link from shared trends (next step)."
+    ]
+  }
+}

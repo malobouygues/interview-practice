@@ -1,0 +1,12 @@
+{
+  "number": "Q16",
+  "title": "Loyal and satisfied employees",
+  "type": "sql",
+  "group": "Partie C — SQL",
+  "sql_formats": {
+    "satisfaction": "%.5f"
+  },
+  "difficulty": 2,
+  "sequence": 7,
+  "difficulty_why": "Basic SELECT / WHERE / ORDER BY, but exact column order and inclusive bounds (>=) are checked."
+}

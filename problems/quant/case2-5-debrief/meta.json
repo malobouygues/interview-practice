@@ -1,0 +1,17 @@
+{
+  "number": "2.5",
+  "title": "Case debrief: 'oil drives coffee' — answer the claim",
+  "type": "open",
+  "case": "case2",
+  "step": 5,
+  "difficulty": 3,
+  "concepts": ["spurious regression", "correlation vs causality", "statistical vs economic significance", "what evidence would be needed"],
+  "rubric": [
+    "Identifies the result as a spurious regression: two trending, non-stationary prices; the levels R² and t-stat are not valid evidence (≈ 9 in 10 independent random-walk pairs look significant).",
+    "Quotes the decisive check: in daily changes the relationship vanishes (returns correlation ≈ 0.03, t ≈ 0.8, R² ≈ 0.001).",
+    "Separates correlation from causality: even a genuine correlation would not show that oil drives coffee (common factors such as the dollar or general commodity flows, reverse causality, coincidence).",
+    "Distinguishes statistical significance from economic significance and from predictive value.",
+    "Takes the economic story seriously but says what evidence it would need: a mechanism with a plausible size and lag, a link in changes, a stable relationship across sub-periods, and a cointegration test if a level relationship is claimed.",
+    "Contrasts with Brent–WTI, where the link survives in differences and there is an arbitrage mechanism — the methodology is the same, the outcome differs."
+  ]
+}

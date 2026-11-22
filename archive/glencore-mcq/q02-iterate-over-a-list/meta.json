@@ -1,0 +1,13 @@
+{
+  "number": "Q2",
+  "title": "Iterate over a list",
+  "type": "mcq",
+  "group": "Partie A — Python : QCM",
+  "multi": false,
+  "options": [
+    {"key": "A", "code": "foreach n of arr:"},
+    {"key": "B", "code": "for n : arr:"},
+    {"key": "C", "code": "for n in arr:"}
+  ],
+  "answer": ["C"]
+}

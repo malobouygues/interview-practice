@@ -1,0 +1,10 @@
+{
+  "number": "Case 11",
+  "title": "Risk Limits And Skew",
+  "type": "code",
+  "group": "Cases 10–12 — Tenir le book et le risque",
+  "book_difficulty": "Expert",
+  "difficulty": 4,
+  "sequence": 19,
+  "difficulty_why": "Many rules at once: liquidity-scaled hard/soft limits on projected inventory, skew on current inventory, widen vs reject."
+}

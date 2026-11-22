@@ -1,0 +1,10 @@
+{
+  "number": "Case 15",
+  "title": "Client Toxicity And Markout",
+  "type": "code",
+  "group": "Case 15 — Mesurer la toxicité client",
+  "book_difficulty": "Expert",
+  "difficulty": 5,
+  "sequence": 21,
+  "difficulty_why": "As-of join by asset (merge_asof + melt), horizon arithmetic, maker-side sign convention and per-client aggregation."
+}

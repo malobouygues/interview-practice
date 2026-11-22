@@ -1,0 +1,21 @@
+{
+  "number": "1.5",
+  "title": "KPSS, the complementary test — and reading both together",
+  "type": "code",
+  "case": "case1",
+  "step": 5,
+  "difficulty": 3,
+  "data": ["ttf_daily_synthetic.csv"],
+  "concepts": ["KPSS", "opposite nulls", "joint ADF + KPSS reading", "bounded p-values", "misspecification", "low power"],
+  "explain": {
+    "prompt": "Explain to a colleague, in 5–7 sentences, why you run KPSS *in addition to* ADF. Use the four verdicts produced by the test code: TTF level, TTF returns, the persistent 2,000-observation series (conflict) and the 40-observation series (inconclusive). What do you do next in each of the two ambiguous cases?",
+    "rubric": [
+      "KPSS reverses the null: H0 = stationary (around a level with 'c', a trend with 'ct'), H1 = unit root. Each test only protects its own H0, so crossing them prevents reading a non-rejection as a proof.",
+      "TTF level: ADF does not reject a unit root (p ≈ 0.91) and KPSS rejects stationarity (p ≤ 0.01) → concordant evidence of a unit root. Returns: the opposite → concordant evidence of stationarity.",
+      "Both reject (persistent series): neither a pure random walk nor simple stationarity — check the deterministic trend ('ct'), sub-periods for a break, changing variance, very long memory.",
+      "Neither rejects (40 obs): the data cannot decide — low power; rely on the economics of the series, the chart, and make the conclusions robust to both hypotheses.",
+      "statsmodels only tabulates KPSS p-values between 0.01 and 0.10: 0.01 means 'at most 0.01', 0.10 means 'at least 0.10' (InterpolationWarning).",
+      "Both tests must use the same deterministic specification; the trend-stationary series gives 'unit root' with 'c' and 'stationary' with 'ct'."
+    ]
+  }
+}

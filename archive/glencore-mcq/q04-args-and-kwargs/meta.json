@@ -1,0 +1,19 @@
+{
+  "number": "Q4",
+  "title": "*args and **kwargs",
+  "type": "mcq",
+  "group": "Partie A — Python : QCM",
+  "multi": true,
+  "instruction": "Select all answers that apply",
+  "options": [
+    {"key": "A", "code": "arg_first == 10"},
+    {"key": "B", "code": "args == 20"},
+    {"key": "C", "code": "args == (20, 30)"},
+    {"key": "D", "code": "args == (10, 20, 30)"},
+    {"key": "E", "code": "kwargs == 30"},
+    {"key": "F", "code": "kwargs == {}", "text": "(an empty dictionary)"},
+    {"key": "G", "code": "kwargs == ()", "text": "(an empty tuple)"},
+    {"key": "H", "code": "kwargs == None"}
+  ],
+  "answer": ["A", "C", "F"]
+}

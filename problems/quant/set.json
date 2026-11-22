@@ -1,0 +1,41 @@
+{
+  "title": "Quantitative Methods",
+  "source": "Carte mentale — séries temporelles & recherche quantitative énergie",
+  "track": "quant",
+  "subtitle": "Statistical diagnosis, correlation, stationarity tests, cointegration and stability — on synthetic commodity data",
+  "order": 3,
+  "cases": [
+    {
+      "id": "case1",
+      "number": "Case 1",
+      "title": "Diagnosing one gas price series",
+      "question": "The front-month TTF price went from 18 to 33 €/MWh in three years. Before anyone fits anything: what kind of series is it, and should the analysis work on prices or on returns?",
+      "data": "ttf_daily_synthetic.csv (daily, 2017–2019) · diesel_demand_monthly_synthetic.csv (monthly, 2010–2019, the contrasting series of step 6)",
+      "concepts": ["mean / median / variance", "skewness & kurtosis", "diff · % change · log return", "weak stationarity", "random walk", "ADF", "KPSS", "p-values & nulls", "deterministic vs stochastic trend", "seasonality"]
+    },
+    {
+      "id": "case2",
+      "number": "Case 2",
+      "title": "Two related markets: Brent and WTI",
+      "question": "Brent and WTI move together on every screen. How strong is the link really, and which statistics can you trust when both prices trend?",
+      "data": "crude_daily_synthetic.csv (daily, Jul 2016 – Dec 2019: brent, wti, and an unrelated coffee price as a control)",
+      "concepts": ["economic mechanism first", "Pearson vs Spearman", "levels vs returns", "correlation ≠ causality", "bivariate OLS", "spurious regression"]
+    },
+    {
+      "id": "case3",
+      "number": "Case 3",
+      "title": "Testing the long-run Brent–WTI relationship",
+      "question": "Is there an equilibrium the two crudes keep returning to — and if WTI drifts away from it, how fast does it come back?",
+      "data": "crude_daily_synthetic.csv (same data as Case 2)",
+      "concepts": ["I(0) / I(1)", "cointegration", "Engle-Granger two steps", "why special critical values", "error correction model", "speed of adjustment & half-life"]
+    },
+    {
+      "id": "case4",
+      "number": "Case 4",
+      "title": "Did the relationship survive a structural change?",
+      "question": "The desk hands you the history back to 2012. The US lifted its crude export ban at the end of 2015. Is 2012–2019 one Brent–WTI relationship, or two?",
+      "data": "crude_history_synthetic.csv (daily, 2012–2019: brent, wti)",
+      "concepts": ["known structural break", "sub-period comparison", "Chow test", "breaks distort cointegration tests", "economic reading of a regime change"]
+    }
+  ]
+}

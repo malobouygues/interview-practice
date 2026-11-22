@@ -1,0 +1,9 @@
+{
+  "number": "Q11",
+  "title": "Compute size on disk",
+  "type": "code",
+  "group": "Partie B — Python : code",
+  "difficulty": 2,
+  "sequence": 4,
+  "difficulty_why": "Integer ceiling division plus three boundary cases (empty file, exact multiple, one byte over)."
+}

@@ -1,0 +1,10 @@
+{
+  "number": "Case 4",
+  "title": "Fair Value At A Time",
+  "type": "code",
+  "group": "Cases 4–5 — Prix de référence as-of",
+  "book_difficulty": "Medium",
+  "difficulty": 3,
+  "sequence": 14,
+  "difficulty_why": "As-of lookup with searchsorted, invalid prints, staleness clamp and the 'at or before' boundary."
+}

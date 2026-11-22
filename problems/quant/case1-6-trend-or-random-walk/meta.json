@@ -1,0 +1,21 @@
+{
+  "number": "1.6",
+  "title": "A trend is not always a random walk: detrend or difference?",
+  "type": "code",
+  "case": "case1",
+  "step": 6,
+  "difficulty": 3,
+  "data": ["diesel_demand_monthly_synthetic.csv", "ttf_daily_synthetic.csv"],
+  "concepts": ["deterministic vs stochastic trend", "deterministic seasonality", "ADF 'c' vs 'ct'", "detrending", "over-differencing", "when not to difference"],
+  "explain": {
+    "prompt": "Diesel demand and the TTF price both 'trend upwards'. In 5–7 sentences, explain why the right transformation differs for the two, using `adf_p_c`, `adf_p_ct`, `std_detrended` and `std_differenced`. What would go wrong if you differenced the demand series anyway? And what would go wrong if you detrended TTF?",
+    "rubric": [
+      "Demand (after removing the seasonal profile): ADF with a constant does not reject (p ≈ 0.97) but with constant + trend rejects (p < 0.001) → the apparent non-stationarity is a deterministic trend (≈ +12.9 kb/d per year): trend-stationary, shocks fade.",
+      "TTF monthly average: neither 'c' nor 'ct' rejects → stochastic trend; shocks are permanent; difference (log returns).",
+      "Differencing a trend-stationary series over-differences: the dispersion rises (std of differences ≈ 15.6 vs ≈ 11.6 kb/d for the detrended series) and an artificial negative dependence is created; the level information is thrown away.",
+      "Detrending a random walk does not make it stationary: the residual still wanders (detrended std ≈ 4.7 vs ≈ 1.9 €/MWh for monthly changes); a fitted line on a random walk is an artefact of the sample.",
+      "Seasonality is removed first (a fixed monthly profile ≈ 79 kb/d peak-to-trough, winter heating), otherwise the tests are run on a seasonal series.",
+      "Decision is guided by the chart and the economics (consumption grows with activity; a price has no deterministic anchor), not by a p-value alone."
+    ]
+  }
+}

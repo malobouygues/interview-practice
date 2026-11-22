@@ -1,0 +1,30 @@
+{
+ "version": 1,
+ "problems": {
+  "glencore/q01-type-of-a-literal": {
+   "draft": {
+    "answer": [
+     "C"
+    ]
+   },
+   "elapsed_s": 13,
+   "status": "attempted"
+  },
+  "glencore/q08-is-foo": {
+   "draft": {
+    "code": "# Python code below\n# Use print(\"messages...\") to debug your solution.\n\ndef is_foo(param):\n    # Your code goes here\n    return param == \"foo\"\n\n# Use print(\"messages...\") to debug your solution.\nprint(is_foo(\"foo\"))",
+    "scratch": "print(Answer.is_foo(\"foo\"))\n"
+   },
+   "elapsed_s": 320,
+   "status": "attempted"
+  },
+  "quant/case1-1-first-look": {
+   "draft": {
+    "code": "import pandas as pd\n\n\ndef summary_stats(x: pd.Series) -> dict:\n    \"\"\"Descriptive statistics of a series, ignoring missing values.\n\n    Returns a dict with keys: n, mean, median, var, std, skew, excess_kurtosis.\n    \"\"\"\n    raise NotImplementedError(\"compute the summary statistics\")\n",
+    "scratch": "import numpy as np\nimport pandas as pd\n\nprices = pd.read_csv(\"data/ttf_daily_synthetic.csv\", parse_dates=[\"date\"], index_col=\"date\")\nttf = prices[\"ttf\"]\nprint(prices.info())            # what is a row? which dtype? any missing value?\nprint(ttf.head(), ttf.tail(), sep=\"\\n\")\n\nlog_returns = np.log(ttf).diff()  # first value is NaN (no previous price)\n\nprint(\"price level :\", summary_stats(ttf))\nprint(\"log returns :\", summary_stats(log_returns))\n",
+    "explanation": ""
+   },
+   "elapsed_s": 260
+  }
+ }
+}

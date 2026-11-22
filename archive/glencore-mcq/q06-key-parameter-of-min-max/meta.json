@@ -1,0 +1,14 @@
+{
+  "number": "Q6",
+  "title": "The key parameter of min / max",
+  "type": "mcq",
+  "group": "Partie A — Python : QCM",
+  "multi": false,
+  "options": [
+    {"key": "A", "text": "It determines whether duplicates are allowed in the list."},
+    {"key": "B", "text": "It provides a function to extract a comparison key from each element."},
+    {"key": "C", "text": "It changes the data type of elements before comparison."},
+    {"key": "D", "text": "It specifies the sorting order of the elements. For example, `key=\"asc\"` or `key=\"desc\"`."}
+  ],
+  "answer": ["B"]
+}

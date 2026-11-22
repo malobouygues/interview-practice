@@ -1,0 +1,21 @@
+{
+  "number": "2.2",
+  "title": "Correlation in levels vs in returns — Pearson and Spearman",
+  "type": "code",
+  "case": "case2",
+  "step": 2,
+  "difficulty": 2,
+  "data": ["crude_daily_synthetic.csv"],
+  "concepts": ["Pearson correlation", "Spearman correlation", "levels vs returns", "spurious correlation", "correlation ≠ causality"],
+  "explain": {
+    "prompt": "Compare the reports for Brent–WTI and Brent–coffee. In 4–6 sentences: why is the coffee–Brent correlation 0.77 in levels but ≈ 0.03 in returns? Which of the two numbers measures a link? Why can a high correlation of daily returns between Brent and WTI still not tell you which market drives the other?",
+    "rubric": [
+      "Coffee and Brent are independent by construction; their level correlation (≈ 0.77) comes from two trending, non-stationary paths that happened to drift the same way — a spurious correlation.",
+      "Correlation of returns (≈ 0.03) measures whether the two prices move together day by day; it is the meaningful number. Rule: correlate changes, not non-stationary levels.",
+      "Brent–WTI: high in both (0.99 levels, 0.88 returns) — consistent with a real link, but the level figure on its own proves nothing.",
+      "Pearson measures linear dependence and is sensitive to extreme days; Spearman works on ranks (monotone dependence, robust to outliers) — here they agree (0.88 vs 0.86).",
+      "Correlation ≠ causality: a common factor (the global crude balance) drives both; correlation is symmetric and says nothing about direction or about what happens if one price is pushed.",
+      "With dependent observations the effective sample size is smaller than n, so the usual significance levels of correlations are too optimistic."
+    ]
+  }
+}

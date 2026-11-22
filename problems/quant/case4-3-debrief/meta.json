@@ -1,0 +1,18 @@
+{
+  "number": "4.3",
+  "title": "Final debrief: the 'fair' spread model trained on 2012–2019",
+  "type": "open",
+  "case": "case4",
+  "step": 3,
+  "difficulty": 5,
+  "concepts": ["structural breaks and model validity", "pooling across regimes", "economic mechanism", "end-to-end research defence"],
+  "rubric": [
+    "Identifies the flaw: the 'fair' spread of ≈ 8 % comes from pooling two regimes (≈ 16 % before 2016, ≈ 6 % after); it describes neither, so the current 6 % is not 'too narrow'.",
+    "Brings the evidence: sub-period means and pass-through (4.1), Chow on returns F ≈ 107 at 2016-01-01 with clean placebos (4.2), full-sample Engle-Granger p ≈ 0.28 vs strong cointegration within each regime.",
+    "Explains the mechanism behind the break: the end of the export ban opened the arbitrage route, structurally reducing the discount and tightening the daily link.",
+    "States what the current-regime model says instead: equilibrium discount ≈ 6 %, adjustment ≈ 11 % per day (half-life ≈ 6 days), so today's spread is close to equilibrium — no trade signal.",
+    "Describes the right procedure: economic reasoning for possible breaks, estimate within the current regime, test the stability with a known-date test on stationary variables, re-test regularly.",
+    "Acknowledges limits: break dates are rarely sharp; a new regime may be starting; tests have limited power; the analysis is descriptive, not a backtested strategy.",
+    "Delivered as a conclusion-first, evidence-backed answer a PM can act on."
+  ]
+}

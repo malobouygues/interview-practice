@@ -1,0 +1,19 @@
+{
+  "number": "1.2",
+  "title": "Transformations: difference, % change, log return",
+  "type": "code",
+  "case": "case1",
+  "step": 2,
+  "difficulty": 1,
+  "data": ["ttf_daily_synthetic.csv"],
+  "concepts": ["first difference", "percentage change", "log return", "additivity over time", "when a log is forbidden"],
+  "explain": {
+    "prompt": "The test code compounds each transformation over the whole sample. In 3–5 sentences: why do daily log returns add up exactly to the total move while daily % changes do not? When would you use `diff()` instead of either of them — give one commodity example?",
+    "rubric": [
+      "log(P_T / P_0) = Σ log(P_t / P_{t-1}): log returns are additive over time, so summing them gives the exact total log move (here ≈ 0.60, i.e. 18 → 32.8 €/MWh).",
+      "Simple % changes compound multiplicatively: Π(1 + r_t) − 1 is the total return; their plain sum is wrong (and the error grows with volatility).",
+      "For small moves the two are close (log(1 + r) ≈ r), so % changes are fine for communication, log returns for aggregation and statistics.",
+      "Use diff() (absolute change in price units) for series that can be zero or negative — a location or calendar spread, a crack spread, a negative power price — where log and % change are undefined or explode."
+    ]
+  }
+}

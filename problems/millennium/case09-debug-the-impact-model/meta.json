@@ -1,0 +1,11 @@
+{
+  "number": "Case 9",
+  "title": "Debug the Impact Model",
+  "type": "code",
+  "debug": true,
+  "group": "Cases 6–9 — Construire la cotation",
+  "book_difficulty": "Hard",
+  "difficulty": 4,
+  "sequence": 18,
+  "difficulty_why": "Debug a state machine that only drifts on multi-order sequences: three interacting bugs, one worked example."
+}
