@@ -1,0 +1,23 @@
+{
+  "number": "4.7",
+  "title": "Engle-Granger, step by step — and why its critical values differ",
+  "type": "code",
+  "project": "p4",
+  "step": 7,
+  "difficulty": 4,
+  "previous_ids": ["quant/case3-2-engle-granger"],
+  "architectures": ["A06"],
+  "data": ["p4_crude_research_daily_synthetic.csv"],
+  "concepts": ["cointegration", "economic equilibrium", "Engle-Granger two steps", "H0: no cointegration", "estimated residuals", "correct critical values", "normalisation"],
+  "explain": {
+    "prompt": "In 5–7 sentences: describe the two steps of Engle-Granger and its null hypothesis; interpret WTI–Brent; then explain coffee–Brent, where the ADF statistic on the residuals gives a naive p-value of 0.038 but the Engle-Granger p-value is 0.50 — which one is right and why? What does the brent ~ coffee ordering show, and what are the limits of the method?",
+    "rubric": [
+      "Step 1: OLS of y on a constant and x in levels (the candidate long-run relation). Step 2: unit-root test on the residuals. H0: no cointegration (residuals have a unit root); H1: cointegration (residuals stationary).",
+      "WTI ~ Brent: β ≈ 0.98, statistic ≈ −7.4 far below the 5 % Engle-Granger critical value (≈ −3.34), p ≈ 0 → cointegrated: an equilibrium WTI keeps returning to, consistent with the arbitrage hypothesis.",
+      "Coffee ~ Brent: same statistic for both p-values (−2.05). The naive p-value (0.038) uses Dickey-Fuller tables, valid for an observed series; here β was chosen by OLS to make the residual as small and stationary-looking as possible, so the critical values must be more negative (−3.34 instead of ≈ −1.94). Correct p = 0.50: no cointegration.",
+      "The naive reading would 'confirm' a relationship that does not exist — the spurious regression of 4.6 coming back through the back door.",
+      "The result depends on which variable is on the left (brent ~ coffee gives p ≈ 0.20); Engle-Granger finds at most one relation, has low power, and is distorted by structural breaks.",
+      "Without an economic mechanism (arbitrage for WTI–Brent), even a rejection would be suspect."
+    ]
+  }
+}

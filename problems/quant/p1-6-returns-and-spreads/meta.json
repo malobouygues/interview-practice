@@ -1,0 +1,22 @@
+{
+  "number": "1.6",
+  "title": "Differences, % changes, log returns — and spreads",
+  "type": "code",
+  "project": "p1",
+  "step": 6,
+  "difficulty": 2,
+  "previous_ids": ["quant/case1-2-returns"],
+  "architectures": ["A01", "A05"],
+  "data": ["p1_crude_prices_clean_synthetic.csv"],
+  "concepts": ["first difference", "percentage change", "log return", "additivity over time", "returns across holidays", "spreads can be negative"],
+  "explain": {
+    "prompt": "In 4–6 sentences: why do daily log returns of Brent add up exactly to the total move while daily % changes do not? Why does `make_returns` refuse WTI and the Brent–Dubai spread, and what do you use instead? Why must missing days be dropped before computing returns?",
+    "rubric": [
+      "log(P_T / P_0) = Σ log(P_t / P_{t−1}): log returns are additive over time — here they sum to 0.357, exactly log(78.58 / 55.00). % changes compound: their plain sum (0.444) is not the total return (+42.9 %).",
+      "For small moves log returns and % changes are close (log(1 + r) ≈ r): % changes for communication, log returns for statistics and aggregation.",
+      "WTI printed −35.90 and the Brent–Dubai spread is sometimes negative: a log (or a % change on a near-zero base) is undefined. Use differences in USD/bbl (diff) for these series.",
+      "The −35.90 print makes WTI's daily change −47.5 then +46.1 USD/bbl: differences remain defined, but they are dominated by the event — handle it explicitly in any statistic.",
+      "Returns are measured between consecutive observed prices; with holiday NaNs left in, diff() produces NaN on the holiday and on the next day, so the move across each holiday disappears from the data."
+    ]
+  }
+}

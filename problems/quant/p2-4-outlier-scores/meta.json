@@ -1,0 +1,22 @@
+{
+  "number": "2.4",
+  "title": "Three outlier scores — and why they disagree",
+  "type": "code",
+  "project": "p2",
+  "step": 4,
+  "difficulty": 3,
+  "architectures": ["A03", "A05"],
+  "data": ["p2_products_treated_synthetic.csv"],
+  "concepts": ["z-score", "modified z-score (median, MAD)", "IQR rule", "masking", "fat tails", "past-only rolling score"],
+  "explain": {
+    "prompt": "Compare the methods on RBOB daily log returns in 5–7 sentences: how many days does each flag, and why? Why does the classic z-score give only 1.3 to the hurricane day while the robust score gives about 10? Why does the IQR rule flag so many days? Which score could a desk have computed on the day itself, and why does that matter?",
+    "rubric": [
+      "Classic z-score (|z| > 3) flags only the two fat-finger days: the ±2.3 log-point errors inflate the standard deviation so much that every genuine move looks small — masking. The hurricane day (+15 %) gets z ≈ 1.3.",
+      "Modified z-score uses the median and the MAD, which a few extremes cannot move: the hurricane day scores ≈ 9.6 and the error ≈ 150.",
+      "The IQR rule flags 16 days: commodity returns are fat-tailed, so 1.5 × IQR (calibrated on a normal distribution) treats ordinary large days as outliers.",
+      "Full-sample scores use future observations (the median, MAD and std of the whole sample): fine to describe history, not to flag a price in real time. The rolling score uses only the 60 previous days (shift(1)).",
+      "Detection is on returns, not price levels: on a trending level every new high would look like an outlier.",
+      "A flag is not a verdict: whether a flagged day is an error or an event is decided with other evidence (step 2.5)."
+    ]
+  }
+}

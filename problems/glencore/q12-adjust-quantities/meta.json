@@ -4,6 +4,6 @@
   "type": "code",
   "group": "Partie B — Python : code",
   "difficulty": 2,
-  "sequence": 5,
+  "sequence": 7,
   "difficulty_why": "String parsing with split(maxsplit=1), order preservation and big integers; two traps in the statement."
 }

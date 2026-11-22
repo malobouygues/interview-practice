@@ -1,0 +1,22 @@
+{
+  "number": "2.2",
+  "title": "Gaps and stale prices: what to fill, what to leave missing",
+  "type": "code",
+  "project": "p2",
+  "step": 2,
+  "difficulty": 2,
+  "architectures": ["A02", "A03"],
+  "data": ["p2_products_daily_synthetic.csv", "p2_products_treated_synthetic.csv"],
+  "concepts": ["duplicate dates", "leading / interior / trailing gaps", "stale feed", "forward fill with a limit", "never backward fill", "tracing imputations"],
+  "explain": {
+    "prompt": "In 5–7 sentences, justify each treatment with the economics of the series: why leave the jet series missing before March 2018 and on the last three days? Why may a holiday gap be filled for at most two days, but never by interpolation or backward fill? Why are six identical gasoil prices a problem, and why keep only the first? Why did `products.drop_duplicates()` remove 13 rows instead of 2?",
+    "rubric": [
+      "Leading gap = the jet assessment did not exist yet: nothing to impute. Trailing gap = not yet published (ragged edge): filling it would invent a current price.",
+      "Short interior gaps (holidays on one exchange) can carry the last price for a short time, flagged, because the last price stays the best available information; interpolation or bfill use the next price, i.e. the future (look-ahead).",
+      "A liquid futures price does not settle at exactly the same value 4+ days in a row: the feed froze. The first value is genuine, the copies are not — they create fake zero returns, then one fake big catch-up return.",
+      "The `filled` flags trace every imputed value so that later statistics can be checked with and without them.",
+      "`drop_duplicates()` compares row values and ignores the date index: different holidays whose rows are all empty look identical and get deleted. One row per date must be enforced on the index (`~index.duplicated()`).",
+      "Even limited forward fill lowers measured volatility and creates zero returns: it is a choice to document, not a neutral step."
+    ]
+  }
+}

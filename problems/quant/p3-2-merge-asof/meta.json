@@ -1,0 +1,22 @@
+{
+  "number": "3.2",
+  "title": "Join weekly stocks to daily prices with merge_asof — backward, on availability",
+  "type": "code",
+  "project": "p3",
+  "step": 2,
+  "difficulty": 3,
+  "architectures": ["A04"],
+  "data": ["p3_us_crude_stocks_weekly_synthetic.csv", "p3_wti_daily_synthetic.csv"],
+  "concepts": ["decision time", "merge_asof direction='backward'", "tolerance", "age of the matched value", "assertions against future information", "different frequencies"],
+  "explain": {
+    "prompt": "In 4–6 sentences: why must the join be done on `available_at` with `direction='backward'`, and what would `week_ending` as the key do? Why is a backward join on the right key still only a necessary condition for point-in-time correctness? What do `age_days` and the tolerance protect you from?",
+    "rubric": [
+      "Backward on available_at = for each decision, the last report already published before the 14:30 settlement — never a later one.",
+      "Keyed on week_ending, the stock level of a week would be attached to prices from the Friday it describes, 5–6 days before its release: on about 630 of 1,042 days the join uses a report not yet published.",
+      "Backward + availability key + right vintage = point-in-time. A backward join only guarantees right key ≤ left key: if the key is the observation date, or the value is a later revision, it still leaks.",
+      "age_days (decision − week_ending, here 5 to 12 days) shows how stale the matched information is; a growing age signals an interrupted series.",
+      "The tolerance (10 days) prevents matching a value that is too old (e.g. after a missed release) — better NaN than a silently stale number; the first two days of 2016 have no report yet and stay NaN.",
+      "Different frequencies (weekly vs daily) are aligned without interpolation: the weekly value is carried until the next release, as a trader would."
+    ]
+  }
+}

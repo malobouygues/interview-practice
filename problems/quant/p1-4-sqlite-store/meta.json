@@ -1,0 +1,32 @@
+{
+  "number": "1.4",
+  "title": "A small SQLite store: one row per date, idempotent loads, monthly spreads",
+  "type": "code",
+  "project": "p1",
+  "step": 4,
+  "difficulty": 2,
+  "architectures": [
+    "A02",
+    "A05"
+  ],
+  "data": [
+    "p1_crude_prices_clean_synthetic.csv"
+  ],
+  "concepts": [
+    "primary key",
+    "idempotent load (INSERT OR REPLACE)",
+    "NULL vs NaN",
+    "GROUP BY month",
+    "monthly aggregation of a price"
+  ],
+  "explain": {
+    "prompt": "In 3–5 sentences: why does the PRIMARY KEY plus INSERT OR REPLACE make loading the same file twice harmless? Why do you average a price (or a spread) over a month instead of summing it? What does the April 2020 Brent–WTI average tell you, and why should you be careful with it?",
+    "rubric": [
+      "PRIMARY KEY (date) makes a second row for the same date impossible; INSERT OR REPLACE overwrites instead of appending, so re-running the load gives the same table (idempotent) — a plain INSERT would duplicate or fail.",
+      "A price is a level, not a flow: the natural monthly aggregates are the mean (average price paid over the month) or the last value, never the sum.",
+      "April 2020 averages a Brent–WTI spread of about 10 USD/bbl against roughly 3 USD/bbl in normal months: the storage glut and the negative expiry print dominate it.",
+      "One extreme day (a 55 USD/bbl spread on 20 April) adds about 2.4 USD/bbl to the monthly average (7.7 without it): report the median or the average excluding the event alongside it.",
+      "NaN is stored as NULL; the WHERE clause keeps only days with all three prices, so every month compares like with like (n_days shows how many)."
+    ]
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "number": "4.6",
+  "title": "Spurious regression: two unrelated trending prices",
+  "type": "code",
+  "project": "p4",
+  "step": 6,
+  "difficulty": 3,
+  "previous_ids": ["quant/case2-4-spurious-regression", "quant/case2-5-debrief"],
+  "architectures": ["A06"],
+  "data": ["p4_crude_research_daily_synthetic.csv"],
+  "concepts": ["spurious regression", "high R² without a link", "invalid t-statistics under I(1)", "non-stationary residuals", "regression in differences", "correlation ≠ causality"],
+  "explain": {
+    "prompt": "A colleague claims 'oil drives coffee': R² = 0.59 and t = 36 in log levels since mid-2016. In 5–7 sentences, using your table and the Monte Carlo of the test code: why are the R² and t-statistic misleading, what does the regression in differences show, and what is the status of the residuals? Contrast with WTI on Brent. What evidence would the 'oil drives coffee' story need?",
+    "rubric": [
+      "Coffee and Brent are independent by construction, yet in levels R² ≈ 0.59 and t ≈ 36: two trending (I(1)) series share a drift over the sample, and OLS fits that drift.",
+      "With I(1) regressors the t-statistic does not follow a t-distribution and grows with the sample: in the Monte Carlo about 9 in 10 pairs of independent random walks look 'significant' at 5 %.",
+      "The residual of a spurious regression is itself non-stationary: there is no equilibrium, only a line through two wandering paths (formally tested in 4.7).",
+      "In differences the link vanishes for coffee (t ≈ 0.8, R² ≈ 0.001) but survives for WTI on Brent (t ≈ 55): real day-to-day co-movement — a necessary but not sufficient condition for a long-run relationship.",
+      "Correlation is not causality: even a genuine correlation would not show that oil drives coffee (common factors such as the dollar, reverse causality, coincidence).",
+      "The story would need a mechanism with a plausible size and lag (input costs feeding through over months), a link in changes, stability across sub-periods, and a cointegration test if a level relationship is claimed."
+    ]
+  }
+}

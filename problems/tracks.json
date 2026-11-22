@@ -10,9 +10,9 @@
     {
       "id": "quant",
       "title": "Quantitative Methods",
-      "subtitle": "Four progressive commodity-market cases, from describing one price series to testing whether a long-run relationship survives a structural break",
-      "ordering": "case",
-      "intro": "Work through the cases in order: each step uses the previous one, and each case ends with a written defence. All datasets are synthetic (fixed seeds) — built so that each concept is observable, never presented as market observations."
+      "subtitle": "Four crude and oil-products research projects: a trustworthy dataset, imperfect product data and features, point-in-time information, then econometric modelling and its defence",
+      "ordering": "project",
+      "intro": "Each project is one research question on a desk-like dataset, with its own data-preparation challenge, and ends with a written defence. Work through the steps in order inside a project; the projects can be read in order 1 → 4. All datasets are synthetic (fixed seeds) and deliberately imperfect where the project needs it — never presented as market observations. Training projects inspired by crude / oil-products desk work, not actual interview questions or internal methodologies of any firm."
     }
   ]
 }

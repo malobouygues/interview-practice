@@ -1,0 +1,22 @@
+{
+  "number": "3.5",
+  "title": "Real-time vs pseudo point-in-time: demand growth and the diesel crack",
+  "type": "code",
+  "project": "p3",
+  "step": 5,
+  "difficulty": 4,
+  "architectures": ["A04", "A05"],
+  "data": ["p3_us_oil_demand_vintages_synthetic.csv", "p3_diesel_crack_monthly_synthetic.csv"],
+  "concepts": ["information set at a decision date", "year-on-year growth", "publication lag vs revisions", "pseudo point-in-time", "overstated relationships"],
+  "explain": {
+    "prompt": "The test code compares two correlations between the monthly diesel crack and US demand growth: aligned on the observation month with final data (0.83), and with the growth known at each month-end (0.59). In 5–7 sentences: which one is point-in-time, which one is not and why? How much of the difference comes from the publication lag, and how much from revisions? What exactly would you be allowed to claim in a research note?",
+    "rubric": [
+      "Aligned on the observation month with final data, the crack of month m is compared with demand growth of the same month m — a number published two months later and revised afterwards: look-ahead + revisions (pseudo point-in-time at best). Correlation ≈ 0.83.",
+      "Point-in-time: at the end of month m, the latest demand an analyst could see was month m−2, at its first or second estimate. Correlation ≈ 0.59.",
+      "Most of the gap comes from the publication lag (using month m instead of m−2); revisions add noise: real-time growth differs from the final growth of the same month by ≈ 0.7 percentage point on average and has the opposite sign in 10 of 46 months.",
+      "The relationship is real (0.59 in real time) but weaker than the revised-data analysis suggests: the 0.83 overstates what a desk could have used.",
+      "A note can claim 'in real time, demand growth known at month-end and the crack moved together with a correlation of about 0.6'; it cannot claim 0.83 as usable information. If vintages were missing, the analysis would have to be labelled pseudo point-in-time.",
+      "The real-time view mixes vintages (the latest month at first estimate, the year-ago month already revised) — that is what analysts actually computed."
+    ]
+  }
+}

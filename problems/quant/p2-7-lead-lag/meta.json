@@ -1,0 +1,22 @@
+{
+  "number": "2.7",
+  "title": "Lead-lag: does US diesel lead European gasoil?",
+  "type": "code",
+  "project": "p2",
+  "step": 7,
+  "difficulty": 3,
+  "architectures": ["A04", "A05"],
+  "data": ["p2_products_treated_synthetic.csv"],
+  "concepts": ["cross-correlation at lags", "shift(k) and sign conventions", "settlement times", "spurious lead", "levels vs changes"],
+  "explain": {
+    "prompt": "In 4–6 sentences: what does the table say about ULSD and gasoil (and Brent and gasoil) at lag 1? Give the mechanical explanation, and say whether a trader could exploit it. Why is the same table computed on price levels useless?",
+    "rubric": [
+      "Lag 1 ≈ 0.36 (ULSD → gasoil) and ≈ 0.28 (Brent → gasoil), negative lags ≈ 0: yesterday's NYMEX/Brent move 'predicts' today's gasoil move.",
+      "Mechanism: ICE Gasoil settles at 17:30 London, about two hours before Brent (19:30) and NYMEX (14:30 New York); news arriving in between is in today's ULSD and Brent settlements but only in tomorrow's gasoil settlement.",
+      "It is a timing artefact of settlement prices, not a causal lead: by the time ULSD settles, gasoil is already trading on the same news; the 'signal' cannot be traded at the settlement prices used to measure it.",
+      "Before claiming a lead-lag, check closing times, publication delays and time zones; compare prices taken at the same instant if possible.",
+      "On price levels every lag correlates at ≈ 0.95–0.98 because both series trend: the table says nothing about who moves first. Lead-lag is measured on changes.",
+      "Choosing the best lag on the whole sample and then 'testing' it on the same data is selection bias."
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "number": "1.1",
+  "title": "Before any code: profile the raw vendor file",
+  "type": "code",
+  "project": "p1",
+  "step": 1,
+  "difficulty": 1,
+  "architectures": ["A01", "A02"],
+  "data": ["p1_crude_prices_vendor_synthetic.csv"],
+  "concepts": ["what one row means", "dtypes", "vendor codes", "duplicates vs repeated dates", "date format", "data dictionary"],
+  "explain": {
+    "prompt": "Write the **data dictionary** of this file as you would for a colleague: what one row represents; for each price column its unit, source and closing time; the frequency and the calendar; what `HOL`, `-`, an identical duplicate row and a repeated date with different values each mean; and whether a negative value can be genuine. Then say what `profile_raw_file` told you that `df.head()` would not.",
+    "rubric": [
+      "One row = one business day's settlement / assessment of three crude benchmarks, in USD per barrel: Brent (ICE, London close), WTI (NYMEX, New York close), Dubai (Middle East sour assessment, Singapore close).",
+      "Daily business-day frequency with three different holiday calendars: a missing value on a UK or US holiday is structural, not an error.",
+      "'HOL' = exchange holiday (structural, nothing to impute); '-' = value not delivered (accidental, could be recovered from another source). Both make pandas read the column as text.",
+      "5 identical rows = the same day loaded twice (drop one). 7 repeated dates = those 5 plus 2 dates re-sent with different values = vendor corrections (the latest load should win: loaded_at tells which).",
+      "Dates are day-first strings (03/04/2020 = 3 April) and the file is not in chronological order (a late batch is appended at the end).",
+      "A negative WTI can be genuine (front-month expiry squeeze); a negative Brent or Dubai would be an error — decide per series, not with one blanket rule."
+    ]
+  }
+}

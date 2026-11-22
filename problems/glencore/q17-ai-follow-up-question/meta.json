@@ -5,7 +5,7 @@
   "group": "Partie C — SQL",
   "follows": "glencore/q16-loyal-and-satisfied-employees",
   "difficulty": 2,
-  "sequence": 8,
+  "sequence": 10,
   "difficulty_why": "Written defence of the previous query: explain AND vs OR as intersection vs union with a concrete counter-example.",
   "rubric": [
     "States that AND keeps only rows meeting both conditions (intersection of the two sets).",

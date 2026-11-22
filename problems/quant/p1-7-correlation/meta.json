@@ -1,0 +1,23 @@
+{
+  "number": "1.7",
+  "title": "Pearson vs Spearman, levels vs changes — and causality",
+  "type": "code",
+  "project": "p1",
+  "step": 7,
+  "difficulty": 2,
+  "previous_ids": ["quant/case2-2-correlation"],
+  "architectures": ["A05"],
+  "data": ["p1_crude_prices_clean_synthetic.csv"],
+  "concepts": ["Pearson", "Spearman", "outlier sensitivity", "levels vs changes", "correlation ≠ causality", "common factor"],
+  "explain": {
+    "prompt": "In 5–7 sentences: why is the Pearson correlation of daily Brent and WTI changes only 0.32 while Spearman gives 0.87, and what happens when you exclude the two event days? Why are the level correlations (≈ 0.99) not evidence of a link? Brent and Dubai changes correlate at 0.88: does Brent drive Dubai?",
+    "rubric": [
+      "Pearson is a linear, moment-based measure: the −47.5 / +46.1 USD/bbl WTI changes around the expiry dominate the covariance and the variance, so one event drags the correlation to 0.32.",
+      "Spearman works on ranks: the event is just the largest move, so the correlation of the typical day (0.87) survives; excluding the two event days, Pearson rises to 0.88 — matching Spearman.",
+      "Decision: report Spearman, or Pearson with and without the event, and say why — not a single unexplained number.",
+      "Levels of trending prices correlate mechanically (both followed the 2020 crash and recovery); the co-movement that matters is in daily changes.",
+      "Correlation is symmetric and says nothing about direction: Brent and Dubai both respond to the same global crude balance (a common factor); causality needs a mechanism, not a coefficient.",
+      "With dependent, fat-tailed data, the usual significance levels of a correlation are too optimistic."
+    ]
+  }
+}

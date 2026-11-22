@@ -1,0 +1,20 @@
+{
+  "number": "4.11",
+  "title": "Final research defence: the Brent–WTI relationship",
+  "type": "open",
+  "project": "p4",
+  "step": 11,
+  "difficulty": 5,
+  "previous_ids": ["quant/case4-3-debrief", "quant/case3-4-trade-the-gap"],
+  "architectures": ["A05", "A06"],
+  "concepts": ["research conclusion", "hypothesis → data → transformations → model → evidence", "economic vs statistical significance", "regime risk", "what to investigate next"],
+  "rubric": [
+    "Conclusion first: since the export ban ended, WTI and Brent are tied by a long-run equilibrium (≈ 6 % WTI discount, elasticity ≈ 0.98), deviations close at ≈ 11.5 % a day (half-life ≈ 6 business days); the relationship changed at end-2015, so a 2012–2019 'fair value' mixes two regimes.",
+    "States hypothesis and data: arbitrage via exports; daily Brent, WTI (Dubai, coffee as related / control series), synthetic, 2012–2019; sample chosen a priori and then tested.",
+    "Justifies transformations and models: prices I(1) by ADF (no rejection in levels, rejection in returns) → no OLS inference in levels; simple OLS on returns chosen by parsimony (Dubai redundant, coffee and lags rejected); Engle-Granger with correct critical values; a basic ECM.",
+    "Gives the decisive evidence with numbers: EG statistic ≈ −7.4 vs −3.34 critical; coffee shows the naive-p-value trap (0.038 vs 0.50); full-sample EG p ≈ 0.28 vs ≈ 0 in each regime; Chow on returns F ≈ 107 with clean placebos.",
+    "Answers the trader's question correctly: a 2 % 'rich vs fair value' from a pooled model is not a signal; within the current regime the spread is near equilibrium; a genuine 3 % gap would be expected to halve in about a week, with noise.",
+    "Separates statistical from economic significance (size of moves vs costs, sizing, exit if the gap widens — widening is also how a regime change starts).",
+    "Lists limits honestly (synthetic data, single relation, EG power, break dates as judgement, no backtest / no P&L claim) and next steps (re-test on recent data, other pairs such as Brent–Dubai or ULSD–gasoil, real data with vintages)."
+  ]
+}

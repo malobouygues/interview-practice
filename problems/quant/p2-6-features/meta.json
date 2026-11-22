@@ -1,0 +1,22 @@
+{
+  "number": "2.6",
+  "title": "Explanatory features without look-ahead",
+  "type": "code",
+  "project": "p2",
+  "step": 6,
+  "difficulty": 3,
+  "architectures": ["A04", "A05", "A07"],
+  "data": ["p2_products_treated_synthetic.csv"],
+  "concepts": ["forecast origin", "information set", "shift()", "lagged variables", "rolling mean / std / correlation", "calendar variables", "basic feature screening"],
+  "explain": {
+    "prompt": "For each feature, give in one line the economic reason a trader might care about it. Then, using the screening table of the test code (correlation with the crack change in 2017–18 and in 2019): which features would you keep and why? Finally, explain why every market feature is shifted by one day, and why `month` is not.",
+    "rubric": [
+      "Origin = morning of day t, before day t's settlement: only settlements up to t−1 are known, so every feature built from prices is shifted by one day (a rolling window that includes t would use the answer).",
+      "change_lag1: persistence or reversal of yesterday's move; mean_change_20: recent drift; vol_change_20: recent risk regime; gap_to_mean_60: how stretched the crack is (mean reversion of margins); corr_gasoil_60: strength of the transatlantic diesel link; month / heating_season: seasonal demand.",
+      "Calendar variables are known in advance (the date of tomorrow is not news), so they need no shift.",
+      "Screening: change_lag1 (≈ −0.16 then −0.22) and gap_to_mean_60 (≈ −0.07 then −0.11) have a stable sign and an economic reason (reversal of daily noise, mean reversion of the crack); vol_change_20, corr_gasoil_60 and heating_season change sign or are ≈ 0 — not supported.",
+      "A feature is kept for an economic reason AND a stable relationship, not for its in-sample correlation alone; with many candidates, some will look good by chance.",
+      "Rolling windows need gap-free inputs: with holiday NaNs, a 20-day window returns NaN for 20 days after every holiday — that is why the treated prices are used."
+    ]
+  }
+}

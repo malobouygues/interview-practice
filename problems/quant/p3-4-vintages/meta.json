@@ -1,0 +1,22 @@
+{
+  "number": "3.4",
+  "title": "Vintages: what was known about US oil demand on a given date",
+  "type": "code",
+  "project": "p3",
+  "step": 4,
+  "difficulty": 3,
+  "architectures": ["A04"],
+  "data": ["p3_us_oil_demand_vintages_synthetic.csv"],
+  "concepts": ["vintage table (long)", "first release vs revisions", "as-of view", "publication lag of monthly data", "revision bias"],
+  "explain": {
+    "prompt": "In 4–6 sentences: on 15 June 2016, which months of US demand could an analyst see, and why does the latest month lag by more than two months? How did the value for January 2016 change between the first release and today, and why does the average revision (≈ +145 kb/d) matter for historical research? Why can't the downloaded 'latest' history be used to reproduce what was known in 2016?",
+    "rubric": [
+      "On 2016-06-15 the latest month visible is March 2016: each month is first published about two months after it ends (end of month + 2), so April 2016 appears only on 30 June.",
+      "A month exists in up to three vintages: first estimate, a second estimate a month later, and the annual revision the following August.",
+      "January 2016: the first release, the second estimate and the final value differ; across the sample first releases are revised up by ≈ 145 kb/d on average (std ≈ 100): first prints are systematically low.",
+      "A dataset downloaded today contains only the final values, indexed by observation month: it hides both the publication lag and the revisions — using it as if known in real time is look-ahead.",
+      "The as-of view keeps vintage_date ≤ t, then takes the latest estimate per month: the PDF's as_of(vint, t) — the same logic in SQL is a WHERE vintage_date <= t then the latest row per month.",
+      "Without vintages, only a 'pseudo-point-in-time' analysis is possible (publication lags respected, revised data used) — and it must be labelled as such."
+    ]
+  }
+}

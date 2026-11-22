@@ -19,6 +19,7 @@ A problem's id is "<folder>/<problem>" — ids never change, so progress survive
 any re-ordering.
 """
 import argparse
+import copy
 import datetime
 import json
 import mimetypes
@@ -48,6 +49,7 @@ MAX_SUBMISSIONS_KEPT = 25
 EXT = {"code": "py", "sql": "sql"}
 TYPES = ("code", "sql", "open", "mcq")
 DIFFICULTY_LABELS = {1: "Warm-up", 2: "Foundations", 3: "Intermediate", 4: "Advanced", 5: "Expert"}
+APP_VERSION = 3          # bump together with APP_VERSION in web/app.js and the ?v= in web/index.html
 
 
 # ----------------------------------------------------------------------------
@@ -93,31 +95,31 @@ def list_sets():
     return sets
 
 
-def list_cases():
-    """Ordered cases of every set (the Quantitative Methods learning path)."""
-    cases = []
+def list_projects():
+    """Ordered research projects of every set (the Quantitative Methods track)."""
+    projects = []
     for s in list_sets():
-        for c in s.get("cases", []):
-            item = dict(c)
+        for project in s.get("projects", []):
+            item = dict(project)
             item["set"] = s["id"]
             item["track"] = s["track"]
-            cases.append(item)
-    return cases
+            projects.append(item)
+    return projects
 
 
-def sort_key(meta, track, case_rank):
-    if track.get("ordering") == "case":
-        return (case_rank.get(meta.get("case"), 999), meta.get("step", 999), meta["id"])
+def sort_key(meta, track, project_rank):
+    if track.get("ordering") == "project":
+        return (project_rank.get(meta.get("project"), 999), meta.get("step", 999), meta["id"])
     return (meta.get("difficulty", 9), meta.get("sequence", 999), meta["id"])
 
 
 def list_problems():
     """Every active problem, in display order: track by track, then by the track's ordering
-    (global difficulty for interview questions, case then step for the learning path)."""
+    (global difficulty for interview questions, project then step for Quantitative Methods)."""
     tracks = list_tracks()
     track_rank = {t["id"]: i for i, t in enumerate(tracks)}
     track_by_id = {t["id"]: t for t in tracks}
-    case_rank = {c["id"]: i for i, c in enumerate(list_cases())}
+    project_rank = {p["id"]: i for i, p in enumerate(list_projects())}
     problems = []
     for s in list_sets():
         base = os.path.join(PROBLEMS, s["id"])
@@ -131,7 +133,7 @@ def list_problems():
             meta.setdefault("source", s["source"])
             problems.append(meta)
     problems.sort(key=lambda m: (track_rank.get(m["track"], 99),
-                                 sort_key(m, track_by_id.get(m["track"], {}), case_rank)))
+                                 sort_key(m, track_by_id.get(m["track"], {}), project_rank)))
     return problems
 
 
@@ -184,7 +186,7 @@ def validate():
     """Return a list of human-readable problems with the problem metadata / files."""
     issues = []
     tracks = {t["id"]: t for t in list_tracks()}
-    case_ids = {c["id"] for c in list_cases()}
+    project_ids = {p["id"] for p in list_projects()}
     seen_sequence = {}
     for s in list_sets():
         if s["track"] not in tracks:
@@ -206,9 +208,11 @@ def validate():
         diff = meta.get("difficulty")
         if not isinstance(diff, int) or isinstance(diff, bool) or not 1 <= diff <= 5:
             bad("difficulty must be an integer from 1 to 5 (got %r)" % (diff,))
-        if track.get("ordering") == "case":
-            if meta.get("case") not in case_ids:
-                bad("case %r is not declared in set.json" % (meta.get("case"),))
+        if track.get("ordering") == "project":
+            if meta.get("project") not in project_ids:
+                bad("project %r is not declared in set.json" % (meta.get("project"),))
+            if not meta.get("architectures"):
+                bad("list the architectures of the source document the exercise covers (e.g. [\"A01\"])")
             if not isinstance(meta.get("step"), int):
                 bad("step must be an integer")
         else:
@@ -258,7 +262,25 @@ def load_progress():
     data = read_json(PROGRESS_FILE)
     if not isinstance(data, dict) or not isinstance(data.get("problems"), dict):
         data = {"version": 1, "problems": {}}
+    carry_over_progress(data)
     return data
+
+
+def carry_over_progress(data):
+    """An exercise that was renamed lists its old ids in meta.json ("previous_ids").
+    If it has no progress yet, the progress recorded under an old id is COPIED to the new id
+    (the old entry is kept untouched). The copy is written to disk with the next save.
+    Your code, explanation, answers and submissions are copied; the "Test code" pad is not,
+    because it belongs to the old exercise and may read data files that no longer exist."""
+    for meta in list_problems():
+        if meta["id"] in data["problems"]:
+            continue
+        for old_id in meta.get("previous_ids", []):
+            if old_id in data["problems"]:
+                entry = copy.deepcopy(data["problems"][old_id])
+                entry.get("draft", {}).pop("scratch", None)
+                data["problems"][meta["id"]] = entry
+                break
 
 
 def save_progress(data):
@@ -404,7 +426,8 @@ _env_cache = {}
 # API
 # ----------------------------------------------------------------------------
 LIST_FIELDS = ("id", "set", "track", "source", "number", "title", "type", "group", "difficulty",
-               "book_difficulty", "debug", "time_limit_min", "case", "step", "sequence", "concepts")
+               "book_difficulty", "debug", "time_limit_min", "project", "step", "sequence", "concepts",
+               "architectures")
 
 
 def api_problems(_query, _body):
@@ -415,8 +438,8 @@ def api_problems(_query, _body):
         item["explain"] = bool(meta.get("explain"))
         item["progress"] = summary(progress.get(meta["id"]))
         items.append(item)
-    return {"tracks": list_tracks(), "sets": list_sets(), "cases": list_cases(),
-            "difficulty_labels": DIFFICULTY_LABELS, "problems": items}
+    return {"app_version": APP_VERSION, "tracks": list_tracks(), "sets": list_sets(),
+            "projects": list_projects(), "difficulty_labels": DIFFICULTY_LABELS, "problems": items}
 
 
 def api_problem(query, _body):
@@ -673,7 +696,7 @@ class Handler(BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header("Content-Type", ctype)
         self.send_header("Content-Length", str(len(raw)))
-        self.send_header("Cache-Control", "no-cache")
+        self.send_header("Cache-Control", "no-store")     # never run yesterday's interface
         self.end_headers()
         self.wfile.write(raw)
 

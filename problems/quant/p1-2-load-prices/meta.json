@@ -1,0 +1,21 @@
+{
+  "number": "1.2",
+  "title": "Load the vendor file properly",
+  "type": "code",
+  "project": "p1",
+  "step": 2,
+  "difficulty": 2,
+  "architectures": ["A01", "A02", "A03"],
+  "data": ["p1_crude_prices_vendor_synthetic.csv"],
+  "concepts": ["read_csv options", "explicit date format", "drop_duplicates", "corrections and loaded_at", "chronological order", "assertions"],
+  "explain": {
+    "prompt": "Justify the **order** of your loading steps in 3–5 sentences. In particular: why must the date be parsed before sorting, why are corrections resolved with `loaded_at` and not by keeping the first or last row of the file, and why do the holiday gaps stay `NaN` instead of being filled?",
+    "rubric": [
+      "Codes are declared as missing values at read time, so the price columns are numeric and nothing is silently coerced.",
+      "Dates must be datetimes (explicit day-first format) before sorting: sorting strings like '03/01/2020' sorts by day, not by time.",
+      "Identical rows are dropped first; a date that remains duplicated has different values, i.e. a correction — the row loaded last is the vendor's latest word, which only `loaded_at` can tell (the file order is not reliable: a batch arrived late).",
+      "Holiday gaps are structural: no settlement happened. Filling them would invent prices; whether to fill is a decision for each analysis, not for the loader.",
+      "The function ends with assertions (unique, increasing dates) so that a future file breaking these assumptions fails loudly."
+    ]
+  }
+}

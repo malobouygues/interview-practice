@@ -1,0 +1,22 @@
+{
+  "number": "2.5",
+  "title": "Data error or market event? Decide with evidence",
+  "type": "code",
+  "project": "p2",
+  "step": 5,
+  "difficulty": 3,
+  "architectures": ["A03"],
+  "data": ["p2_products_treated_synthetic.csv"],
+  "concepts": ["confirmation by related markets", "reversal test", "error vs genuine shock", "correct / keep / investigate", "documenting decisions"],
+  "explain": {
+    "prompt": "For the three RBOB days your function classifies, explain in 4–6 sentences what evidence decides each verdict and what you do with it. Why must a genuine shock like the August 2017 refinery outage stay in the data even though it is the most extreme real move of the sample? What would make you answer 'investigate' instead?",
+    "rubric": [
+      "2019-05-14: RBOB +2.32 log points (price ×10), no other product moves (not confirmed), and the move reverses the next day — a typing error: set the RBOB price to NaN (or replace it from a second source) and log it.",
+      "2019-05-15: the −2.27 move is just the return back from the bad price; it disappears once that price is removed — it must not be counted as a second event.",
+      "2017-08-28: RBOB +15 % confirmed by ULSD (+8.5 %, robust score > 3) and persistent rather than reversed — a refinery outage: a market event to keep and annotate.",
+      "Genuine extremes are the risk the desk wants to understand (cracks, inventories, outages); deleting them would make the history look calmer than it was.",
+      "'Investigate' when evidence conflicts or is missing: an extreme, unconfirmed move that does not reverse — check a second source or the news before deciding.",
+      "Rules use only information available on the day and the day after; the decision and its reason are written down so that the cleaning can be audited."
+    ]
+  }
+}

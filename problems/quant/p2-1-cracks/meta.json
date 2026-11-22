@@ -1,0 +1,21 @@
+{
+  "number": "2.1",
+  "title": "Crack spreads: units first, then margins",
+  "type": "code",
+  "project": "p2",
+  "step": 1,
+  "difficulty": 1,
+  "architectures": ["A01", "A02"],
+  "data": ["p2_products_daily_synthetic.csv"],
+  "concepts": ["unit conversion", "USD/gal, USD/t, USD/bbl", "crack spread", "3-2-1 crack", "seasonality of cracks"],
+  "explain": {
+    "prompt": "In 4–6 sentences: why must every product be converted to USD/bbl before computing a crack, and what goes wrong if you forget for ULSD or gasoil? What does the monthly profile of the diesel and gasoline cracks show, and why? One gasoline crack is above 800 USD/bbl: what do you conclude before any statistic?",
+    "rubric": [
+      "A crack compares a product with the crude it is made from, so both must be in the same unit: ULSD and RBOB trade in USD/gal (×42), gasoil and jet in USD/t (÷ barrels per tonne, depending on density: ≈ 7.45 for gasoil, ≈ 7.88 for jet).",
+      "Forgetting the conversion gives meaningless numbers (ULSD 'crack' ≈ 2 − 65 = −63 USD/bbl): a unit error looks like a collapse in margins.",
+      "Diesel crack is highest in winter (≈ 19.5 USD/bbl in January vs ≈ 14 in summer): heating demand. Gasoline crack peaks in spring–summer (driving season) and is lowest in winter.",
+      "The 3-2-1 crack summarises a refinery's gross margin per barrel of crude (2 barrels gasoline + 1 diesel from 3 crude).",
+      "An 863 USD/bbl gasoline crack on one day, with normal values around it, is a data error in the RBOB price (step 2.5 classifies it), not a margin."
+    ]
+  }
+}

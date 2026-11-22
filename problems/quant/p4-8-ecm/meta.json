@@ -1,0 +1,23 @@
+{
+  "number": "4.8",
+  "title": "The error correction model: short run, long run, speed of adjustment",
+  "type": "code",
+  "project": "p4",
+  "step": 8,
+  "difficulty": 4,
+  "previous_ids": ["quant/case3-3-ecm"],
+  "architectures": ["A06"],
+  "data": ["p4_crude_research_daily_synthetic.csv"],
+  "concepts": ["error correction model", "long-run vs short-run dynamics", "error-correction coefficient", "speed of adjustment", "half-life", "two-step estimation"],
+  "explain": {
+    "prompt": "Interpret the WTI ~ Brent ECM in 5–7 sentences: what do β (long run), γ (short run) and α (adjustment) mean, with numbers and units? Translate α into a half-life and say when that translation is justified. Why must α be negative? Why is the coffee ~ Brent ECM, with its 118-day half-life, meaningless?",
+    "rubric": [
+      "β ≈ 0.98 (long run): in equilibrium a 1 % higher Brent goes with ≈ 0.98 % higher WTI; the deviation from that relation is the error-correction term (≈ the WTI discount vs its normal level).",
+      "γ ≈ 0.89 (short run): on the day Brent moves 1 %, WTI moves ≈ 0.89 %; the rest of the adjustment comes later through the error correction.",
+      "α ≈ −0.115 (t ≈ −7.7): each day about 11.5 % of yesterday's deviation is closed; half-life = ln(0.5)/ln(1 + α) ≈ 5.7 business days — justified because α is significant, between −1 and 0, and the pair is cointegrated with a stable relation over the sample.",
+      "α must be negative for the deviation to shrink: if WTI is above its equilibrium (positive deviation) its next change is pushed down; α ≥ 0 means no return to equilibrium.",
+      "The ECM is only meaningful for cointegrated series: coffee–Brent is not (EG p ≈ 0.50), so its α (−0.006, t ≈ −1.6) and 'half-life' describe nothing real.",
+      "The ECM keeps both pieces of information a model in differences alone would discard: short-run co-movement and the long-run equilibrium; a single-equation, two-step ECM is the basic version (no system of equations)."
+    ]
+  }
+}

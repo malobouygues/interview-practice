@@ -169,6 +169,8 @@ code, pre, kbd { font-family: var(--mono); }
   flex: 1; min-width: 200px; height: 34px; border: 1px solid var(--line-strong); border-radius: 8px;
   padding: 0 12px; background: var(--panel);
 }
+.select { height: 34px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+  color: var(--muted); font-size: 13px; padding: 0 8px; cursor: pointer; }
 .seg { display: inline-flex; border: 1px solid var(--line-strong); border-radius: 8px; overflow: hidden; background: var(--panel); }
 .seg button {
   border: 0; background: transparent; height: 32px; padding: 0 11px; font-size: 13px; cursor: pointer; color: var(--muted);

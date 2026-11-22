@@ -4,7 +4,7 @@
   "type": "code",
   "group": "Cases 6–9 — Construire la cotation",
   "book_difficulty": "Hard",
-  "difficulty": 3,
-  "sequence": 10,
-  "difficulty_why": "Short code but four concepts: side convention (client BUY = maker sells), size penalty, outward tick rounding, float noise."
+  "difficulty": 2,
+  "sequence": 6,
+  "difficulty_why": "Short code built on the same ceiling idea as Q11: side convention (client BUY = maker sells the ask), size penalty, outward rounding to the tick grid, floating-point noise."
 }

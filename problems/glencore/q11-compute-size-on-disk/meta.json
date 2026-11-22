@@ -4,6 +4,6 @@
   "type": "code",
   "group": "Partie B — Python : code",
   "difficulty": 2,
-  "sequence": 4,
+  "sequence": 5,
   "difficulty_why": "Integer ceiling division plus three boundary cases (empty file, exact multiple, one byte over)."
 }

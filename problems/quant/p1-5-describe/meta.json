@@ -1,0 +1,23 @@
+{
+  "number": "1.5",
+  "title": "Describe prices, returns and spreads",
+  "type": "code",
+  "project": "p1",
+  "step": 5,
+  "difficulty": 2,
+  "previous_ids": ["quant/case1-1-first-look"],
+  "architectures": ["A05"],
+  "data": ["p1_crude_prices_clean_synthetic.csv"],
+  "concepts": ["mean vs median", "variance & standard deviation", "quantiles", "skewness", "excess kurtosis", "levels vs returns"],
+  "explain": {
+    "prompt": "The test code describes the Brent level, Brent daily log returns and the Brent–WTI spread. In 4–6 sentences: what do mean vs median and the skew say about the Brent level over 2019–2021? Why is the level's standard deviation not a risk number? What do the excess kurtosis of returns and the extreme moments of the spread tell a risk manager, and which statistics would you quote for the spread instead?",
+    "rubric": [
+      "Brent level: mean 55.9 below median 57.3 and negative skew (≈ −0.37): the 2020 collapse drags the mean down — the median is the more typical price.",
+      "The level's std (≈ 14.5 USD/bbl) describes where this particular path wandered over three years; it grows with the window and is not a stable property — risk is measured on returns (≈ 1.5 % a day, ≈ 24 % annualised).",
+      "Returns: excess kurtosis ≈ 4.3 and negative skew (≈ −0.96): crash days of −7 to −8 % are far more frequent than a normal distribution allows (7 days beyond 4 standard deviations).",
+      "The Brent–WTI spread has a skew of ≈ 16 and an excess kurtosis of ≈ 350 because of a single day (the negative WTI expiry): its mean and std are dominated by one observation.",
+      "For such a series quote robust statistics — median (3.70), quantiles (5 %–95 %: 2.18 to 6.51 USD/bbl) — and state the event separately.",
+      "Returns are computed between consecutive observed prices (missing days dropped first), otherwise the return across each holiday is lost."
+    ]
+  }
+}

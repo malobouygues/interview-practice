@@ -5,6 +5,6 @@
   "group": "Partie B — Python : code",
   "time_limit_min": 8,
   "difficulty": 2,
-  "sequence": 6,
+  "sequence": 8,
   "difficulty_why": "Two ordered steps (filter, then argmax with key=); the named test punishes taking the max before filtering."
 }

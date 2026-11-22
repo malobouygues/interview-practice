@@ -1,0 +1,23 @@
+{
+  "number": "4.10",
+  "title": "The Chow test: did the coefficients change at a known date?",
+  "type": "code",
+  "project": "p4",
+  "step": 10,
+  "difficulty": 5,
+  "previous_ids": ["quant/case4-2-chow"],
+  "architectures": ["A06"],
+  "data": ["p4_crude_research_daily_synthetic.csv"],
+  "concepts": ["Chow test", "H0: identical coefficients", "F statistic from residual sums of squares", "assumptions", "placebo dates", "why not on I(1) levels"],
+  "explain": {
+    "prompt": "In 5–7 sentences: state the null hypothesis of the Chow test and how the F statistic is built; interpret the result at 2016-01-01 and at the two placebo dates; explain why the same test on log levels rejects even at a placebo date and why that result must be ignored; list the assumptions that guided your choice of regression.",
+    "rubric": [
+      "H0: the regression coefficients (constant and slope) are the same before and after the known date; H1: at least one differs.",
+      "F = [(SSR_pooled − SSR_1 − SSR_2)/k] / [(SSR_1 + SSR_2)/(n − 2k)], k = 2: the improvement in fit from separate lines relative to the remaining noise, compared with an F(k, n − 2k) distribution.",
+      "Daily log returns at 2016-01-01: F ≈ 107, p ≈ 0 → the short-run relationship changed (pass-through ≈ 0.59 → 0.89). Placebos inside a regime: p ≈ 0.50 (2014) and ≈ 0.92 (2018) → no change, as expected.",
+      "On log levels the test rejects even at the 2018 placebo (F ≈ 67): the variables are I(1) and the residuals persistent, so the F distribution does not apply — the rejection is an artefact, like the spurious t-statistics of 4.6.",
+      "Assumptions: date known in advance; stationary variables; errors independent over time with the same variance in both sub-periods — daily log returns satisfy them far better than levels.",
+      "Chow says THAT the coefficients differ, not why: the economic explanation (end of the export ban, arbitrage opened) comes from the mechanism."
+    ]
+  }
+}

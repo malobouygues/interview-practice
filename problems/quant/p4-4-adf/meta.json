@@ -1,0 +1,23 @@
+{
+  "number": "4.4",
+  "title": "Should you regress the levels? The ADF test, read properly",
+  "type": "code",
+  "project": "p4",
+  "step": 4,
+  "difficulty": 3,
+  "previous_ids": ["quant/case1-4-adf"],
+  "architectures": ["A06"],
+  "data": ["p4_crude_research_daily_synthetic.csv"],
+  "concepts": ["random walk", "unit root", "I(0) / I(1)", "ADF null and alternative", "deterministic terms c / ct / n", "lag selection", "p-value", "low power", "structural breaks"],
+  "explain": {
+    "prompt": "Your colleague wants to regress log WTI on log Brent in levels. Using the test-code output, explain in 6–8 sentences: H0 and H1 of ADF; what the results on log Brent, log WTI, their returns and the log spread imply (orders of integration); why p = 0.15 on log Brent does NOT prove a unit root; why the trend-stationary example needs 'ct'; what the short-sample and level-shift examples teach; and what the lag choice changes. Conclude: can the levels be regressed with ordinary OLS inference?",
+    "rubric": [
+      "ADF regression Δy_t = [c] + [bt] + γ y_{t−1} + lagged Δy + e; H0: γ = 0 (unit root), H1: γ < 0 (stationary around 0 / a level / a trend). The statistic follows the Dickey-Fuller distribution (5 % critical value ≈ −2.87 with a constant), not Student's t.",
+      "Log Brent and log WTI: no rejection (p ≈ 0.15 and 0.19); their daily returns: strong rejection → each price behaves as I(1) (a random walk: shocks are permanent). The log spread rejects strongly (p ≈ 0) → I(0): a stationary combination, i.e. a candidate cointegration with β ≈ 1.",
+      "p > 0.05 is absence of evidence against H0, not evidence for it: ADF has low power — the 40-observation stationary series is not rejected (p ≈ 0.52), and a stationary series with a level shift is not rejected either (p ≈ 0.47): breaks fool the test.",
+      "Deterministic terms must match the series: the trend-stationary simulation looks like a unit root with 'c' (p ≈ 0.86) and is clearly stationary with 'ct' (p ≈ 0) — choose from the chart and the economics, not by trying all options; 'n' for series centred on zero (returns, residuals).",
+      "Lags whiten the residuals: too few bias the test, too many cost power; AIC chooses here, and the conclusion should not hinge on one particular lag.",
+      "Conclusion: both levels are I(1) → ordinary OLS inference in levels is invalid (spurious-regression risk, step 4.6); a level relationship is only meaningful if the residual is stationary — test cointegration (4.7)."
+    ]
+  }
+}

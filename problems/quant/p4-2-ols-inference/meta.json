@@ -1,0 +1,40 @@
+{
+  "number": "4.2",
+  "title": "Simple OLS: coefficients, standard errors, t, p, confidence intervals",
+  "type": "code",
+  "project": "p4",
+  "step": 2,
+  "difficulty": 2,
+  "previous_ids": [
+    "quant/case2-3-ols"
+  ],
+  "architectures": [
+    "A05",
+    "A06"
+  ],
+  "data": [
+    "p4_crude_research_daily_synthetic.csv"
+  ],
+  "concepts": [
+    "bivariate OLS",
+    "intercept and slope",
+    "residuals",
+    "R²",
+    "standard error",
+    "t-statistic",
+    "p-value",
+    "confidence interval",
+    "statistical vs economic significance"
+  ],
+  "explain": {
+    "prompt": "In 5–7 sentences: interpret β, its standard error and its 95 % confidence interval for WTI on Brent in **returns** (units!). What does the intercept mean here? Why can you NOT trust the standard error and t-statistic of the regression in **levels**, even though R² is 0.99? Coffee on Brent is 'highly significant' in levels and not at all in returns — what does that tell you? Give one example of a coefficient that could be statistically significant but economically irrelevant.",
+    "rubric": [
+      "Returns: β ≈ 0.89 (SE ≈ 0.016, 95 % CI ≈ 0.86–0.92): on a given day WTI moves about 0.89 % for a 1 % Brent move — a short-run pass-through below one; R² ≈ 0.77.",
+      "The intercept in returns (≈ 0) is the average daily WTI return not explained by Brent; in log levels it reflects the average discount and has no standalone economic meaning.",
+      "OLS standard errors assume stationary variables and independent errors; log price levels are non-stationary and the residuals are highly persistent, so the SE (0.004) and t (271) are invalid — far too optimistic.",
+      "Coffee: t ≈ 36 in levels, t ≈ 0.8 in returns (CI includes 0): the levels result is spurious; a high R² or t in levels proves nothing (step 4.6).",
+      "Statistical vs economic significance: with ~900 daily observations a tiny coefficient (e.g. 0.02 % move per 1 % move) can be significant yet irrelevant for a hedge or a P&L; judge the size, in units, against costs and risk.",
+      "A confidence interval is a statement about the estimated parameter under the model's assumptions — not a range for tomorrow's WTI move."
+    ]
+  }
+}

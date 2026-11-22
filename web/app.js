@@ -2,6 +2,7 @@
 (function () {
   "use strict";
 
+  var APP_VERSION = 3;         // must match APP_VERSION in server.py (a stale tab or an old server is detected)
   var app = document.getElementById("app");
   var listCache = null;       // last /api/problems payload
   var envCache = null;
@@ -102,7 +103,7 @@
   function sourceTag(p) {
     if (p.track !== "interview") return null;
     var cls = p.set === "glencore" ? " src-g" : (p.set === "millennium" ? " src-m" : "");
-    return h("span", { class: "tag src" + cls, title: p.source + (p.number ? " · " + p.number : "") },
+    return h("span", { class: "tag src" + cls, title: "Source: " + p.source + (p.number ? " · originally " + p.number : "") },
       p.source, p.number ? h("span", { class: "orig" }, p.number) : null);
   }
   function tagsFor(p, opts) {
@@ -139,8 +140,8 @@
     filters.track = t.id;
     return t;
   }
-  function caseOf(data, p) {
-    return (data.cases || []).filter(function (c) { return c.id === p.case; })[0] || null;
+  function projectOf(data, p) {
+    return (data.projects || []).filter(function (c) { return c.id === p.project; })[0] || null;
   }
 
   // ------------------------------------------------------------------ routing
@@ -243,7 +244,7 @@
         if (track.id === "interview" && filters.source !== "all" && p.set !== filters.source) return false;
         if (filters.type !== "all" && kindOf(p) !== filters.type) return false;
         if (filters.status !== "all" && p.progress.status !== filters.status) return false;
-        var hay = [p.number, p.title, p.group, p.source, (p.concepts || []).join(" ")].join(" ").toLowerCase();
+        var hay = [p.number, p.title, p.source, (p.concepts || []).join(" ")].join(" ").toLowerCase();
         if (q && hay.indexOf(q) < 0) return false;
         return true;
       });
@@ -251,7 +252,7 @@
         listBox.appendChild(h("p", { class: "empty" }, "No problem matches these filters."));
         return;
       }
-      if (track.ordering === "case") drawCases(shown);
+      if (track.ordering === "project") drawProjects(shown);
       else drawLevels(shown);
     }
 
@@ -274,10 +275,10 @@
       }
     }
 
-    function drawCases(shown) {
-      (data.cases || []).filter(function (c) { return c.track === track.id; }).forEach(function (c) {
-        var all = problems.filter(function (p) { return p.case === c.id; });
-        var mine = shown.filter(function (p) { return p.case === c.id; });
+    function drawProjects(shown) {
+      (data.projects || []).filter(function (c) { return c.track === track.id; }).forEach(function (c) {
+        var all = problems.filter(function (p) { return p.project === c.id; });
+        var mine = shown.filter(function (p) { return p.project === c.id; });
         if (!mine.length) return;
         var done = all.filter(function (p) { return p.progress.status === "solved"; }).length;
         listBox.appendChild(h("div", { class: "case-head" },
@@ -287,7 +288,9 @@
             h("span", { class: "grow" }),
             h("span", { class: "case-prog" }, h("b", null, done), " / " + all.length)),
           c.question ? h("p", { class: "case-q" }, c.question) : null,
-          c.data ? h("p", { class: "case-data" }, h("b", null, "Data · "), c.data) : null,
+          c.commodity ? h("p", { class: "case-data" }, h("b", null, "Market · "), c.commodity) : null,
+          c.data_focus ? h("p", { class: "case-data" }, h("b", null, "Data work · "), c.data_focus) : null,
+          c.data ? h("p", { class: "case-data" }, h("b", null, "Files · "), c.data) : null,
           c.concepts ? h("div", { class: "chips" }, c.concepts.map(function (x) { return h("span", { class: "chip" }, x); })) : null));
         var box = h("div", { class: "list" });
         mine.forEach(function (p) { box.appendChild(itemRow(p, p.number)); });
@@ -296,13 +299,17 @@
     }
 
     var search = h("input", {
-      class: "search", type: "search", placeholder: track.ordering === "case" ? "Search exercises or concepts…" : "Search problems…",
+      class: "search", type: "search", placeholder: track.ordering === "project" ? "Search exercises or concepts…" : "Search problems…",
       value: filters.q, oninput: function () { filters.q = this.value; drawList(); }
     });
 
     var env = envCache || {};
     var notice = null;
-    if (!(env.pandas && env.numpy)) {
+    if (data.app_version !== APP_VERSION) {
+      notice = h("div", { class: "notice" },
+        h("b", null, "This page and the local server come from different versions of the app. "),
+        "Stop the server (Ctrl+C or close its window), start it again with start.command, then reload this page (⌘R).");
+    } else if (!(env.pandas && env.numpy)) {
       notice = h("div", { class: "notice" },
         h("b", null, "pandas / numpy are not installed for this Python. "),
         "The Millennium cases and the Quantitative Methods track need them. In a terminal: ",
@@ -311,7 +318,7 @@
     } else if (track.id === "quant" && !env.statsmodels) {
       notice = h("div", { class: "notice" },
         h("b", null, "statsmodels is not installed for this Python. "),
-        "The Quantitative Methods exercises need it (ADF, KPSS, OLS, Engle-Granger). In a terminal: ",
+        "The Quantitative Methods exercises need it (ADF, OLS, Engle-Granger). In a terminal: ",
         h("code", null, (env.executable || "python3") + " -m pip install statsmodels"),
         " — then restart the app.");
     }
@@ -319,13 +326,17 @@
     var typeOptions = track.id === "interview"
       ? [["all", "All"], ["code", "Python"], ["debug", "Debug"], ["sql", "SQL"], ["written", "Written"]]
       : [["all", "All"], ["code", "Python"], ["written", "Written"]];
-    var sourceSeg = null;
+    // Source is metadata: an optional, discreet filter — the default view is always the one ranked list.
+    var sourceSelect = null;
     if (track.id === "interview") {
-      var opts = [["all", "All sources"]];
+      sourceSelect = h("select", {
+        class: "select", title: "Optional: show only one source (the ranking stays global)",
+        onchange: function () { filters.source = this.value; drawList(); }
+      }, h("option", { value: "all" }, "Source: all"));
       (data.sets || []).filter(function (s) { return s.track === "interview"; }).forEach(function (s) {
-        opts.push([s.id, s.source]);
+        sourceSelect.appendChild(h("option", { value: s.id }, "Source: " + s.source));
       });
-      sourceSeg = seg("source", opts);
+      sourceSelect.value = filters.source;
     }
 
     var body = h("main", { class: "home" },
@@ -333,9 +344,10 @@
       h("p", { class: "lede" }, "Two learning tracks: the questions you met in real screens, and the quantitative methods behind commodity research. Write the answer, run it against the tests, then defend it."),
       notice, cards,
       track.intro ? h("p", { class: "track-intro" }, track.intro) : null,
-      h("div", { class: "filters" }, search, sourceSeg,
+      h("div", { class: "filters" }, search,
         seg("type", typeOptions),
-        seg("status", [["all", "All"], ["todo", "To do"], ["attempted", "In progress"], ["solved", "Solved"]])),
+        seg("status", [["all", "All"], ["todo", "To do"], ["attempted", "In progress"], ["solved", "Solved"]]),
+        sourceSelect),
       listBox,
       h("div", { class: "foot" },
         h("span", null, "Python " + (env.python || "?") + (env.pandas ? " · pandas " + env.pandas : "") +
@@ -382,8 +394,8 @@
     var order = mates.map(function (x) { return x.id; });
     var at = order.indexOf(p.id);
     var trackInfo = trackList(listCache).filter(function (t) { return t.id === p.track; })[0] || {};
-    var caseInfo = caseOf(listCache, p);
-    var caseSteps = caseInfo ? mates.filter(function (x) { return x.case === p.case; }).length : 0;
+    var caseInfo = projectOf(listCache, p);
+    var caseSteps = caseInfo ? mates.filter(function (x) { return x.project === p.project; }).length : 0;
     document.title = p.number + " · " + p.title + " — Practice";
     if (filters.track !== p.track) { filters.track = p.track; store("practice-track", p.track); }
 
@@ -458,7 +470,7 @@
         return h("div", null,
           h("div", { class: "kicker" },
             sourceTag(p),
-            h("span", { class: "src" }, (p.group || "") + (p.book_difficulty ? " · book difficulty: " + p.book_difficulty : ""))),
+            h("span", { class: "src" }, "#" + (at + 1) + " of " + order.length + " in the global ranking")),
           p.difficulty_why ? h("p", { class: "why-level" },
             h("b", null, "Level " + p.difficulty + " — " + LEVELS[p.difficulty] + ". "), p.difficulty_why) : null);
       }

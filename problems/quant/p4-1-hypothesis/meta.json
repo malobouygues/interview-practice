@@ -1,0 +1,19 @@
+{
+  "number": "4.1",
+  "title": "Research question first: why should WTI be tied to Brent?",
+  "type": "open",
+  "project": "p4",
+  "step": 1,
+  "difficulty": 2,
+  "previous_ids": ["quant/case2-1-economic-link"],
+  "architectures": ["A05"],
+  "concepts": ["economic hypothesis", "variable selection", "expected statistical signature", "control series", "sample choice"],
+  "rubric": [
+    "States a testable hypothesis: WTI and Brent are tied by a long-run equilibrium (a stable discount) maintained by arbitrage; deviations close over days or weeks.",
+    "Names the mechanism: both are light sweet crudes; US exports, pipelines and shipping let traders buy the cheap one and sell the dear one — the discount reflects transport and logistics costs.",
+    "Predicts the statistical signature: daily returns strongly correlated, log levels moving together, the log spread fluctuating around a stable value (stationary) — and says that a high level correlation would NOT be evidence.",
+    "Selects variables with reasons: Brent as the main driver; Dubai as a related benchmark (likely redundant — same global factor); coffee as a control with no mechanism.",
+    "Anticipates what can break the link: export restrictions, Cushing storage or pipeline bottlenecks, regional supply shocks — and that the 2015 end of the export ban may have changed the relationship, so the sample choice must be tested.",
+    "Says which methods will test it and in which order: correlation and simple OLS on returns, ADF on each series, Engle-Granger and an ECM on levels, then a stability test around the known date."
+  ]
+}

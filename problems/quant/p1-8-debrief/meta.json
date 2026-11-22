@@ -1,0 +1,19 @@
+{
+  "number": "1.8",
+  "title": "Project debrief: is the dataset trustworthy, and what does it say?",
+  "type": "open",
+  "project": "p1",
+  "step": 8,
+  "difficulty": 3,
+  "architectures": ["A01", "A02", "A03", "A05"],
+  "concepts": ["data provenance", "documented corrections", "robust description", "spreads", "correlation vs causality"],
+  "rubric": [
+    "Opens with a one-sentence verdict: the dataset is usable after documented corrections, with one genuine extreme event that must be handled explicitly.",
+    "Describes the data precisely: daily settlements of Brent, WTI, Dubai in USD/bbl, 2019–2021, three holiday calendars, from a raw vendor export to a clean layer to a SQLite table.",
+    "Lists what was changed and why, with counts: 5 duplicate rows removed, 2 vendor corrections resolved by load time, holiday / non-delivered codes kept as missing, one ×10 Brent print set to NaN — and what was deliberately NOT changed (the −35.90 WTI print).",
+    "Describes prices robustly: Brent–WTI median ≈ 3.7 USD/bbl (90 % of days 2.2–6.5), Brent–Dubai ≈ 1.2; April 2020 as a separate episode.",
+    "Gives the right co-movement figures and estimator: Brent/WTI daily changes ≈ 0.87 (Spearman, or Pearson without the event), Brent/Dubai ≈ 0.87–0.88 — and why level correlations are not evidence.",
+    "States limits: synthetic vendor data, no second source to confirm corrections, thresholds of the quality rules are judgement calls, descriptive statistics of a non-stationary level describe the sample only.",
+    "Says what comes next: test whether the spreads are stable or mean-reverting (Project 4), and how the relationship behaves around events."
+  ]
+}

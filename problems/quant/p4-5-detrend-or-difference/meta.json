@@ -1,0 +1,23 @@
+{
+  "number": "4.5",
+  "title": "Deterministic or stochastic trend: detrend or difference?",
+  "type": "code",
+  "project": "p4",
+  "step": 5,
+  "difficulty": 3,
+  "previous_ids": ["quant/case1-6-trend-or-random-walk"],
+  "architectures": ["A05", "A06"],
+  "data": ["p4_diesel_demand_monthly_synthetic.csv", "p4_crude_research_daily_synthetic.csv"],
+  "concepts": ["deterministic vs stochastic trend", "fixed seasonal profile", "ADF 'c' vs 'ct'", "detrending", "over-differencing", "when not to difference"],
+  "explain": {
+    "prompt": "US diesel demand and the Brent price both trend. Using `adf_p_c`, `adf_p_ct`, `std_detrended` and `std_differenced`, explain in 5–7 sentences why the right transformation differs. What would go wrong if you differenced demand, or detrended Brent? Why is the seasonal profile removed first?",
+    "rubric": [
+      "Demand (after removing the seasonal profile): ADF with a constant does not reject (p ≈ 0.97) but with constant + trend rejects (p < 0.001) → a deterministic trend (≈ +12.9 kb/d per year): trend-stationary, shocks fade → detrend.",
+      "Brent monthly average 2012–2019: neither 'c' (p ≈ 0.34) nor 'ct' (p ≈ 0.87) rejects → stochastic trend, permanent shocks → difference (returns).",
+      "Differencing a trend-stationary series over-differences: the dispersion rises (≈ 15.6 vs ≈ 11.6 kb/d) and the level information is thrown away.",
+      "Detrending a random walk leaves a residual that still wanders (≈ 18.3 vs ≈ 4.2 USD/bbl for monthly changes): a fitted line on Brent is an artefact of the sample.",
+      "Seasonality first: a winter-peaking profile (≈ 79 kb/d peak to trough) would otherwise distort the tests; it is estimated on the detrended series so that later months are not credited with more trend.",
+      "The decision uses the chart and the economics too: consumption follows activity along a path; a price has no deterministic anchor."
+    ]
+  }
+}

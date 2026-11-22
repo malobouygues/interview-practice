@@ -1,0 +1,22 @@
+{
+  "number": "3.3",
+  "title": "How a publication lag creates fake predictability",
+  "type": "code",
+  "project": "p3",
+  "step": 3,
+  "difficulty": 3,
+  "architectures": ["A04", "A05"],
+  "data": ["p3_us_crude_stocks_weekly_synthetic.csv", "p3_wti_daily_synthetic.csv"],
+  "concepts": ["forward returns as an outcome", "misalignment", "spurious lead-lag", "release-day reaction", "ingestion date pitfall"],
+  "explain": {
+    "prompt": "Interpret the three correlations in 5–7 sentences. Why does the week_ending alignment 'find' that stock builds predict lower WTI over the next week, while the availability alignment finds nothing? What does the release-day correlation tell you about where the information actually goes? What happens with ingested_at, and why?",
+    "rubric": [
+      "WTI reacts on the release day itself (release-day correlation between the stock change and that day's return ≈ −0.53): a surprise build pushes prices down at 10:30 on Wednesday.",
+      "Aligned on week_ending, the stock change is 'known' from the Friday; the next-5-day return then contains the Wednesday reaction → correlation ≈ −0.19: fake predictability, entirely due to using the number before its release.",
+      "Aligned on available_at, the information is known only after the reaction is already in the price: the next-5-day correlation is ≈ 0.02 — no exploitable predictability, as an efficient market would suggest.",
+      "With ingested_at, all history before 2019 is 'known' only from the backfill date: most of the sample cannot be matched (n ≈ 252) and the remaining correlation is meaningless.",
+      "A publication delay ignored in the join creates a lead-lag that does not exist; correct temporal alignment is a prerequisite for any statistical inference about timing.",
+      "The forward return deliberately uses future prices: it is the outcome being explained, never a feature."
+    ]
+  }
+}

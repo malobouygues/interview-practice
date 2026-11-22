@@ -1,0 +1,19 @@
+{
+  "number": "2.8",
+  "title": "Project debrief: what can explain the diesel crack, and how was it built?",
+  "type": "open",
+  "project": "p2",
+  "step": 8,
+  "difficulty": 3,
+  "architectures": ["A01", "A03", "A04", "A05", "A07"],
+  "concepts": ["research narrative", "data treatment decisions", "outliers: errors vs events", "information set", "feature choice"],
+  "rubric": [
+    "States the research question and the answer so far: daily diesel-crack changes are mostly noise; yesterday's move (partial reversal) and the gap to the 60-day mean (mean reversion) are the only candidates with a stable sign; the crack level is strongly seasonal (winter ≈ 19.5 vs summer ≈ 14 USD/bbl).",
+    "Explains the unit work: all products in USD/bbl (×42 for gallons, ÷7.45 / ÷7.88 for tonnes) before any crack.",
+    "Explains the gap treatment by cause: leading and trailing gaps left missing, holidays carried ≤ 2 days and flagged, a frozen gasoil feed removed, one row per date enforced on the index.",
+    "Separates missing from zero in physical data (the August 2018 'collapse' was a non-report).",
+    "Separates errors from events with evidence: the RBOB ×10 print removed, the August 2017 outage kept and annotated; robust, past-only scores used to flag.",
+    "Defines the information set (morning of t, data to t−1), the shifts, and the truncation check.",
+    "Warns about the settlement-time lead between ULSD and gasoil, and lists limits: small correlations, synthetic data, thresholds as judgement calls, selection risk."
+  ]
+}

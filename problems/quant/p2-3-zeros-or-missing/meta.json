@@ -1,0 +1,22 @@
+{
+  "number": "2.3",
+  "title": "Zero or missing? Diesel imports in long format",
+  "type": "code",
+  "project": "p2",
+  "step": 3,
+  "difficulty": 2,
+  "architectures": ["A01", "A03"],
+  "data": ["p2_diesel_imports_monthly_synthetic.csv"],
+  "concepts": ["flows vs prices", "long vs wide", "groupby + unstack", "non-reporting ≠ zero", "sum with min_count", "ragged edge"],
+  "explain": {
+    "prompt": "In 4–6 sentences: what would the regional total of August 2018 and December 2019 be if you summed the file naively, and why is that wrong? How do you distinguish a genuine zero (no cargo from India) from a country that did not report? Why is `sum(min_count=...)` the right tool, and why do you sum here when you averaged prices in Project 1?",
+    "rubric": [
+      "Naive August 2018 total ≈ 830 kb/d vs ≈ 1,124 in July and ≈ 1,292 in September: a fake 26 % collapse, caused by France's non-report counted as zero; December 2019 is understated because Germany has not reported yet (rows absent).",
+      "A genuine zero is one origin at 0 while the country reports other origins; a non-report is the country at 0 from every origin in the same month (simultaneity is the tell) — or no rows at all.",
+      "A non-reported import is not a zero import: replacing it with 0 fabricates a demand collapse (the PDF's 'flux physique manquant ≠ zéro').",
+      "`sum(min_count=n)` returns NaN unless all n countries are known, so a regional total is never computed on an incomplete set.",
+      "Imports are a flow (barrels per day over a month): across origins and countries the natural aggregate is a sum; prices and spreads are levels and are averaged.",
+      "Long format (one row per month × importer × origin) is how such data usually arrive; the analysis table is wide (one column per country)."
+    ]
+  }
+}

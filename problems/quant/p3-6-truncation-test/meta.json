@@ -1,0 +1,22 @@
+{
+  "number": "3.6",
+  "title": "The truncation test: catch look-ahead you cannot see",
+  "type": "code",
+  "project": "p3",
+  "step": 6,
+  "difficulty": 4,
+  "architectures": ["A04", "A07"],
+  "data": ["p3_wti_daily_synthetic.csv"],
+  "concepts": ["truncation test", "centered rolling windows", "full-sample normalisation", "negative shift", "expanding statistics", "generic leak detector"],
+  "explain": {
+    "prompt": "For each of the four leaky features, explain in one sentence how the future enters it, and how the corrected version avoids it. Why does the truncation test detect them without reading the code? What can it NOT detect (think of revised data and wrong availability dates)?",
+    "rubric": [
+      "ma_5_centered: rolling(5, center=True) on row t averages t−2…t+2 → fix: rolling(5).mean().shift(1).",
+      "zscore_full_sample: mean and std of the WHOLE history, including years after t → fix: expanding (or rolling) mean and std computed on past data, shifted by one.",
+      "share_of_max: price divided by the maximum of the whole sample, reached in Sept 2018 → historical values change when later data are added → fix: running maximum up to t−1 (or drop the feature).",
+      "return_tomorrow: shift(−1) puts t+1 on row t — the most direct leak → fix: shift(+1).",
+      "The test is mechanical: if a historical feature value changes when later data are removed, it depended on later data. It catches leaks that are invisible in the code (centred windows, full-sample statistics, normalisation fitted on the whole sample).",
+      "It cannot detect information that is already wrong in the raw data: revised values used as if known, or a value dated on its observation date instead of its availability — those need vintages and availability timestamps (steps 3.1–3.5)."
+    ]
+  }
+}

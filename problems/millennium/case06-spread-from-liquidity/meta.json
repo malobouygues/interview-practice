@@ -4,7 +4,7 @@
   "type": "code",
   "group": "Cases 6–9 — Construire la cotation",
   "book_difficulty": "Hard",
-  "difficulty": 2,
-  "sequence": 9,
-  "difficulty_why": "A given formula plus a floor; the substance is explaining why spreads widen with volatility and illiquidity."
+  "difficulty": 1,
+  "sequence": 4,
+  "difficulty_why": "A given formula plus a floor (max): one line of code. The only substance is explaining why a market maker widens with volatility and illiquidity."
 }

@@ -1,0 +1,21 @@
+{
+  "number": "1.3",
+  "title": "Quality checks: errors to correct, events to keep",
+  "type": "code",
+  "project": "p1",
+  "step": 3,
+  "difficulty": 2,
+  "architectures": ["A02", "A03"],
+  "data": ["p1_crude_prices_vendor_synthetic.csv", "p1_crude_prices_clean_synthetic.csv"],
+  "concepts": ["impossible values", "negative prices: per series", "jump vs recent level", "past-only check", "correct / investigate / document"],
+  "explain": {
+    "prompt": "Your checks flag two observations. For each one, explain in 2–3 sentences why you classify it as an error to correct or as a genuine market event to keep, using the other benchmarks on the same day. Why is a rolling **median** of the **previous** days a better reference than the full-sample mean?",
+    "rubric": [
+      "2021-03-15, Brent 549.70: ten times its recent level while WTI (52.69) and Dubai (52.54) are normal and Brent is back to normal the next day — a shifted decimal point. Error: set to NaN (or replace from a second source), and log the correction.",
+      "2020-04-20, WTI −35.90: impossible for Brent or Dubai, but WTI's front-month contract really can go negative at expiry when storage is full; Brent stayed positive (19.06) and the following day WTI is back to a positive level. Genuine event: keep it, document it, and handle it explicitly in later analysis.",
+      "The reference must use only past values (shift(1)): checking a value against a level that already includes it, or includes the future, either hides the error or uses information you would not have had.",
+      "A median is robust: one bad print does not move it, whereas a mean (and a standard deviation) is contaminated by the very outlier you are looking for.",
+      "Rules are per series and economically motivated (Brent/Dubai cannot be negative, WTI can): a blanket 'drop non-positive prices' would delete a real market event."
+    ]
+  }
+}

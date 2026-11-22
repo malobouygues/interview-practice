@@ -1,0 +1,23 @@
+{
+  "number": "4.9",
+  "title": "Structural stability: compare the relationship before and after a known date",
+  "type": "code",
+  "project": "p4",
+  "step": 9,
+  "difficulty": 4,
+  "previous_ids": ["quant/case4-1-regimes"],
+  "architectures": ["A05", "A06"],
+  "data": ["p4_crude_research_daily_synthetic.csv"],
+  "concepts": ["known structural break", "sub-period comparison", "breaks distort cointegration tests", "economic reading of a regime change", "placebo dates"],
+  "explain": {
+    "prompt": "In 5–7 sentences: how did the Brent–WTI relationship change on 1 January 2016 (spread level, spread volatility, short-run pass-through)? Each sub-period is strongly cointegrated, yet the full 2012–2019 sample is not (Engle-Granger p ≈ 0.28): why? What would you have concluded from the full sample alone? Why must the break date come from outside the data, and what do the placebo dates show?",
+    "rubric": [
+      "Before 2016 the WTI discount averaged ≈ 0.17 log points (≈ 16 %), after ≈ 0.06 (≈ 6 %); the spread is less volatile after; the daily pass-through rises from ≈ 0.59 to ≈ 0.89 and the return correlation from ≈ 0.79 to ≈ 0.88.",
+      "Economic reading: with the export ban WTI was landlocked and partly priced off local US balances; once exports were allowed the arbitrage tied it to Brent — a smaller discount and a closer daily link.",
+      "Each regime is cointegrated (EG p ≈ 0), but one regression over 2012–2019 forces a single equilibrium; its residual inherits a level shift of ≈ 0.11 in 2016 and looks non-stationary, so Engle-Granger fails to reject (p ≈ 0.28) — a break distorts cointegration tests just as it distorts ADF.",
+      "From the full sample alone one would wrongly conclude 'no long-run relationship'.",
+      "The date comes from an identifiable event (end of the export ban) chosen before looking at the data; picking it by scanning for the largest change would invalidate standard inference. Placebo dates inside a regime (2014, 2018) show similar statistics on both sides.",
+      "Consequence: estimate the current relationship on the current regime and keep re-testing it on recent data."
+    ]
+  }
+}

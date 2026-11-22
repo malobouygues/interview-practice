@@ -1,0 +1,22 @@
+{
+  "number": "4.3",
+  "title": "Model selection: which simple specification, and why?",
+  "type": "code",
+  "project": "p4",
+  "step": 3,
+  "difficulty": 3,
+  "architectures": ["A05", "A06"],
+  "data": ["p4_crude_research_daily_synthetic.csv"],
+  "concepts": ["economic justification of regressors", "same sample for every specification", "R² vs adjusted R²", "AIC / BIC", "multicollinearity", "parsimony", "overfitting intuition"],
+  "explain": {
+    "prompt": "Using the table, choose a specification and defend it in 5–7 sentences. What does adding Dubai do to the R², to Brent's standard error and to the sign of the coefficients, and why? Why do AIC and BIC disagree, and which one do you follow here? Why is a higher R² not a reason to add a variable? Why must all specifications be estimated on the same observations?",
+    "rubric": [
+      "Keep the Brent-only model: it has the economic mechanism, the coefficient is precise (β ≈ 0.89, SE ≈ 0.016), and nothing added improves the explanation in a way that survives scrutiny.",
+      "Adding Dubai: R² 0.7689 → 0.7695 (negligible), Brent's SE triples (0.016 → 0.050), Dubai's coefficient is negative (−0.07) and insignificant (p ≈ 0.11) — classic multicollinearity: Brent and Dubai returns correlate at ≈ 0.95 (variance inflation ≈ 10).",
+      "R² never falls when a regressor is added; adjusted R², AIC and BIC penalise extra parameters. AIC barely prefers the Dubai model (−6101.9 vs −6101.4), BIC prefers Brent only (−6091.7 vs −6087.4): with ~900 observations BIC's stronger penalty favours parsimony, and the economics agree.",
+      "Coffee (p ≈ 0.77) and yesterday's Brent return (p ≈ 0.35) add nothing: no mechanism, no evidence — including them would only fit noise (overfitting).",
+      "Comparisons need the same sample: the lagged variable removes the first observation, so every specification is estimated on the same 911 days — otherwise R², AIC and BIC are not comparable.",
+      "A coefficient can be statistically significant and still not worth keeping if its size is economically negligible or its sign has no explanation; selection combines economics, parsimony and evidence — never R² alone."
+    ]
+  }
+}
