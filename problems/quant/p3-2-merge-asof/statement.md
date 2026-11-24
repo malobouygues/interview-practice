@@ -1,32 +1,38 @@
-> **Synthetic data** — simulated with fixed seeds; not market observations.
+> **Synthetic data** — simulated WTI settlements and weekly stocks; the price reaction to the stock surprise is built into the simulation.
 
-### Context
+### The desk asks
 
-You now attach to each daily WTI settlement (`data/p3_wti_daily_synthetic.csv`, `date`, `wti_usd_bbl`) the **latest weekly stock level known at that moment**. Two frequencies, two release schedules: the classic tool is `pd.merge_asof`, and the classic mistake is to use it on the wrong key.
+> “For every trading day, I want the stock information we actually had at the settlement. One of the analysts already did it and found that the latest stock surprise predicts the next day's WTI return with a t-stat of −4.4. If that's true it's a strategy. Is it?”
 
-### Objective
+### What you have
 
-Build a daily table in which every stock value is one a trader could have seen at the 14:30 New York settlement.
+- `data/p3_wti_daily_synthetic.csv` — `date`, `wti_settle_usd_bbl` (NYMEX settlement, 14:30 New York), 2019–2024.
+- `data/p3_us_crude_stocks_weekly_synthetic.csv` — the weekly reports; the Test code pad rebuilds `available_at`, `surprise_mbbl` as in 3.1.
 
-### Minimum theory (PDF, A04-B)
+### What to find out
 
-- `pd.merge_asof(left, right, left_on=..., right_on=..., direction="backward")`: for each left row, the last right row whose key is **≤** the left key. Both tables **must be sorted** on their key.
-- `tolerance=pd.Timedelta(days=10)`: no match if the latest value is older than that → `NaN` rather than a stale number.
-- **Backward + availability key + right vintage = point-in-time.** A backward join on the observation date still leaks.
-- Check after the join: no `available_at` after the decision time; distribution of the age of matched values.
+A daily table in which every stock figure is one a trader could have seen at the settlement — and whether the analyst's “signal” survives.
+
+### Minimum theory (PDF A04-B joins, A04-E look-ahead, A04-F validation after alignment)
+
+- **Decision time**: when the decision is taken — here the settlement, `date + 14:30` New York, converted to UTC like `available_at`.
+- `pd.merge_asof(left, right, left_on=..., right_on=..., direction="backward", tolerance=...)`: for each left row, the last right row whose key is ≤ the left key and not older than the tolerance. Both sides sorted on their key.
+- **The key decides everything**: on `available_at` the join is point-in-time; on `week_ending` it attaches reports before they exist.
+- **Check after joining**: no matched `available_at` after its decision time (assertion), the distribution of the age of matched values, a few rows checked by hand.
+- A predictive test must use information known at the *start* of the return window: the return from settlement t to t+1, against what was known at settlement t.
 
 ### Assumptions
 
-Decision time = WTI settlement, `date + 14:30` New York; the stock table comes from step 3.1 (`available_at` computed).
+Tolerance 10 days. `age_days` = days between the settlement date and the `week_ending` of the matched report.
 
 ### Your task
 
 Implement `align_stocks(prices, stocks)`:
 
-1. Copy `prices`, convert `date`, add `decision_time = date + 14:30`, sort by it.
-2. Take `available_at`, `week_ending`, `crude_stocks_mbbl` from `stocks`, sorted by `available_at`.
-3. `merge_asof` backward on `decision_time` / `available_at`, tolerance 10 days.
-4. `age_days` = days between `decision_time` and `week_ending` (`.dt.days`).
-5. Assert that every matched `available_at` is ≤ its `decision_time`.
+1. Copy `prices`; parse `date`; `decision_time` = `date + 14:30`, localised to New York, in UTC; sort by it.
+2. From `stocks` take `available_at`, `week_ending`, `crude_stocks_mbbl`, `surprise_mbbl`, sorted by `available_at`.
+3. Backward `merge_asof` on `decision_time` / `available_at`, tolerance 10 days.
+4. `age_days`; assert that every matched `available_at` ≤ `decision_time`.
+5. Return `date`, `wti_settle_usd_bbl`, `decision_time`, `week_ending`, `available_at`, `crude_stocks_mbbl`, `surprise_mbbl`, `age_days`.
 
-Return the columns `date`, `wti_usd_bbl`, `week_ending`, `available_at`, `crude_stocks_mbbl`, `age_days`. Answer in the **Explain** tab.
+Reproduce the analyst's result with the wrong key in the Test code pad, then the **Explain** tab.

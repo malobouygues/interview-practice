@@ -1,35 +1,46 @@
-> **Synthetic data** — simulated with fixed seeds; seasonal patterns and a hurricane-type shock are imitated, values are invented.
+> **Synthetic data** — prices simulated with fixed seeds; product names and units are realistic, the values are not observations.
 
-### Context
+### The desk asks
 
-You move to the oil-products desk. The research question of this project: **what moves the US diesel crack, and which explanatory variables can be built from imperfect product data without look-ahead?** The daily file `data/p2_products_daily_synthetic.csv` (2017–2019) contains, each in its **trading unit**:
+> “The diesel crack has widened materially — gasoil trades twenty-odd dollars over Brent more than it did a couple of years ago. Is that a tighter physical market, or are we looking at a data problem? Start by putting the crack history on one sheet. The vendor sends everything in one long file, and the units are all over the place.”
 
-| column | market | unit |
+### What you have
+
+`data/p2_products_daily_long_synthetic.csv` — one row per **date × product**: `date`, `product` (`brent`, `gasoil`, `ulsd`, `rbob`, `jet`), `unit`, `price`. 2017-01 to 2023-06.
+
+| product | what it is | unit(s) in the file |
 |---|---|---|
-| `brent_usd_bbl` | ICE Brent | USD per barrel |
-| `ulsd_usd_gal` | NYMEX ULSD (diesel / heating oil) | USD per US gallon |
-| `rbob_usd_gal` | NYMEX RBOB (gasoline) | USD per US gallon |
-| `gasoil_usd_t` | ICE Gasoil (European diesel) | USD per metric tonne |
-| `jet_usd_t` | NWE jet fuel | USD per metric tonne |
+| brent | crude benchmark | USD/bbl |
+| gasoil | European diesel (ICE Gasoil) | USD/t |
+| ulsd | US diesel (NY Harbor ULSD) | USc/gal until end-2020, USD/gal after |
+| rbob | US gasoline | USD/gal |
+| jet | jet fuel, NW Europe | USD/t |
 
-A **crack spread** is the price of a product minus the price of crude: the gross margin of refining that product.
+### What to find out
 
-### Objective
+A daily table, one row per date, with every price in **USD/bbl** and the **crack** of each product against Brent — and a clear view of where the gaps are and why.
 
-Convert every product to USD/bbl and compute the main cracks.
+### Minimum theory (PDF A01-B, A02-C, A03-A/C)
 
-### Minimum theory
-
-- 1 barrel = **42 US gallons**. Mass → volume depends on density: about **7.45 bbl per tonne** of gasoil/diesel, **7.88 bbl/t** of jet.
-- `diesel crack = ULSD×42 − Brent`, `gasoline crack = RBOB×42 − Brent`, `gasoil crack = gasoil/7.45 − Brent`, `jet crack = jet/7.88 − Brent`.
-- **3-2-1 crack** = (2 × gasoline + 1 × diesel − 3 × crude) / 3: a refinery's margin per barrel of crude.
+- **Key**: the columns that identify a row. Here `(date, product)`. Exact copies can be dropped; two *different* prices for one key cannot be resolved silently.
+- **Units before anything else**: 1 bbl = 42 gal; cents → dollars ÷ 100; tonnes → barrels with the product's density (gasoil ≈ 7.45 bbl/t, jet ≈ 7.88 bbl/t). Convert **row by row** from the `unit` column.
+- **Long → wide**: `pivot(index="date", columns="product", values=...)`. A missing row becomes a `NaN` cell.
+- **Frozen feed**: the same settlement repeated for several sessions is not a market; keep the first value, blank the copies.
+- **Crack spread** = product price − crude price, both in USD/bbl: the refining margin of that product.
+- **Gaps**: *leave* (honest, loses the day), *drop* incomplete dates (loses every day one series is missing), *forward-fill* (invents a value: one day may be defensible for a state, never for a whole frozen run).
 
 ### Assumptions
 
-Brent is the crude reference for every crack (a simplification for US products, often quoted against WTI). Conversion factors are standard averages.
+A run of **4 or more** identical consecutive prices in one series is a frozen feed. Nothing is filled at this stage.
 
 ### Your task
 
-Implement `crack_spreads(products)` for a `DataFrame` indexed by date with the five columns above. Return a `DataFrame` with the same index and the columns `diesel_crack`, `gasoline_crack`, `gasoil_crack`, `jet_crack`, `crack_321` (USD/bbl). Missing inputs give missing cracks.
+Implement `build_daily_table(raw)`:
 
-The raw file has two dates delivered twice: the test code keeps one row per date before calling you (step 2.2 explains why `drop_duplicates()` is the wrong tool here). Answer in the **Explain** tab.
+1. Parse `date`; drop exact duplicate rows; `assert` that `(date, product)` is now unique.
+2. `usd_bbl` = price × factor, with factors `USD/bbl` 1, `USD/gal` 42, `USc/gal` 0.42, and for `USD/t` 1 / (bbl per tonne of that product). Assert every row got a factor.
+3. Pivot to wide (index `date`), columns in the order `brent`, `gasoil`, `ulsd`, `rbob`, `jet`.
+4. In each column, blank the 2nd, 3rd… values of every run of ≥ 4 identical consecutive prices.
+5. Add `gasoil_crack`, `ulsd_crack`, `rbob_crack`, `jet_crack` = product − brent.
+
+Return the wide frame (index `date`). Compare the gap treatments in the Test code pad, then the **Explain** tab.

@@ -1,37 +1,41 @@
-### A. Reasoning — why five dates
+### A. Reasoning — “the week of 17 June” is not a date you could trade
 
-"The data on date t" is ambiguous until you say *which* date. The stock level of a week is measured on Friday, released the next Wednesday, usable from 10:30 that morning, stored in your database whenever you happened to download it, and — for revised series — exists in several versions. Joining on the wrong one either uses information before it existed (look-ahead) or shifts it to a meaningless date. Point-in-time work starts by writing all of them down.
+A database row carries one date by default — usually the observation date — and that is the trap: the figure for the week ending Friday 17 June 2022 did not exist for the market on 17 June. Point-in-time work starts by attaching to each number the moment it became *available*, in a single time zone, and by recognising which stored timestamps are artefacts of how the database was built.
 
-### B. Theory (PDF, A04-A and A01-B)
+### B. Theory (PDF A04-A, A04-D)
 
-- Observation → the economics (which week). Availability → joins and backtests (what was known when).
-- Publication follows a **release calendar**, not a fixed lag: here Wednesday, Thursday after a Monday holiday.
-- Ingestion ≠ availability: a **backfill** stores years of history on one day; ingestion timestamps are only a proxy for availability for data collected in real time.
-- One clock: convert everything to one time zone before comparing timestamps.
+| date | question it answers | here |
+|---|---|---|
+| observation | what period is described? | `week_ending` |
+| publication | when did the source release it? | `release_date` 10:30 New York |
+| availability | when could *we* act on it? | publication in UTC |
+| ingestion | when did *our* system store it? | `ingested_at` |
+| vintage | which version of a revised value? | weekly: first release; monthly demand: 3.3 |
+
+Calendars have exceptions (holidays, outages); backfills destroy the meaning of ingestion times; time zones move with daylight saving — on *both* sides of the Atlantic, on different dates.
 
 ### C. Implementation
 
-{{code}}
+`pd.to_datetime(date + " " + time)` gives a naive New York time; `tz_localize(NEW_YORK).tz_convert("UTC")` handles EST/EDT. The lag is a difference of dates (`.dt.days`). `diff()` after sorting by `week_ending` gives the weekly change; minus the consensus gives the surprise.
 
 ### D. Interpretation (this dataset)
 
-- 209 weeks; publication lag **5 days** for 193 weeks, **6 days** for 16 (releases delayed by a Monday holiday, e.g. week ending 15 Jan 2016 → Thursday 21 Jan).
-- **156 of 209** rows were backfilled on 7 Jan 2019: their `ingested_at` says nothing about when the market knew them.
-- Week ending 15 Jan 2016: observed Fri 15 Jan, published and available Thu 21 Jan 10:30, ingested 7 Jan 2019, single vintage.
+- **314** reports. Publication lag: **5 days** for 278, **6 days** for 35 (Thursday releases after a Monday holiday or a holiday on Wednesday), **12 days** once — week ending **17 Jun 2022**, published **29 Jun 2022**.
+- **61** records were ingested on **2 Mar 2020 09:00 UTC** (database creation): `ingested_at` is useless as an availability time for 2019 — the calendar is the only source.
+- 10:30 New York = **14:30 UTC** in summer (204 releases), **15:30 UTC** in winter (110).
+- Surprises are centred near zero with a standard deviation of about 3 million barrels: most of the weekly change is expected.
 
 ### E. Decision
 
-Use `available_at` as the time key for every join of this table with prices (step 3.2); keep `week_ending` for charts and economic statements ("stocks in the week to 15 January").
+From now on every join uses `available_at` (UTC). The week of 17 June 2022 becomes usable on 29 June 2022 at 14:30 UTC, not on 17 June — twelve days of information the database would otherwise “know” in advance.
 
 ### F. Pitfalls and limits
 
-- Joining on `week_ending`: the value appears 5–6 days before its release.
-- Using `ingested_at` as availability for backfilled history.
-- A file of "monthly data dated the 1st" suggests availability on the 1st; it is usually weeks later.
-- Real release calendars have exceptions (government shutdowns, holidays); a computed rule must be checked against the official calendar.
+- Using `ingested_at` as availability would delay every 2019 report to March 2020 (too late) — the opposite error of using `week_ending` (too early).
+- A fixed offset (+5 h) is wrong for half the year.
+- The consensus has its own timestamp (published before the release); here we assume it always is — check it in a real dataset.
+- Availability = publication assumes the desk receives the release instantly; a real feed adds seconds to minutes.
 
 ### G. Interview defence
 
-> **Q: "What's the difference between the observation date and the availability date, and why does it matter?"**
->
-> **A:** The observation date is the period the number describes — US stocks for the week ending Friday. The availability date is when you could first use it — the release, the following Wednesday at 10:30 New York, or Thursday after a holiday. For economic charts I index on the observation date, but every join with prices and every backtest uses availability; otherwise the stock number appears five or six days before it existed. I also don't use my database's ingestion time as a proxy: most of this history was backfilled in 2019.
+*“Why do you need five dates? Isn't the publication date enough?”* — For a public release, publication and availability coincide, but the database doesn't store publication — it stores observation and ingestion. Observation is too early, ingestion can be months late after a backfill. I rebuild availability from the release calendar, in UTC, and I keep the others to audit the data: if ingestion is ever *before* availability, something is wrong.

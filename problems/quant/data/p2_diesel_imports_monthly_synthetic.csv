@@ -567,7 +567,679 @@ month,importer,origin,volume_kbd
 2019-12,France,Russia,189.1
 2019-12,France,Saudi Arabia,77.8
 2019-12,France,India,39.4
+2019-12,Germany,USA,44.2
+2019-12,Germany,Russia,185.1
+2019-12,Germany,Saudi Arabia,42.2
+2019-12,Germany,India,12.7
 2019-12,Netherlands,USA,75.8
 2019-12,Netherlands,Russia,230.4
 2019-12,Netherlands,Saudi Arabia,62.0
 2019-12,Netherlands,India,45.6
+2020-01,UK,USA,100.7
+2020-01,UK,Russia,113.3
+2020-01,UK,Saudi Arabia,50.1
+2020-01,UK,India,32.6
+2020-01,France,USA,127.0
+2020-01,France,Russia,183.5
+2020-01,France,Saudi Arabia,68.5
+2020-01,France,India,44.4
+2020-01,Germany,USA,44.1
+2020-01,Germany,Russia,171.8
+2020-01,Germany,Saudi Arabia,36.3
+2020-01,Germany,India,13.7
+2020-01,Netherlands,USA,72.0
+2020-01,Netherlands,Russia,203.2
+2020-01,Netherlands,Saudi Arabia,63.0
+2020-01,Netherlands,India,38.5
+2020-02,UK,USA,110.5
+2020-02,UK,Russia,109.8
+2020-02,UK,Saudi Arabia,51.0
+2020-02,UK,India,35.3
+2020-02,France,USA,142.7
+2020-02,France,Russia,166.0
+2020-02,France,Saudi Arabia,68.0
+2020-02,France,India,35.6
+2020-02,Germany,USA,46.6
+2020-02,Germany,Russia,227.4
+2020-02,Germany,Saudi Arabia,35.1
+2020-02,Germany,India,13.8
+2020-02,Netherlands,USA,96.7
+2020-02,Netherlands,Russia,256.5
+2020-02,Netherlands,Saudi Arabia,62.6
+2020-02,Netherlands,India,41.4
+2020-03,UK,USA,99.7
+2020-03,UK,Russia,112.4
+2020-03,UK,Saudi Arabia,49.1
+2020-03,UK,India,33.1
+2020-03,France,USA,103.1
+2020-03,France,Russia,178.7
+2020-03,France,Saudi Arabia,92.0
+2020-03,France,India,34.8
+2020-03,Germany,USA,46.0
+2020-03,Germany,Russia,212.1
+2020-03,Germany,Saudi Arabia,37.4
+2020-03,Germany,India,13.2
+2020-03,Netherlands,USA,82.3
+2020-03,Netherlands,Russia,259.2
+2020-03,Netherlands,Saudi Arabia,56.5
+2020-03,Netherlands,India,36.5
+2020-04,UK,USA,58.4
+2020-04,UK,Russia,99.7
+2020-04,UK,Saudi Arabia,37.6
+2020-04,UK,India,19.2
+2020-04,France,USA,78.7
+2020-04,France,Russia,135.0
+2020-04,France,Saudi Arabia,52.5
+2020-04,France,India,27.2
+2020-04,Germany,USA,22.3
+2020-04,Germany,Russia,149.3
+2020-04,Germany,Saudi Arabia,34.4
+2020-04,Germany,India,9.0
+2020-04,Netherlands,USA,67.0
+2020-04,Netherlands,Russia,175.4
+2020-04,Netherlands,Saudi Arabia,47.2
+2020-04,Netherlands,India,28.1
+2020-05,UK,USA,72.0
+2020-05,UK,Russia,80.2
+2020-05,UK,Saudi Arabia,43.8
+2020-05,UK,India,29.8
+2020-05,France,USA,85.3
+2020-05,France,Russia,145.4
+2020-05,France,Saudi Arabia,47.1
+2020-05,France,India,29.1
+2020-05,Germany,USA,34.0
+2020-05,Germany,Russia,115.8
+2020-05,Germany,Saudi Arabia,22.0
+2020-05,Germany,India,9.3
+2020-05,Netherlands,USA,45.5
+2020-05,Netherlands,Russia,189.7
+2020-05,Netherlands,Saudi Arabia,49.0
+2020-05,Netherlands,India,27.0
+2020-06,UK,USA,73.3
+2020-06,UK,Russia,76.4
+2020-06,UK,Saudi Arabia,28.5
+2020-06,UK,India,23.6
+2020-06,France,USA,87.6
+2020-06,France,Russia,116.5
+2020-06,France,Saudi Arabia,49.8
+2020-06,France,India,26.8
+2020-06,Germany,USA,33.4
+2020-06,Germany,Russia,105.9
+2020-06,Germany,Saudi Arabia,22.5
+2020-06,Germany,India,8.0
+2020-06,Netherlands,USA,46.8
+2020-06,Netherlands,Russia,126.5
+2020-06,Netherlands,Saudi Arabia,37.7
+2020-06,Netherlands,India,28.1
+2020-07,UK,USA,81.4
+2020-07,UK,Russia,88.0
+2020-07,UK,Saudi Arabia,25.5
+2020-07,UK,India,19.6
+2020-07,France,USA,76.2
+2020-07,France,Russia,109.0
+2020-07,France,Saudi Arabia,47.1
+2020-07,France,India,29.9
+2020-07,Germany,USA,21.6
+2020-07,Germany,Russia,118.0
+2020-07,Germany,Saudi Arabia,25.3
+2020-07,Germany,India,9.2
+2020-07,Netherlands,USA,58.3
+2020-07,Netherlands,Russia,148.3
+2020-07,Netherlands,Saudi Arabia,41.6
+2020-07,Netherlands,India,22.7
+2020-08,UK,USA,69.0
+2020-08,UK,Russia,84.1
+2020-08,UK,Saudi Arabia,29.6
+2020-08,UK,India,24.7
+2020-08,France,USA,90.3
+2020-08,France,Russia,110.0
+2020-08,France,Saudi Arabia,54.1
+2020-08,France,India,32.9
+2020-08,Germany,USA,29.7
+2020-08,Germany,Russia,131.6
+2020-08,Germany,Saudi Arabia,26.7
+2020-08,Germany,India,6.9
+2020-08,Netherlands,USA,47.8
+2020-08,Netherlands,Russia,160.7
+2020-08,Netherlands,Saudi Arabia,44.7
+2020-08,Netherlands,India,29.3
+2020-09,UK,USA,67.6
+2020-09,UK,Russia,102.6
+2020-09,UK,Saudi Arabia,38.3
+2020-09,UK,India,28.0
+2020-09,France,USA,75.2
+2020-09,France,Russia,115.9
+2020-09,France,Saudi Arabia,54.7
+2020-09,France,India,31.2
+2020-09,Germany,USA,26.7
+2020-09,Germany,Russia,126.9
+2020-09,Germany,Saudi Arabia,22.4
+2020-09,Germany,India,11.6
+2020-09,Netherlands,USA,60.1
+2020-09,Netherlands,Russia,158.7
+2020-09,Netherlands,Saudi Arabia,42.1
+2020-09,Netherlands,India,26.6
+2020-10,UK,USA,104.6
+2020-10,UK,Russia,116.0
+2020-10,UK,Saudi Arabia,45.1
+2020-10,UK,India,38.0
+2020-10,France,USA,122.9
+2020-10,France,Russia,165.5
+2020-10,France,Saudi Arabia,66.9
+2020-10,France,India,40.1
+2020-10,Germany,USA,36.7
+2020-10,Germany,Russia,186.9
+2020-10,Germany,Saudi Arabia,32.4
+2020-10,Germany,India,11.0
+2020-10,Netherlands,USA,76.5
+2020-10,Netherlands,Russia,184.0
+2020-10,Netherlands,Saudi Arabia,61.6
+2020-10,Netherlands,India,45.7
+2020-11,UK,USA,93.5
+2020-11,UK,Russia,102.2
+2020-11,UK,Saudi Arabia,53.3
+2020-11,UK,India,31.4
+2020-11,France,USA,144.4
+2020-11,France,Russia,177.4
+2020-11,France,Saudi Arabia,82.5
+2020-11,France,India,38.4
+2020-11,Germany,USA,34.2
+2020-11,Germany,Russia,186.3
+2020-11,Germany,Saudi Arabia,40.0
+2020-11,Germany,India,11.4
+2020-11,Netherlands,USA,68.4
+2020-11,Netherlands,Russia,205.9
+2020-11,Netherlands,Saudi Arabia,59.9
+2020-11,Netherlands,India,35.5
+2020-12,UK,USA,103.9
+2020-12,UK,Russia,169.7
+2020-12,UK,Saudi Arabia,49.6
+2020-12,UK,India,30.9
+2020-12,France,USA,104.9
+2020-12,France,Russia,192.3
+2020-12,France,Saudi Arabia,62.1
+2020-12,France,India,51.5
+2020-12,Germany,USA,43.8
+2020-12,Germany,Russia,161.4
+2020-12,Germany,Saudi Arabia,39.2
+2020-12,Germany,India,13.0
+2020-12,Netherlands,USA,100.6
+2020-12,Netherlands,Russia,188.4
+2020-12,Netherlands,Saudi Arabia,67.3
+2020-12,Netherlands,India,38.2
+2021-01,UK,USA,117.2
+2021-01,UK,Russia,115.0
+2021-01,UK,Saudi Arabia,45.3
+2021-01,UK,India,41.2
+2021-01,France,USA,130.3
+2021-01,France,Russia,145.9
+2021-01,France,Saudi Arabia,80.7
+2021-01,France,India,40.2
+2021-01,Germany,USA,40.7
+2021-01,Germany,Russia,170.3
+2021-01,Germany,Saudi Arabia,43.5
+2021-01,Germany,India,12.5
+2021-01,Netherlands,USA,90.9
+2021-01,Netherlands,Russia,235.2
+2021-01,Netherlands,Saudi Arabia,54.4
+2021-01,Netherlands,India,35.4
+2021-02,UK,USA,113.5
+2021-02,UK,Russia,106.4
+2021-02,UK,Saudi Arabia,50.7
+2021-02,UK,India,32.4
+2021-02,France,USA,129.7
+2021-02,France,Russia,189.5
+2021-02,France,Saudi Arabia,84.2
+2021-02,France,India,44.1
+2021-02,Germany,USA,45.1
+2021-02,Germany,Russia,180.2
+2021-02,Germany,Saudi Arabia,35.8
+2021-02,Germany,India,14.6
+2021-02,Netherlands,USA,81.3
+2021-02,Netherlands,Russia,258.3
+2021-02,Netherlands,Saudi Arabia,73.6
+2021-02,Netherlands,India,34.6
+2021-03,UK,USA,106.7
+2021-03,UK,Russia,113.8
+2021-03,UK,Saudi Arabia,49.3
+2021-03,UK,India,28.6
+2021-03,France,USA,120.4
+2021-03,France,Russia,171.8
+2021-03,France,Saudi Arabia,64.4
+2021-03,France,India,52.5
+2021-03,Germany,USA,47.0
+2021-03,Germany,Russia,152.9
+2021-03,Germany,Saudi Arabia,38.4
+2021-03,Germany,India,12.0
+2021-03,Netherlands,USA,105.1
+2021-03,Netherlands,Russia,219.7
+2021-03,Netherlands,Saudi Arabia,66.2
+2021-03,Netherlands,India,36.1
+2021-04,UK,USA,101.7
+2021-04,UK,Russia,111.6
+2021-04,UK,Saudi Arabia,39.9
+2021-04,UK,India,28.1
+2021-04,France,USA,103.8
+2021-04,France,Russia,171.2
+2021-04,France,Saudi Arabia,70.4
+2021-04,France,India,37.7
+2021-04,Germany,USA,37.9
+2021-04,Germany,Russia,159.4
+2021-04,Germany,Saudi Arabia,35.4
+2021-04,Germany,India,9.0
+2021-04,Netherlands,USA,77.5
+2021-04,Netherlands,Russia,238.8
+2021-04,Netherlands,Saudi Arabia,57.1
+2021-04,Netherlands,India,32.1
+2021-05,UK,USA,89.4
+2021-05,UK,Russia,99.7
+2021-05,UK,Saudi Arabia,38.3
+2021-05,UK,India,30.4
+2021-05,France,USA,95.1
+2021-05,France,Russia,185.0
+2021-05,France,Saudi Arabia,69.8
+2021-05,France,India,37.0
+2021-05,Germany,USA,34.7
+2021-05,Germany,Russia,163.3
+2021-05,Germany,Saudi Arabia,23.8
+2021-05,Germany,India,0.0
+2021-05,Netherlands,USA,82.9
+2021-05,Netherlands,Russia,210.1
+2021-05,Netherlands,Saudi Arabia,53.3
+2021-05,Netherlands,India,35.2
+2021-06,UK,USA,91.3
+2021-06,UK,Russia,105.4
+2021-06,UK,Saudi Arabia,41.9
+2021-06,UK,India,30.1
+2021-06,France,USA,103.6
+2021-06,France,Russia,136.3
+2021-06,France,Saudi Arabia,62.6
+2021-06,France,India,36.4
+2021-06,Germany,USA,28.8
+2021-06,Germany,Russia,163.2
+2021-06,Germany,Saudi Arabia,30.8
+2021-06,Germany,India,7.9
+2021-06,Netherlands,USA,56.7
+2021-06,Netherlands,Russia,228.1
+2021-06,Netherlands,Saudi Arabia,54.2
+2021-06,Netherlands,India,36.3
+2021-07,UK,USA,79.6
+2021-07,UK,Russia,124.7
+2021-07,UK,Saudi Arabia,42.2
+2021-07,UK,India,24.2
+2021-07,France,USA,99.7
+2021-07,France,Russia,166.8
+2021-07,France,Saudi Arabia,79.1
+2021-07,France,India,37.3
+2021-07,Germany,USA,33.2
+2021-07,Germany,Russia,141.6
+2021-07,Germany,Saudi Arabia,33.3
+2021-07,Germany,India,11.9
+2021-07,Netherlands,USA,71.5
+2021-07,Netherlands,Russia,182.2
+2021-07,Netherlands,Saudi Arabia,57.9
+2021-07,Netherlands,India,32.6
+2021-08,UK,USA,89.1
+2021-08,UK,Russia,87.8
+2021-08,UK,Saudi Arabia,38.7
+2021-08,UK,India,33.0
+2021-08,France,USA,98.4
+2021-08,France,Russia,185.1
+2021-08,France,Saudi Arabia,65.6
+2021-08,France,India,34.6
+2021-08,Germany,USA,37.1
+2021-08,Germany,Russia,173.0
+2021-08,Germany,Saudi Arabia,28.7
+2021-08,Germany,India,11.1
+2021-08,Netherlands,USA,68.1
+2021-08,Netherlands,Russia,221.1
+2021-08,Netherlands,Saudi Arabia,50.9
+2021-08,Netherlands,India,31.8
+2021-09,UK,USA,73.2
+2021-09,UK,Russia,94.4
+2021-09,UK,Saudi Arabia,41.8
+2021-09,UK,India,25.1
+2021-09,France,USA,99.8
+2021-09,France,Russia,154.6
+2021-09,France,Saudi Arabia,70.2
+2021-09,France,India,31.3
+2021-09,Germany,USA,36.8
+2021-09,Germany,Russia,182.7
+2021-09,Germany,Saudi Arabia,30.2
+2021-09,Germany,India,9.5
+2021-09,Netherlands,USA,69.0
+2021-09,Netherlands,Russia,235.9
+2021-09,Netherlands,Saudi Arabia,56.5
+2021-09,Netherlands,India,39.0
+2021-10,UK,USA,91.5
+2021-10,UK,Russia,137.1
+2021-10,UK,Saudi Arabia,37.2
+2021-10,UK,India,29.1
+2021-10,France,USA,111.2
+2021-10,France,Russia,193.8
+2021-10,France,Saudi Arabia,74.0
+2021-10,France,India,45.4
+2021-10,Germany,USA,38.0
+2021-10,Germany,Russia,171.1
+2021-10,Germany,Saudi Arabia,40.4
+2021-10,Germany,India,14.1
+2021-10,Netherlands,USA,91.8
+2021-10,Netherlands,Russia,240.4
+2021-10,Netherlands,Saudi Arabia,56.3
+2021-10,Netherlands,India,44.1
+2021-11,UK,USA,102.8
+2021-11,UK,Russia,146.7
+2021-11,UK,Saudi Arabia,52.0
+2021-11,UK,India,25.1
+2021-11,France,USA,89.5
+2021-11,France,Russia,137.1
+2021-11,France,Saudi Arabia,73.8
+2021-11,France,India,48.1
+2021-11,Germany,USA,41.2
+2021-11,Germany,Russia,210.3
+2021-11,Germany,Saudi Arabia,31.6
+2021-11,Germany,India,11.8
+2021-11,Netherlands,USA,75.7
+2021-11,Netherlands,Russia,223.6
+2021-11,Netherlands,Saudi Arabia,54.9
+2021-11,Netherlands,India,36.7
+2021-12,UK,USA,112.4
+2021-12,UK,Russia,125.2
+2021-12,UK,Saudi Arabia,44.4
+2021-12,UK,India,31.3
+2021-12,France,USA,103.7
+2021-12,France,Russia,154.8
+2021-12,France,Saudi Arabia,84.8
+2021-12,France,India,46.0
+2021-12,Germany,USA,36.5
+2021-12,Germany,Russia,192.1
+2021-12,Germany,Saudi Arabia,40.8
+2021-12,Germany,India,14.5
+2021-12,Netherlands,USA,95.2
+2021-12,Netherlands,Russia,259.3
+2021-12,Netherlands,Saudi Arabia,66.0
+2021-12,Netherlands,India,38.6
+2022-01,UK,USA,103.3
+2022-01,UK,Russia,152.2
+2022-01,UK,Saudi Arabia,0.0
+2022-01,UK,India,40.8
+2022-01,France,USA,139.9
+2022-01,France,Russia,161.9
+2022-01,France,Saudi Arabia,64.6
+2022-01,France,India,37.3
+2022-01,Germany,USA,40.0
+2022-01,Germany,Russia,216.7
+2022-01,Germany,Saudi Arabia,32.6
+2022-01,Germany,India,10.2
+2022-01,Netherlands,USA,87.7
+2022-01,Netherlands,Russia,258.1
+2022-01,Netherlands,Saudi Arabia,73.5
+2022-01,Netherlands,India,47.1
+2022-02,UK,USA,104.4
+2022-02,UK,Russia,123.4
+2022-02,UK,Saudi Arabia,47.8
+2022-02,UK,India,27.7
+2022-02,France,USA,111.4
+2022-02,France,Russia,203.6
+2022-02,France,Saudi Arabia,96.6
+2022-02,France,India,50.8
+2022-02,Germany,USA,45.6
+2022-02,Germany,Russia,192.4
+2022-02,Germany,Saudi Arabia,39.7
+2022-02,Germany,India,10.2
+2022-02,Netherlands,USA,94.2
+2022-02,Netherlands,Russia,253.0
+2022-02,Netherlands,Saudi Arabia,65.0
+2022-02,Netherlands,India,38.6
+2022-03,UK,USA,79.8
+2022-03,UK,Russia,138.8
+2022-03,UK,Saudi Arabia,52.1
+2022-03,UK,India,21.1
+2022-03,France,USA,108.0
+2022-03,France,Russia,176.0
+2022-03,France,Saudi Arabia,88.8
+2022-03,France,India,37.8
+2022-03,Germany,USA,42.0
+2022-03,Germany,Russia,223.8
+2022-03,Germany,Saudi Arabia,39.1
+2022-03,Germany,India,12.3
+2022-03,Netherlands,USA,80.0
+2022-03,Netherlands,Russia,222.7
+2022-03,Netherlands,Saudi Arabia,57.3
+2022-03,Netherlands,India,41.5
+2022-04,UK,USA,84.8
+2022-04,UK,Russia,128.0
+2022-04,UK,Saudi Arabia,50.0
+2022-04,UK,India,34.4
+2022-04,France,USA,111.7
+2022-04,France,Russia,160.8
+2022-04,France,Saudi Arabia,73.1
+2022-04,France,India,40.7
+2022-04,Germany,USA,45.6
+2022-04,Germany,Russia,179.1
+2022-04,Germany,Saudi Arabia,43.4
+2022-04,Germany,India,16.1
+2022-04,Netherlands,USA,74.5
+2022-04,Netherlands,Russia,222.1
+2022-04,Netherlands,Saudi Arabia,52.2
+2022-04,Netherlands,India,38.5
+2022-05,UK,USA,94.5
+2022-05,UK,Russia,110.8
+2022-05,UK,Saudi Arabia,37.3
+2022-05,UK,India,28.5
+2022-05,France,USA,129.2
+2022-05,France,Russia,180.7
+2022-05,France,Saudi Arabia,69.3
+2022-05,France,India,35.1
+2022-05,Germany,USA,37.8
+2022-05,Germany,Russia,154.0
+2022-05,Germany,Saudi Arabia,27.8
+2022-05,Germany,India,10.1
+2022-05,Netherlands,USA,81.2
+2022-05,Netherlands,Russia,205.8
+2022-05,Netherlands,Saudi Arabia,57.9
+2022-05,Netherlands,India,28.7
+2022-06,UK,USA,71.1
+2022-06,UK,Russia,121.1
+2022-06,UK,Saudi Arabia,38.8
+2022-06,UK,India,30.8
+2022-06,France,USA,90.1
+2022-06,France,Russia,160.9
+2022-06,France,Saudi Arabia,64.8
+2022-06,France,India,34.1
+2022-06,Germany,USA,34.1
+2022-06,Germany,Russia,199.3
+2022-06,Germany,Saudi Arabia,35.0
+2022-06,Germany,India,10.5
+2022-06,Netherlands,USA,73.4
+2022-06,Netherlands,Russia,153.7
+2022-06,Netherlands,Saudi Arabia,65.1
+2022-06,Netherlands,India,36.8
+2022-07,UK,USA,79.9
+2022-07,UK,Russia,111.9
+2022-07,UK,Saudi Arabia,26.6
+2022-07,UK,India,29.6
+2022-07,France,USA,102.7
+2022-07,France,Russia,145.8
+2022-07,France,Saudi Arabia,68.0
+2022-07,France,India,36.6
+2022-07,Germany,USA,31.2
+2022-07,Germany,Russia,145.5
+2022-07,Germany,Saudi Arabia,30.2
+2022-07,Germany,India,11.7
+2022-07,Netherlands,USA,70.7
+2022-07,Netherlands,Russia,170.0
+2022-07,Netherlands,Saudi Arabia,55.1
+2022-07,Netherlands,India,26.2
+2022-08,UK,USA,0.0
+2022-08,UK,Russia,0.0
+2022-08,UK,Saudi Arabia,0.0
+2022-08,UK,India,0.0
+2022-08,France,USA,111.4
+2022-08,France,Russia,152.7
+2022-08,France,Saudi Arabia,78.1
+2022-08,France,India,29.7
+2022-08,Germany,USA,42.7
+2022-08,Germany,Russia,160.7
+2022-08,Germany,Saudi Arabia,34.7
+2022-08,Germany,India,13.0
+2022-08,Netherlands,USA,61.3
+2022-08,Netherlands,Russia,156.0
+2022-08,Netherlands,Saudi Arabia,51.2
+2022-08,Netherlands,India,25.1
+2022-09,UK,USA,67.6
+2022-09,UK,Russia,113.9
+2022-09,UK,Saudi Arabia,48.2
+2022-09,UK,India,26.6
+2022-09,France,USA,109.7
+2022-09,France,Russia,217.2
+2022-09,France,Saudi Arabia,68.5
+2022-09,France,India,36.2
+2022-09,Germany,USA,36.9
+2022-09,Germany,Russia,178.1
+2022-09,Germany,Saudi Arabia,31.8
+2022-09,Germany,India,12.2
+2022-09,Netherlands,USA,77.3
+2022-09,Netherlands,Russia,219.5
+2022-09,Netherlands,Saudi Arabia,57.5
+2022-09,Netherlands,India,32.6
+2022-10,UK,USA,84.5
+2022-10,UK,Russia,100.1
+2022-10,UK,Saudi Arabia,43.5
+2022-10,UK,India,28.6
+2022-10,France,USA,113.9
+2022-10,France,Russia,158.8
+2022-10,France,Saudi Arabia,66.8
+2022-10,France,India,51.0
+2022-10,Germany,USA,41.6
+2022-10,Germany,Russia,206.7
+2022-10,Germany,Saudi Arabia,30.7
+2022-10,Germany,India,13.5
+2022-10,Netherlands,USA,91.4
+2022-10,Netherlands,Russia,221.7
+2022-10,Netherlands,Saudi Arabia,53.7
+2022-10,Netherlands,India,40.4
+2022-11,UK,USA,92.1
+2022-11,UK,Russia,103.5
+2022-11,UK,Saudi Arabia,38.4
+2022-11,UK,India,32.1
+2022-11,France,USA,109.8
+2022-11,France,Russia,186.3
+2022-11,France,Saudi Arabia,80.3
+2022-11,France,India,49.5
+2022-11,Germany,USA,44.2
+2022-11,Germany,Russia,193.6
+2022-11,Germany,Saudi Arabia,37.2
+2022-11,Germany,India,11.5
+2022-11,Netherlands,USA,76.4
+2022-11,Netherlands,Russia,203.2
+2022-11,Netherlands,Saudi Arabia,65.4
+2022-11,Netherlands,India,33.3
+2022-12,UK,USA,103.8
+2022-12,UK,Russia,149.8
+2022-12,UK,Saudi Arabia,35.4
+2022-12,UK,India,29.6
+2022-12,France,USA,106.8
+2022-12,France,Russia,176.3
+2022-12,France,Saudi Arabia,63.3
+2022-12,France,India,40.5
+2022-12,Germany,USA,56.3
+2022-12,Germany,Russia,165.5
+2022-12,Germany,Saudi Arabia,38.1
+2022-12,Germany,India,13.5
+2022-12,Netherlands,USA,84.9
+2022-12,Netherlands,Russia,197.5
+2022-12,Netherlands,Saudi Arabia,74.0
+2022-12,Netherlands,India,29.6
+2023-01,UK,USA,93.6
+2023-01,UK,Russia,130.1
+2023-01,UK,Saudi Arabia,46.3
+2023-01,UK,India,38.2
+2023-01,France,USA,117.7
+2023-01,France,Russia,219.2
+2023-01,France,Saudi Arabia,77.7
+2023-01,France,India,52.8
+2023-01,Germany,USA,46.7
+2023-01,Germany,Russia,193.7
+2023-01,Germany,Saudi Arabia,37.5
+2023-01,Germany,India,15.0
+2023-01,Netherlands,USA,82.8
+2023-01,Netherlands,Russia,231.6
+2023-01,Netherlands,Saudi Arabia,60.0
+2023-01,Netherlands,India,29.1
+2023-02,UK,USA,210.0
+2023-02,UK,Russia,0.0
+2023-02,UK,Saudi Arabia,79.6
+2023-02,UK,India,65.8
+2023-02,France,USA,221.3
+2023-02,France,Russia,0.0
+2023-02,France,Saudi Arabia,128.5
+2023-02,France,India,89.7
+2023-02,Germany,USA,93.5
+2023-02,Germany,Russia,0.0
+2023-02,Germany,Saudi Arabia,97.4
+2023-02,Germany,India,26.0
+2023-02,Netherlands,USA,151.0
+2023-02,Netherlands,Russia,0.0
+2023-02,Netherlands,Saudi Arabia,147.4
+2023-02,Netherlands,India,68.6
+2023-03,UK,USA,181.0
+2023-03,UK,Russia,0.0
+2023-03,UK,Saudi Arabia,81.0
+2023-03,UK,India,57.3
+2023-03,France,USA,232.4
+2023-03,France,Russia,0.0
+2023-03,France,Saudi Arabia,146.1
+2023-03,France,India,89.4
+2023-03,Germany,USA,75.4
+2023-03,Germany,Russia,0.0
+2023-03,Germany,Saudi Arabia,69.8
+2023-03,Germany,India,18.1
+2023-03,Netherlands,USA,177.2
+2023-03,Netherlands,Russia,0.0
+2023-03,Netherlands,Saudi Arabia,128.3
+2023-03,Netherlands,India,61.1
+2023-04,UK,USA,169.4
+2023-04,UK,Russia,0.0
+2023-04,UK,Saudi Arabia,74.9
+2023-04,UK,India,49.4
+2023-04,France,USA,203.3
+2023-04,France,Russia,0.0
+2023-04,France,Saudi Arabia,122.1
+2023-04,France,India,85.3
+2023-04,Germany,USA,96.2
+2023-04,Germany,Russia,0.0
+2023-04,Germany,Saudi Arabia,64.9
+2023-04,Germany,India,21.9
+2023-04,Netherlands,USA,181.3
+2023-04,Netherlands,Russia,0.0
+2023-04,Netherlands,Saudi Arabia,122.2
+2023-04,Netherlands,India,68.2
+2023-05,UK,USA,157.8
+2023-05,UK,Russia,0.0
+2023-05,UK,Saudi Arabia,77.9
+2023-05,UK,India,54.5
+2023-05,France,USA,145.4
+2023-05,France,Russia,0.0
+2023-05,France,Saudi Arabia,136.3
+2023-05,France,India,70.5
+2023-05,Germany,USA,64.5
+2023-05,Germany,Russia,0.0
+2023-05,Germany,Saudi Arabia,49.6
+2023-05,Germany,India,22.6
+2023-05,Netherlands,USA,127.6
+2023-05,Netherlands,Russia,0.0
+2023-05,Netherlands,Saudi Arabia,112.9
+2023-05,Netherlands,India,76.9
+2023-06,UK,USA,165.8
+2023-06,UK,Russia,0.0
+2023-06,UK,Saudi Arabia,81.2
+2023-06,UK,India,47.2
+2023-06,France,USA,181.7
+2023-06,France,Russia,0.0
+2023-06,France,Saudi Arabia,135.9
+2023-06,France,India,74.3
+2023-06,Netherlands,USA,162.4
+2023-06,Netherlands,Russia,0.0
+2023-06,Netherlands,Saudi Arabia,97.0
+2023-06,Netherlands,India,51.2

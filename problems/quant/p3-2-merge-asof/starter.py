@@ -1,6 +1,8 @@
 import pandas as pd
 
+NEW_YORK = "America/New_York"
 
-def align_stocks(prices: pd.DataFrame, stocks: pd.DataFrame) -> pd.DataFrame:
-    """For each daily settlement, the latest weekly stock level already published."""
-    raise NotImplementedError("merge_asof backward on the availability time")
+
+def align_stocks(prices, stocks):
+    """For each settlement, the latest weekly report already published (backward, on availability)."""
+    raise NotImplementedError("decision time in UTC, merge_asof backward on available_at, check")

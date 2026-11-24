@@ -1,0 +1,24 @@
+{
+  "number": "3.3",
+  "title": "Monthly demand as it was known: vintages, publication lags, and pseudo vs genuine point-in-time",
+  "type": "code",
+  "project": "p3",
+  "step": 3,
+  "difficulty": 3,
+  "level": "mixed",
+  "architectures": ["A04"],
+  "data": ["p3_us_oil_demand_vintages_synthetic.csv"],
+  "concepts": ["vintage", "first estimate vs revised value", "publication lag (M+2)", "as-of view", "latest available month", "pseudo point-in-time", "genuine point-in-time", "revisions", "ffill only after availability"],
+  "previous_ids": ["quant/p3-4-vintages", "quant/p3-5-realtime-growth"],
+  "explain": {
+    "prompt": "The trader asks: “On 15 March 2024, what did we know about US oil demand — and is the growth number in our database today the one we had?” In 4–6 sentences with your numbers: what a decision in March can know, how large revisions are, and the difference between pseudo and genuine point-in-time.",
+    "rubric": [
+      "Demand for a month is first estimated at the end of month + 2, revised a month later and again in the annual revision each August: on 15 Mar 2024 the latest month known was December 2023 — a figure about March is not known in March, nor in April.",
+      "The database's value today is the latest vintage: using it for a past decision is look-ahead even if the timing is right. Example: on 15 Mar 2021 the desk saw December 2020 at 18,746 kb/d (−6.3 % year on year); today's value is 19,034 (−4.9 %).",
+      "On average the final value is 127 kb/d higher than the first estimate the desk saw (145 kb/d in absolute terms), and the year-on-year growth differs by 0.67 percentage point — first estimates are systematically low here.",
+      "Pseudo point-in-time = final values shifted by a publication lag: right timing, wrong content (no revisions). Genuine point-in-time = for each decision date, the latest vintage published before it.",
+      "Without vintages, the honest claim is limited: shift by the publication lag and quantify the typical revision as an uncertainty — never present a backtest on revised data as what the desk could have known.",
+      "A value becomes usable only from the day after its vintage date; forward-filling it is legitimate after that, never before."
+    ]
+  }
+}

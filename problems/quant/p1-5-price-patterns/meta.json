@@ -1,0 +1,23 @@
+{
+  "number": "1.5",
+  "title": "What does a normal day look like? Hourly profile, fat tails, autocorrelation and a correlation made by the clock",
+  "type": "code",
+  "project": "p1",
+  "step": 5,
+  "difficulty": 3,
+  "level": "mixed",
+  "architectures": ["A05"],
+  "data": ["p1_power_hourly_treated_synthetic.csv"],
+  "concepts": ["boxplot by hour", "daily seasonality", "price changes, not log returns (negative prices)", "skewness and kurtosis", "histogram", "ACF", "daily and weekly cycles", "seasonality-driven correlation", "rolling volatility"],
+  "explain": {
+    "prompt": "Before talking about spikes, describe “normal” to the trader in 5–7 sentences with your numbers: the hourly profile, the shape of hour-to-hour changes, what the load ACF says (and does not say), and why the analyst's “solar pushes load up” correlation is misleading.",
+    "rubric": [
+      "Hourly profile: the median price is lowest at night (30.7 €/MWh at 03:00–04:00) and highest in the evening peak (50.3 at 19:00); the upper tail is widest at 18:00 (90th percentile 108) — high prices are an evening-peak phenomenon.",
+      "Hour-to-hour changes are extremely fat-tailed: standard deviation 27.7 €/MWh, skewness 6.8, excess kurtosis about 1,010; 0.59 % of changes exceed 3 standard deviations, more than twice the 0.27 % of a normal distribution. A standard deviation alone describes this distribution badly.",
+      "Prices can be negative here (down to −123 €/MWh), so log returns are impossible: changes in €/MWh are the right transformation.",
+      "Load ACF: 0.95 at 1 hour, 0.01 at 12 hours, 0.93 at 24 hours and 0.95 at 168 hours — a daily and a weekly cycle. It is a calendar pattern, not evidence of an autoregressive process of order 168.",
+      "Load and solar correlate at +0.14 only because both follow the time of day. Within the same local hour the correlation is −0.45 — and even that mostly reflects the annual cycle (sunny hours are in summer, when there is no heating). Neither number is a causal effect of solar on load.",
+      "The 30-day rolling volatility of the daily price peaks at about 70 €/MWh in the window ending 21 Oct 2023 and falls to 4 in July 2023: volatility comes in episodes, which is where the investigation in 1.6 should look."
+    ]
+  }
+}

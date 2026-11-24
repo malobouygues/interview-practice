@@ -1,0 +1,24 @@
+{
+  "number": "2.3",
+  "title": "The physical side, month by month: imports, outages and stocks — zero, missing or not reported?",
+  "type": "code",
+  "project": "p2",
+  "step": 3,
+  "difficulty": 3,
+  "level": "mixed",
+  "architectures": ["A01", "A03", "A04"],
+  "data": ["p2_diesel_imports_monthly_synthetic.csv", "p2_refinery_outages_synthetic.csv", "p2_distillate_fundamentals_monthly_synthetic.csv", "p2_products_repaired_synthetic.csv"],
+  "concepts": ["genuine zero vs non-reporting", "ragged edge", "groupby + pivot", "sum(min_count=...)", "event list -> daily -> monthly", "to_period('M')", "stocks vs 5-year average", "daily -> monthly aggregation", "units: kb/d"],
+  "previous_ids": ["quant/p2-3-zeros-or-missing"],
+  "explain": {
+    "prompt": "In 4–6 sentences with your numbers: which zeros in the imports file are real and which are not, what would have happened to European imports if you had taken the aggregator's zeros at face value, and why a month without a refinery outage is a genuine zero.",
+    "rubric": [
+      "A zero for one origin in a month when the importer reported other origins is genuine (no cargo): Germany–India and UK–Saudi months, and every Russian origin from February 2023 — the EU embargo made those zeros real.",
+      "An importer with every origin at zero did not report: France 2018-08, Netherlands 2019-04, UK 2022-08. Those zeros are missing data, set to NaN; Germany 2023-06 is simply absent (ragged edge).",
+      "Taken at face value, the aggregator's zeros create fake collapses: European imports would read 830 kb/d in August 2018 (−30 % against July and September), 895 in April 2019 and 917 in August 2022.",
+      "The European total is only computed when all four importers reported (sum with min_count=4): 4 months are blank instead of wrong.",
+      "The outage list is complete, so a month with no outage really had 0 kb/d offline; expanding each outage to its days and averaging by month gives 1,467 kb/d in September 2017 (hurricane) and 650 in October 2022 (strikes).",
+      "Total imports did not collapse after the embargo (1,263 kb/d on average Feb–May 2023 vs 1,345 in 2022): the origin changed, the volume largely did not — the crack widening has to be explained by something else (stocks: −23.4 % vs the 5-year average in September 2022)."
+    ]
+  }
+}

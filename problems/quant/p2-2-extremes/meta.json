@@ -1,0 +1,24 @@
+{
+  "number": "2.2",
+  "title": "Extreme observations: score them, investigate them, decide — do not delete them",
+  "type": "code",
+  "project": "p2",
+  "step": 2,
+  "difficulty": 4,
+  "level": "mixed",
+  "architectures": ["A03", "A05"],
+  "data": ["p2_products_wide_synthetic.csv", "p2_market_events_synthetic.csv"],
+  "concepts": ["impossible values", "unit errors vs neighbours", "z-score vs modified z-score vs IQR", "masking", "iterative cleaning", "related markets", "event calendar", "keep / correct / set missing / keep with sensitivity", "winsorisation is not the default"],
+  "previous_ids": ["quant/p2-4-outlier-scores", "quant/p2-5-error-or-event"],
+  "explain": {
+    "prompt": "The data team proposes to winsorise every price return at the 1st and 99th percentiles “to be safe”. Answer in 5–7 sentences with your decision table: what your investigation found, why the order of the passes matters (give the masking numbers), what you did with the doubtful point and why winsorising would have been wrong.",
+    "rubric": [
+      "25 observations were examined: 1 unit error corrected (RBOB 14 May 2019 sent in cents: 8,732 $/bbl, exactly ×100 its neighbours), 1 impossible value set missing (gasoil 0.00 on 25 Nov 2021), 11 kept as logged events, 11 kept as market-wide moves confirmed by sister markets, 1 kept as doubtful.",
+      "Order matters: with the cents error inside, RBOB's return standard deviation is 0.162 instead of 0.019 and the hurricane day's z-score is only 1.2 — the z-score is masked by the error it should catch; the modified z-score (median/MAD) still gives 12.0. Gross errors first, scores second.",
+      "Genuine events are kept: the Gulf Coast hurricane (28 Aug 2017, RBOB +19 %, ULSD +12 % with Brent flat), the 2020 price war and lockdowns, the New York Harbor squeeze (31 Oct 2022, ULSD +20 % while gasoil +3 %). These are exactly the observations a trader studying supply shocks needs.",
+      "The doubtful point (jet 15 Jun 2021, +10.8 % with gasoil +2.2 %, no logged event, half reversed the next day) is kept and annotated, with its sensitivity: June 2021 average jet crack 17.32 $/bbl with it, 16.83 without.",
+      "Errors had real effects: the unit error alone lifts the 2019 RBOB crack average from 10.1 to 45.0 $/bbl; the zero print moves the November 2021 gasoil crack average from 22.51 to 18.21.",
+      "Winsorising at fixed percentiles would have clipped the hurricane, the squeeze and the 2020 collapse (real information) while leaving the cents error at the 1st/99th percentile value instead of correcting it. Outlier detection is not outlier deletion."
+    ]
+  }
+}

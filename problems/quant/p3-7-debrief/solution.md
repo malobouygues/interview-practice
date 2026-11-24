@@ -1,24 +1,25 @@
 ### Reference answer
 
-> **Neither claim survives as stated. The stock "signal" disappears once the reports are dated at their release, and the demand–crack link is real but much weaker than the revised-data chart suggests.**
->
-> Every number has several dates. The weekly stock level describes the week to Friday, is published the following Wednesday at 10:30 New York — Thursday after a holiday — and most of our history was loaded into the database in a backfill in January 2019. The economics are indexed on the observation date, but anything about "what we knew" must use the availability time. Joined on the week-ending date, the stock number is used before its release on about 630 of 1,042 days. That alone produces the −0.19 correlation with next week's WTI return. Aligned on the release time, the correlation is 0.02. The market does react to the report — about −0.5 correlation on the release day itself — but that reaction is priced at publication, not tradable in advance.
->
-> Monthly demand is published about two months late and revised: first estimates are revised up by about 145 kb/d on average. The chart that gives 0.83 compares each month's crack with the same month's final demand growth, a number nobody had at the time. Rebuilding the view available at each month-end from the vintages, the correlation is 0.59, and real-time growth even had the wrong sign in 10 of 46 months.
->
-> Safeguards: backward as-of joins on availability, with a tolerance and assertions that nothing was used before its release; as-of views from the vintage table; and a truncation test at several dates on every feature pipeline. On a deliberately leaky builder, that test catches centred windows, full-sample normalisation and negative shifts.
->
-> Wording: the demand result is point-in-time, because we have vintages. If we only had today's revised history, I would call it pseudo point-in-time and say performance is probably overstated. Limits: daily settlements cannot show the intraday reaction, the monthly sample is short, and correlation is not causation. Next, store our own vintages for every source, starting now.
+**Bottom line:** the stock report moves WTI immediately and that is all we can use. There is no robust post-release signal.
 
-### What makes this a strong answer
+**What we could know.** At any settlement, the desk knew the latest weekly report already published — released at 10:30 New York, normally five days after the week it describes, once twelve days late — and monthly demand two months behind, in its first-estimate version. Our database stores neither fact: it dates weekly figures by the week they describe, and keeps only the latest revision of demand. Used naively, it attaches a report on 929 of 1,510 days before it existed, and shows demand about 127 kb/d higher than what we actually saw.
 
-- **Each claim re-tested** with the correct information set, with the before/after numbers.
-- **The mechanism of the error** explained (publication lag inside a forward window; revisions + lag in a chart).
-- **Safeguards that generalise** (as-of joins, vintages, truncation test) and their limits.
-- **Precise vocabulary** — point-in-time vs pseudo point-in-time — tied to whether vintages exist.
+**What that does to research.** Joined by observation date, the latest surprise appears to predict the next day's move with a t-stat of −4.4. That is the release-day reaction moved one day earlier — look-ahead, not a signal. With availability-based joins it disappears.
+
+**What is real.** On release days WTI moves about −0.3 % per million barrels of surprise between 10:29 and the settlement: the information is priced within hours. After that, a drift appeared in 2019–2022 (t −4.8 naively, −2.9 once overlapping windows are accounted for), but it was concentrated in 2020–2022. Frozen and tested on 2023–2024, the model does worse than predicting no move (MAE 6.2 % vs 6.0 %); re-estimated every quarter, it still does, and its coefficient shrinks.
+
+**Recommendation.** Don't trade the drift. Keep the point-in-time pipeline — availability timestamps, demand vintages, truncation tests, purged labels — as the standard for any future signal. Caveats: one market, synthetic history, and no causal claim either way.
+
+### Why this answer works
+
+- It answers both questions (information set; usefulness) in the first lines.
+- It turns the technical findings into consequences (“a t-stat of −4.4 that was look-ahead”, “worse than predicting no move”).
+- It distinguishes the robust result (the reaction) from the fragile one (the drift) and gives the out-of-sample comparison against a baseline.
+- It ends with a recommendation and a process, not with a model.
 
 ### Common weaknesses
 
-- "We used merge_asof so it's point-in-time" — the key and the vintage matter.
-- Concluding that stocks do not affect prices (they do — on the release day).
-- Presenting 0.83 as usable predictive information.
+- Leading with HAC or merge_asof instead of the answer.
+- Presenting HAC-adjusted significance as proof the drift is usable.
+- Reporting out-of-sample MAE without a baseline.
+- Claiming the reaction is “predictable” — it is only explainable once the number is out.

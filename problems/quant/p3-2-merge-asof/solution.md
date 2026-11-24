@@ -1,38 +1,36 @@
-### A. Reasoning — why this join is where point-in-time is won or lost
+### A. Reasoning — a predictive result is only as honest as its join
 
-Weekly data and daily prices must be put side by side for any analysis. `merge_asof` is the right tool for different frequencies — but it only promises that the right-hand key is not after the left-hand key. Whether that means "known at the time" depends entirely on which key you give it.
+The analyst's t-stat of −4.4 is exactly what a release-time mismatch produces: the join attaches each weekly figure from the Friday it describes, so on Tuesday the table already contains the number the market will only see on Wednesday at 10:30. The “prediction” is the price reaction to the release, shifted one day earlier. The defence is mechanical: join on availability, backward, and assert that nothing comes from the future.
 
-### B. Theory (PDF, A04-B, A04-F)
+### B. Theory (PDF A04-B, A04-E, A04-F)
 
-- `direction="backward"`: never a future row. `"forward"`/`"nearest"` would use the future.
-- Key = **availability**: the join reproduces what a trader saw at 14:30.
-- `tolerance`: a maximum age; beyond it `NaN` (an interrupted series should not be silently carried).
-- Post-join checks: `available_at ≤ decision_time` (assertion), age distribution, number of unmatched rows, row count unchanged.
-- Frequencies: the weekly value is carried until the next release — no interpolation, which would use the next week's value.
+- **Backward as-of join**: for each decision, the last value with key ≤ decision time. With the availability key, it is the last report already published.
+- **Tolerance**: an upper bound on the age of a matched value — a missing value is better than a silently stale one.
+- **Validation**: assertion (`available_at ≤ decision_time`), age distribution, manual inspection of rows around known irregularities (the late release of June 2022).
+- **Look-ahead bias**: any feature using information unavailable at the decision time. A backward join on the *observation* date is still look-ahead.
 
 ### C. Implementation
 
-{{code}}
+Decision time = settlement in New York → UTC (same clock as `available_at`). Sort both sides, `merge_asof(..., direction="backward", tolerance=pd.Timedelta(days=10))`, then `age_days` and the assertion on matched rows.
 
 ### D. Interpretation (this dataset)
 
-- 1,042 daily rows; the first two days of 2016 have no published report yet → `NaN`.
-- Age of the matched report: 5 to 12 days (Wednesday release → 5 days; the following Tuesday → 11 days, 12 after a delayed release).
-- Joined on `week_ending` instead, the table uses a **not-yet-published** report on **630 days out of 1,042** — every Friday, Monday and Tuesday sees next Wednesday's number.
+- 1,510 settlements. Age of the matched report: **5 to 14 days**, mean 7.9; 13–14 days on 23–24 June 2022, because the week of 17 June was published only on 29 June. On **27–28 June 2022** the last published report was more than 10 days old: the tolerance leaves those two days blank. (The first 5 days of 2019 have a report but no surprise: the first report has no previous week.)
+- The `week_ending` join uses a not-yet-published report on **929 of 1,510** days.
+- On the eve of releases: `week_ending` join → correlation **−0.245**, t **−4.43**, R² 6 %; `available_at` join → **−0.077**, t −1.35. The analyst's signal is the 10:30 reaction, relabelled.
+- Over all days the correct join still shows a weak negative correlation (−0.10): a genuine post-release drift in 2020–21 — the subject of 3.5–3.6.
 
 ### E. Decision
 
-Use this table for every stock–price analysis of the project; keep `age_days` to check staleness.
+Reject the analyst's result: it is look-ahead bias, not a strategy. Use the backward, availability-keyed table for anything predictive; keep the assertion in the pipeline.
 
 ### F. Pitfalls and limits
 
-- Joining on the observation date (`week_ending`), or on the ingestion date of backfilled data.
-- Forgetting to sort (merge_asof raises an error) or duplicated keys on the right (only the last one is used — deduplicate first).
-- `direction="nearest"` "to be safe": it uses the future half the time.
-- A backward join on the right key with the **latest revised** values is still not point-in-time if the series is revised (step 3.4).
+- `direction="nearest"` or `"forward"` would attach future reports directly.
+- Joining on `release_date` *without the time* would attach a 10:30 report to a decision taken at 08:00 the same day.
+- The join guarantees timing, not content: a revised value attached on the right date is still look-ahead (3.3).
+- The 10-day tolerance is a judgement: it bridges most of the June 2022 delay and blanks its last two days rather than carrying a 12-day-old report.
 
 ### G. Interview defence
 
-> **Q: "How do you merge weekly inventory data with daily prices?"**
->
-> **A:** With a backward as-of join on the availability timestamp: for each settlement I take the last report released before 2:30 pm New York, with a tolerance so a missed release gives a missing value rather than a stale one. Then I assert that no matched value was published after the decision time and look at the age distribution — here 5 to 12 days. If you join on the week-ending date instead, the number appears five or six days before it was published; in my data that's 630 days out of 1,042 using information nobody had.
+*“Your join is correct, but your result is weaker. Why trust it over a t-stat of −4.4?”* — Because the −4.4 uses information that did not exist at the time of the decision: it's measuring how the market reacted to the release, not predicting it. If I traded it, I'd be trying to buy before a number that the backtest already knew. The weaker number is the honest one; what's left of it still has to survive HAC errors and an out-of-sample test.

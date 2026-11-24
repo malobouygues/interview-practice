@@ -44,13 +44,13 @@ if [ -z "$PY" ]; then
         exit 1
     fi
     echo "pandas, numpy and statsmodels were not all found."
-    echo "(Millennium cases: pandas + numpy. Quantitative Methods: + statsmodels.)"
+    echo "(Millennium cases: pandas + numpy. Quantitative Methods: + statsmodels; matplotlib draws the charts.)"
     read -r -p "Install them into a private .venv folder here? Needs internet once. [Y/n] " answer
     FALLBACK="${CORE:-$FIRST}"
     case "$answer" in
         [nN]*) PY="$FALLBACK" ;;
         *)
-            if "$FIRST" -m venv .venv && .venv/bin/python -m pip install --quiet --upgrade pip pandas numpy statsmodels; then
+            if "$FIRST" -m venv .venv && .venv/bin/python -m pip install --quiet --upgrade pip pandas numpy statsmodels matplotlib; then
                 PY=".venv/bin/python"
             else
                 echo "The installation failed; starting with what is available."

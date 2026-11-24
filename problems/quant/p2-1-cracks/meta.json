@@ -1,21 +1,43 @@
 {
   "number": "2.1",
-  "title": "Crack spreads: units first, then margins",
+  "title": "One long vendor file, five products, four units: build the daily crack table",
   "type": "code",
   "project": "p2",
   "step": 1,
-  "difficulty": 1,
-  "architectures": ["A01", "A02"],
-  "data": ["p2_products_daily_synthetic.csv"],
-  "concepts": ["unit conversion", "USD/gal, USD/t, USD/bbl", "crack spread", "3-2-1 crack", "seasonality of cracks"],
+  "difficulty": 2,
+  "level": "technical",
+  "architectures": [
+    "A01",
+    "A02",
+    "A03"
+  ],
+  "data": [
+    "p2_products_daily_long_synthetic.csv"
+  ],
+  "concepts": [
+    "key of a dataset",
+    "exact duplicates",
+    "unit conversion row by row",
+    "USD/t -> USD/bbl (density)",
+    "cents vs dollars",
+    "long -> wide (pivot)",
+    "gaps become NaN",
+    "frozen feed",
+    "crack spread",
+    "leave vs drop vs ffill"
+  ],
+  "previous_ids": [
+    "quant/p2-2-gaps-and-stale-prices"
+  ],
   "explain": {
-    "prompt": "In 4–6 sentences: why must every product be converted to USD/bbl before computing a crack, and what goes wrong if you forget for ULSD or gasoil? What does the monthly profile of the diesel and gasoline cracks show, and why? One gasoline crack is above 800 USD/bbl: what do you conclude before any statistic?",
+    "prompt": "The trader wants “the crack history on one sheet”. In 4–6 sentences with your numbers: what the key of this file is, which conversions you applied, and how you treated gaps — compare leaving them blank, dropping incomplete dates and forward-filling, and say why the right choice is not the same for every gap.",
     "rubric": [
-      "A crack compares a product with the crude it is made from, so both must be in the same unit: ULSD and RBOB trade in USD/gal (×42), gasoil and jet in USD/t (÷ barrels per tonne, depending on density: ≈ 7.45 for gasoil, ≈ 7.88 for jet).",
-      "Forgetting the conversion gives meaningless numbers (ULSD 'crack' ≈ 2 − 65 = −63 USD/bbl): a unit error looks like a collapse in margins.",
-      "Diesel crack is highest in winter (≈ 19.5 USD/bbl in January vs ≈ 14 in summer): heating demand. Gasoline crack peaks in spring–summer (driving season) and is lowest in winter.",
-      "The 3-2-1 crack summarises a refinery's gross margin per barrel of crude (2 barrels gasoline + 1 diesel from 3 crude).",
-      "An 863 USD/bbl gasoline crack on one day, with normal values around it, is a data error in the RBOB price (step 2.5 classifies it), not a margin."
+      "The key is (date, product): 7,893 rows, 3 exact copies dropped, and an assertion that no (date, product) pair is left with two different prices — a conflicting pair would need a decision, not a silent drop.",
+      "Units are converted row by row from the unit column: USD/gal × 42, USc/gal × 0.42 (ULSD was quoted in cents until end-2020, 1,009 rows), USD/t ÷ density (gasoil 7.45, jet 7.88 bbl/t). Converting by product name alone would mis-scale 1,009 ULSD prices by 100.",
+      "Gaps in a long file are absent rows: they only appear as NaN after the pivot. UK holidays remove Brent, gasoil and jet; US holidays remove ULSD and RBOB; jet starts on 1 Mar 2018; the last three jet days are not yet published.",
+      "A frozen gasoil feed (the same price six sessions in a row, 8–15 Oct 2018) is blanked after its first value: forward-filling would have turned it into eight days of a stale price and moved the October mean crack from 17.98 to 18.56.",
+      "Dropping every incomplete date keeps 1,308 of 1,671 dates — it throws away 2017 entirely for the gasoil crack because jet did not exist. Forward-filling Brent across a UK holiday would compute 30 ULSD cracks against yesterday's Brent: two different days in one spread.",
+      "Decision: leave gaps blank, crack only where both legs exist, and fill nothing at this stage; a single unit error (RBOB 2019-05-14 sent in cents, 8,732 $/bbl) is still in the data and is the job of 2.3."
     ]
   }
 }

@@ -14,6 +14,7 @@ directory, so code and tests read them with a relative path: "data/<file>.csv".
 A test case may use "raises": "ValueError" instead of "expected" when the
 function must refuse its input.
 """
+import base64
 import contextlib
 import copy
 import datetime
@@ -28,6 +29,7 @@ import sqlite3
 import sys
 import time
 import traceback
+import warnings
 
 USER_FILE = "solution.py"
 SCRATCH_FILE = "test_code.py"
@@ -326,7 +328,34 @@ class AnswerProxy(object):
 # ----------------------------------------------------------------------------
 # python: run
 # ----------------------------------------------------------------------------
+MAX_FIGURES = 6
+FIGURE_FILE = "figures.json"   # read back by server.py and shown under the output
+
+
+def save_figures():
+    """Save every open matplotlib figure as a PNG (base64) so the app can display it.
+
+    Charts are optional: nothing happens if the code never imported matplotlib."""
+    if "matplotlib.pyplot" not in sys.modules:
+        return
+    plt = sys.modules["matplotlib.pyplot"]
+    images = []
+    for number in plt.get_fignums()[:MAX_FIGURES]:
+        figure = plt.figure(number)
+        buf = io.BytesIO()
+        figure.savefig(buf, format="png", dpi=90, bbox_inches="tight")
+        images.append(base64.b64encode(buf.getvalue()).decode("ascii"))
+    extra = len(plt.get_fignums()) - len(images)
+    plt.close("all")
+    with open(FIGURE_FILE, "w", encoding="utf-8") as f:
+        json.dump({"images": images, "not_shown": max(extra, 0)}, f)
+
+
 def py_run(code, scratch):
+    # Charts are drawn off-screen (no window pops up); plt.show() is then a silent no-op.
+    os.environ["MPLBACKEND"] = "Agg"
+    warnings.filterwarnings("ignore", message=".*non-interactive.*")
+    warnings.filterwarnings("ignore", message=".*cannot be shown.*")
     try:
         ns = load_module(code, USER_FILE, "__main__")
         if scratch.strip():
@@ -342,7 +371,9 @@ def py_run(code, scratch):
         sys.stdout.flush()
         sys.stderr.write(user_traceback(exc) + "\n")
         sys.stderr.flush()
+        save_figures()
         return 1
+    save_figures()
     return 0
 
 

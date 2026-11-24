@@ -1,0 +1,23 @@
+{
+  "number": "1.1",
+  "title": "Load the hourly power file: one row per delivery hour, on one clock",
+  "type": "code",
+  "project": "p1",
+  "step": 1,
+  "difficulty": 2,
+  "level": "technical",
+  "architectures": ["A01", "A02", "A03"],
+  "data": ["p1_power_hourly_vendor_synthetic.csv"],
+  "concepts": ["delivery period vs timestamp", "local market time vs UTC", "UTC offset", "daylight-saving days (23 h / 25 h)", "exact duplicates vs revisions", "keep the latest version", "head / info / describe"],
+  "explain": {
+    "prompt": "The trader looks at your table and asks two things. (1) “29 October 2023 has 25 rows — did the vendor send an hour twice?” (2) “I remember a 772 €/MWh print on 21 November 2023 at 18:00. Was that a spike?” Answer both in 4–6 sentences, with the numbers from your run, and say what would have gone wrong with a deduplication on `delivery_start_local` alone.",
+    "rubric": [
+      "29 Oct 2023 is the end of summer time: 02:00–03:00 local happens twice (+02:00 then +01:00). The two rows are two different delivery hours (00:00 and 01:00 UTC), not a duplicate — the day really has 25 hours (23 on the last Sunday of March).",
+      "Deduplicating on the local timestamp alone removes 11 rows instead of 9 and deletes the two genuine second 02:00 hours (2023 and 2024): load, generation and revenue for those hours disappear.",
+      "The vendor file has 17,553 rows: 6 exact copies (dropped) and 3 delivery hours sent in two versions; keeping the latest loaded_at leaves 17,544 hours = 727 days × 24 + 2 × 23 + 2 × 25.",
+      "21 Nov 2023 18:00: first loaded at 772.50 €/MWh, re-loaded two days later at 77.25 — a ×10 error corrected by the vendor. The trusted value is 77.25: it was not a spike, and keeping the first version would have created a fake one.",
+      "The two other revisions (a digit swap 23.82 → 32.82 on 12 Mar 2024 19:00, and a missing solar value filled in on 3 Jun 2024 13:00) show why the latest version must win — and why the number of revised records should be logged, not silently applied.",
+      "Every later calculation (daily averages, MWh, hour-of-day profiles) works on the UTC index; the local date and hour are labels, used only to group by market day."
+    ]
+  }
+}

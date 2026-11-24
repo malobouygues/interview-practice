@@ -1,0 +1,4 @@
+zone,description,station,hdd_base_c,cdd_base_c
+NORTH,"northern zone: electric heating, mild summers",N-01 (synthetic),15.5,20.0
+CENTRAL,"central zone: largest load, mixed heating and cooling",C-04 (synthetic),16.0,22.0
+SOUTH,"southern zone: air conditioning, mild winters",S-07 (synthetic),17.0,21.0

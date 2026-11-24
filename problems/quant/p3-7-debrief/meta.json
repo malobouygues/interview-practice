@@ -1,19 +1,33 @@
 {
   "number": "3.7",
-  "title": "Project debrief: could the desk have used this in real time?",
+  "title": "Debrief: what could the desk legitimately have known, and is the relationship robust enough to use?",
   "type": "open",
   "project": "p3",
   "step": 7,
   "difficulty": 4,
-  "architectures": ["A04"],
-  "concepts": ["point-in-time vs pseudo point-in-time", "publication lags", "vintages", "fake predictability", "truncation test", "what can be claimed"],
+  "level": "desk",
+  "architectures": [
+    "A04",
+    "A09",
+    "A11"
+  ],
+  "data": [],
+  "concepts": [
+    "information set at the decision time",
+    "revisions and vintages",
+    "fake predictability",
+    "reaction vs drift",
+    "HAC limits",
+    "out-of-sample evidence",
+    "what can be claimed"
+  ],
   "rubric": [
-    "Conclusion first: once the data are aligned on what was available, the weekly-stock 'signal' disappears and the demand–crack relationship is real but much weaker than the revised chart suggests.",
-    "Explains the five dates and uses them correctly: observation for the economics, availability for joins; release calendar with holiday delays; ingestion date useless for backfilled history.",
-    "Quantifies the stock case: week_ending join uses unpublished reports on ≈ 630 of 1,042 days and creates a −0.19 correlation; on available_at it is ≈ 0.02; the reaction is on the release day (≈ −0.53).",
-    "Quantifies the demand case: 0.83 with final data on the observation month vs 0.59 in real time; first prints revised up ≈ 145 kb/d on average; real-time growth has the wrong sign in 10 of 46 months.",
-    "Describes the safeguards: backward merge_asof on availability with tolerance and assertions; as-of views from vintages; a truncation test at several cutoffs.",
-    "Uses the vocabulary precisely: point-in-time only where vintages exist; otherwise 'pseudo point-in-time' with lags respected — and says which applies to each dataset.",
-    "States limits and next steps: daily data cannot show intraday reactions, synthetic data, few independent monthly observations; keep storing own vintages."
+    "States what the desk could know at each settlement: the latest weekly report already published (10:30 New York, in UTC, usually 5 days after the week — 12 days once), and monthly demand two months late and in its first-estimate version.",
+    "Explains why a database 'as of today' misrepresents the information set: reports attached from the week they describe (929 of 1,510 days use a report not yet published) and revised demand (on average 127 kb/d higher than first seen, 0.67 pp of growth).",
+    "Shows how the wrong join created a false relationship (eve-of-release correlation −0.245, t −4.4 vs −0.077 with the correct join) — the release-day reaction relabelled as a forecast.",
+    "Separates the reaction (−0.30 % per mb within hours, robust: the information is priced at once) from the drift (t −4.8 with OLS, −2.9 with HAC, concentrated in 2020–2022).",
+    "Reports the out-of-sample evidence: on 2023–2024 the frozen model (MAE 6.21 %) and the quarterly walk-forward (6.17 %) are worse than predicting zero (5.98 %); the coefficient shrinks as new data arrive. Conclusion: not robust enough to use.",
+    "States the limits of the claims: synthetic, single market; without genuine vintages only pseudo point-in-time is possible; a good out-of-sample result would not have proved causality or future profits.",
+    "Ends with a usable recommendation: trade the information at the release (or not at all), stop looking for post-release drift, keep the point-in-time pipeline (availability joins, vintages, truncation tests, purged labels) for any future signal."
   ]
 }

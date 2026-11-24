@@ -2,7 +2,9 @@
 (function () {
   "use strict";
 
-  var APP_VERSION = 3;         // must match APP_VERSION in server.py (a stale tab or an old server is detected)
+  var APP_VERSION = 4;         // must match APP_VERSION in server.py (a stale tab or an old server is detected)
+  // where an exercise sits between "know how to code" (level 1) and "know how to work on a desk" (level 2)
+  var STAGE = { technical: "Level 1: code it", mixed: "Level 1 → 2: code it, then read it", desk: "Level 2: desk judgement" };
   var app = document.getElementById("app");
   var listCache = null;       // last /api/problems payload
   var envCache = null;
@@ -288,6 +290,7 @@
             h("span", { class: "grow" }),
             h("span", { class: "case-prog" }, h("b", null, done), " / " + all.length)),
           c.question ? h("p", { class: "case-q" }, c.question) : null,
+          c.area ? h("p", { class: "case-data" }, h("b", null, "Desk · "), c.area) : null,
           c.commodity ? h("p", { class: "case-data" }, h("b", null, "Market · "), c.commodity) : null,
           c.data_focus ? h("p", { class: "case-data" }, h("b", null, "Data work · "), c.data_focus) : null,
           c.data ? h("p", { class: "case-data" }, h("b", null, "Files · "), c.data) : null,
@@ -313,13 +316,19 @@
       notice = h("div", { class: "notice" },
         h("b", null, "pandas / numpy are not installed for this Python. "),
         "The Millennium cases and the Quantitative Methods track need them. In a terminal: ",
-        h("code", null, (env.executable || "python3") + " -m pip install pandas numpy statsmodels"),
+        h("code", null, (env.executable || "python3") + " -m pip install pandas numpy statsmodels matplotlib"),
         " — then restart the app.");
     } else if (track.id === "quant" && !env.statsmodels) {
       notice = h("div", { class: "notice" },
         h("b", null, "statsmodels is not installed for this Python. "),
-        "The Quantitative Methods exercises need it (ADF, OLS, Engle-Granger). In a terminal: ",
-        h("code", null, (env.executable || "python3") + " -m pip install statsmodels"),
+        "The Quantitative Methods exercises need it (OLS, ADF, robust standard errors). In a terminal: ",
+        h("code", null, (env.executable || "python3") + " -m pip install statsmodels matplotlib"),
+        " — then restart the app.");
+    } else if (track.id === "quant" && !env.matplotlib) {
+      notice = h("div", { class: "notice" },
+        h("b", null, "matplotlib is not installed for this Python. "),
+        "Every exercise still runs and is judged, but the charts drawn by the Test code pads will not appear. In a terminal: ",
+        h("code", null, (env.executable || "python3") + " -m pip install matplotlib"),
         " — then restart the app.");
     }
 
@@ -352,6 +361,7 @@
       h("div", { class: "foot" },
         h("span", null, "Python " + (env.python || "?") + (env.pandas ? " · pandas " + env.pandas : "") +
           (env.numpy ? " · numpy " + env.numpy : "") + (env.statsmodels ? " · statsmodels " + env.statsmodels : "") +
+          (env.matplotlib ? " · matplotlib " + env.matplotlib : "") +
           " · everything runs on this computer"),
         h("button", {
           class: "btn ghost small", onclick: function () {
@@ -478,7 +488,8 @@
         return h("div", { class: "case-banner" },
           h("div", { class: "cb-top" },
             h("span", { class: "case-num" }, caseInfo.number), h("b", null, caseInfo.title),
-            h("span", { class: "cb-step" }, "Step " + p.step + " of " + caseSteps)),
+            h("span", { class: "cb-step" }, "Step " + p.step + " of " + caseSteps +
+              (STAGE[p.level] ? " · " + STAGE[p.level] : ""))),
           caseInfo.question ? h("p", null, caseInfo.question) : null);
       }
       return null;
@@ -883,7 +894,14 @@
     clear(box);
     if (r.kind === "console") {
       box.appendChild(r.output ? h("pre", { class: "console" + (r.exit_code ? " err" : "") }, r.output)
-        : h("p", { class: "placeholder" }, "No output. Print something from the test code to see it here."));
+        : (r.figures && r.figures.length ? h("span")
+          : h("p", { class: "placeholder" }, "No output. Print something from the test code to see it here.")));
+      (r.figures || []).forEach(function (png, i) {
+        box.appendChild(h("figure", { class: "chart" },
+          h("img", { src: "data:image/png;base64," + png, alt: "Chart " + (i + 1) + " drawn by your test code" })));
+      });
+      if (r.figures_not_shown) box.appendChild(h("p", { class: "placeholder" },
+        r.figures_not_shown + " more chart(s) not shown — at most 6 per run."));
       box.appendChild(h("div", { class: "status-line" }, r.timed_out ? "Stopped: time limit exceeded."
         : (r.exit_code ? "Finished with an error" : "Finished") + " in " + r.elapsed_ms + " ms"));
     } else if (r.kind === "sql" && r.status !== "error") {

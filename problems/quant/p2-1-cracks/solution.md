@@ -1,42 +1,39 @@
-### A. Reasoning — why units come before everything
+### A. Reasoning — the crack is only as good as its two legs
 
-A crack is a margin: product minus the crude it is refined from. Product markets quote in their own units (gallons in New York, tonnes in Europe), so the first and most frequent error in product research is comparing numbers that are not in the same unit. Converting explicitly, with the factors written as named constants, makes the economics of every later number checkable.
+A crack spread subtracts two prices. If either leg is in the wrong unit, stale, or from another day, the spread is wrong in a way that looks like a market move. So before asking whether the crack widened, make sure every number is a USD/bbl settlement of the right product on the right date — and know exactly where numbers are missing.
 
-### B. Theory
+### B. Theory (PDF A01-B structure, A02-C quality, A03 cleaning order)
 
-- Volume: 42 US gal/bbl. Mass → volume: barrels per tonne = depends on density (gasoil ≈ 7.45, jet ≈ 7.88, gasoline ≈ 8.5).
-- Crack = product (USD/bbl) − crude (USD/bbl). The 3-2-1 crack approximates a refinery's product slate per barrel of crude.
-- Seasonality is economic: diesel/heating oil demand peaks in winter; gasoline demand peaks in the driving season.
+- **Key and duplicates**: an exact copy is noise; two values for one key is a conflict that needs a rule (latest version, preferred source…) — or a stop.
+- **Order of operations** (A03-C): types → key → units → frozen values/outliers → missing values last. Outlier detection on mixed units would flag 1,009 ULSD rows.
+- **Density conversions**: a tonne of gasoil is ≈ 7.45 barrels, a tonne of jet ≈ 7.88 — the factor is product-specific.
+- **Long vs wide**: long is how vendors store; wide is how you compute spreads. The pivot is where absent rows become visible `NaN`.
+- **Gap treatments** (A03-A): the right one depends on *why* the value is missing (holiday, not yet born, not yet published, frozen feed) and on what the variable is.
 
 ### C. Implementation
 
-{{code}}
+`map` on the unit column gives the factor; a boolean mask fixes the per-tonne rows with the product's density. `pivot` reshapes. A run of identical values is found with `same = s == s.shift(1)`, `run_id = (~same).cumsum()`, `run_length = s.groupby(run_id).transform("count")`. Cracks are plain subtractions, so `NaN` propagates — on purpose.
 
 ### D. Interpretation (this dataset)
 
-| crack (USD/bbl) | median | typical range |
-|---|---|---|
-| diesel | 17.2 | 15–19 |
-| gasoil | 15.9 | 13.6–17.3 |
-| jet | 18.1 | 16–20 |
-| gasoline | 12.1 | 6.6–15.8 (one value at 863!) |
-
-- Diesel crack by month: ≈ **19.5 in January**, ≈ **14 in July–August** — the heating season. Gasoline: lowest in winter (≈ 4), highest from May to August.
-- 14 May 2019: gasoline crack **862.95** USD/bbl, normal the day before and after. A refinery margin cannot jump like that: the RBOB price is a data error (a shifted decimal), not information.
-- Late August 2017: gasoline crack up sharply and fading over weeks — a refinery outage (hurricane-type event): real information.
+- 7,893 rows → 3 copies → 7,890 unique `(date, product)` → **1,671 dates**.
+- ULSD: **1,009** rows in USc/gal (to end-2020), 627 in USD/gal.
+- Gaps after the pivot: Brent 32, gasoil 37 (incl. 5 frozen), ULSD 36, RBOB 36, jet 329 (starts 1 Mar 2018, last 3 days unpublished). ULSD crack: 68 gaps (US *or* UK holiday).
+- Frozen gasoil 8–15 Oct 2018: October mean gasoil crack **17.98** on 18 days with the run blanked; **18.56** with an unlimited forward fill.
+- Dropping incomplete dates keeps **1,308 / 1,671** (all of 2017 lost because jet did not exist yet).
+- Annual mean gasoil crack: 13.0 (2017), 16.1 (2019), 4.5 (2020), **35.4 (2022)**, 27.7 (2023 H1) — the widening is visible. RBOB 2019 shows **45.0**: one unit error (8,732 $/bbl on 14 May 2019) is still inside.
 
 ### E. Decision
 
-Work in USD/bbl from now on. Do not compute any statistic on the gasoline crack before the outlier work of steps 2.4–2.5.
+Keep the table with gaps blank and cracks only where both legs exist. Do not interpret any crack level yet: one obvious unit error is present and the extreme values have not been investigated (2.3).
 
 ### F. Pitfalls and limits
 
-- Mixing USD/gal and USD/bbl (a −63 "crack") or USD/t and USD/bbl.
-- One conversion factor for all products: density differs.
-- Settlement times differ (ICE Gasoil 17:30 London, NYMEX 14:30 New York, Brent 19:30 London): a "same-day" crack mixes prices taken hours apart (step 2.7).
+- `drop_duplicates(subset=["date", "product"])` would have silently kept one of two conflicting prices — the assertion makes the conflict visible.
+- Forward-filling Brent over UK holidays computes ULSD cracks against yesterday's Brent: 30 such cracks here.
+- The frozen-run rule (≥ 4) can blank a genuinely flat market — rare for daily settlements, but possible for illiquid assessments.
+- The densities are standard approximations; contract specifications vary slightly.
 
 ### G. Interview defence
 
-> **Q: "How do you compute a diesel crack from NYMEX ULSD?"**
->
-> **A:** ULSD trades in dollars per gallon, so I multiply by 42 to get dollars per barrel and subtract the crude benchmark — here Brent. For ICE Gasoil, which is in dollars per tonne, I divide by about 7.45 barrels per tonne. In this data the diesel crack is around 17 dollars, with a clear winter peak near 19.5 against 14 in summer, which is the heating season. And before computing anything on the gasoline crack I'd flag the 863-dollar day: that's a bad RBOB print, not a margin.
+*“Why not simply drop the rows with missing data?”* — Because the gaps are not random: jet didn't exist before March 2018, holidays differ between London and New York, the last days are not yet published. Dropping incomplete dates throws away 22 % of the history and all of 2017 for a question about diesel, where jet is irrelevant. I keep gaps visible and compute each spread where its own two legs exist.

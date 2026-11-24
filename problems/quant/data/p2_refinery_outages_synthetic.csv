@@ -1,0 +1,15 @@
+refinery,region,start,end,offline_kbd,cause
+Gulf Coast cluster,US Gulf Coast,2017-08-25,2017-09-20,2200,hurricane
+Rotterdam R2,NW Europe,2017-11-06,2017-11-30,180,fire
+Antwerp A1,NW Europe,2018-03-12,2018-04-15,140,planned maintenance
+Pernis P3,NW Europe,2018-09-03,2018-10-05,200,planned maintenance
+Philadelphia PE,US East Coast,2019-06-21,2019-12-31,330,fire
+Grandpuits G1,France,2019-10-01,2019-10-25,100,planned maintenance
+Leuna L1,Germany,2020-04-01,2020-05-31,220,economic run cuts
+Lake Charles LC,US Gulf Coast,2020-08-26,2020-09-15,750,hurricane
+Gulf Coast cluster,US Gulf Coast,2021-02-15,2021-03-05,1800,winter storm
+Ida cluster,US Gulf Coast,2021-08-29,2021-09-20,900,hurricane
+Schwedt S1,Germany,2022-04-01,2022-05-15,120,crude supply
+French strikes,France,2022-09-27,2022-11-08,650,strike
+Pernis P3,NW Europe,2023-02-06,2023-03-10,200,planned maintenance
+French strikes,France,2023-03-07,2023-03-31,400,strike

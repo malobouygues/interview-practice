@@ -1,28 +1,38 @@
 import pandas as pd
 
-FUNCTION = "crack_spreads"
+FUNCTION = "build_daily_table"
 
 
-def products():
-    raw = pd.read_csv("data/p2_products_daily_synthetic.csv", parse_dates=["date"], index_col="date")
-    return raw[~raw.index.duplicated(keep="first")]
+def hand_made():
+    rows = [
+        ["2020-12-30", "brent", "USD/bbl", 50.0], ["2020-12-30", "gasoil", "USD/t", 447.0],
+        ["2020-12-30", "ulsd", "USc/gal", 150.0], ["2020-12-30", "rbob", "USD/gal", 1.40],
+        ["2020-12-30", "jet", "USD/t", 433.4], ["2020-12-30", "jet", "USD/t", 433.4],
+        ["2020-12-31", "brent", "USD/bbl", 51.0], ["2020-12-31", "gasoil", "USD/t", 447.0],
+        ["2020-12-31", "ulsd", "USc/gal", 152.0], ["2020-12-31", "rbob", "USD/gal", 1.41],
+        ["2021-01-04", "brent", "USD/bbl", 52.0], ["2021-01-04", "gasoil", "USD/t", 447.0],
+        ["2021-01-04", "ulsd", "USD/gal", 1.55], ["2021-01-04", "rbob", "USD/gal", 1.42],
+        ["2021-01-04", "jet", "USD/t", 441.3],
+        ["2021-01-05", "gasoil", "USD/t", 447.0], ["2021-01-05", "ulsd", "USD/gal", 1.56],
+        ["2021-01-05", "rbob", "USD/gal", 1.43], ["2021-01-05", "jet", "USD/t", 445.0],
+        ["2021-01-06", "brent", "USD/bbl", 53.0], ["2021-01-06", "gasoil", "USD/t", 455.0],
+        ["2021-01-06", "ulsd", "USD/gal", 1.57], ["2021-01-06", "rbob", "USD/gal", 1.44],
+        ["2021-01-06", "jet", "USD/t", 449.0],
+    ]
+    return {"raw": pd.DataFrame(rows, columns=["date", "product", "unit", "price"])}
 
 
-def hand():
-    index = pd.to_datetime(["2018-01-02"])
-    return pd.DataFrame({"brent_usd_bbl": [66.0], "ulsd_usd_gal": [2.0], "rbob_usd_gal": [1.8],
-                         "gasoil_usd_t": [596.0], "jet_usd_t": [630.4]}, index=index)
-
-
-def hand_expected():
-    index = pd.to_datetime(["2018-01-02"])
-    return pd.DataFrame({"diesel_crack": [18.0], "gasoline_crack": [9.6], "gasoil_crack": [14.0],
-                         "jet_crack": [14.0], "crack_321": [(2 * 75.6 + 84.0 - 3 * 66.0) / 3]}, index=index)
+def conflicting():
+    frame = hand_made()["raw"]
+    extra = pd.DataFrame([["2021-01-06", "brent", "USD/bbl", 53.4]], columns=frame.columns)
+    return {"raw": pd.concat([frame, extra], ignore_index=True)}
 
 
 TESTS = [
-    {"name": "Hand-checkable: one day", "origin": "extra", "check_no_mutation": True,
-     "args": lambda: {"products": hand()}, "expected": hand_expected},
-    {"name": "Products 2017-2019", "origin": "extra", "check_no_mutation": True,
-     "args": lambda: {"products": products()}},
+    {"name": "Hand-made: cents then dollars, tonnes, a copied row, a frozen gasoil run, a Brent holiday",
+     "origin": "extra", "args": hand_made},
+    {"name": "Two different Brent prices for the same date must stop the build", "origin": "extra",
+     "args": conflicting, "raises": "AssertionError"},
+    {"name": "The vendor file, 2017-2023", "origin": "extra",
+     "args": lambda: {"raw": pd.read_csv("data/p2_products_daily_long_synthetic.csv")}},
 ]

@@ -1,0 +1,23 @@
+{
+  "number": "3.6",
+  "title": "Does the drift model work on data it has never seen? 2019–2022 estimation, 2023–2024 test, walk-forward",
+  "type": "code",
+  "project": "p3",
+  "step": 6,
+  "difficulty": 4,
+  "level": "mixed",
+  "architectures": ["A09", "A10", "A08"],
+  "data": ["p3_decision_table_daily_synthetic.csv"],
+  "concepts": ["chronological split", "frozen specification", "purging labels at the split", "in-sample R² vs out-of-sample error", "MAE and RMSE", "zero and historical-mean baselines", "directional hit rate", "expanding-window walk-forward", "coefficient stability", "no random split"],
+  "explain": {
+    "prompt": "The trader asks: “The drift model had t-stats of −4.8 in 2019–2022. Does it work?” Answer in 5–7 sentences with your numbers: how the test was set up, in-sample vs out-of-sample errors, the comparison with the baselines, what the walk-forward adds, and what you can and cannot conclude.",
+    "rubric": [
+      "Set-up: target = log WTI return over the 10 trading days after each 14:30 settlement; features = what was known at that settlement (latest published surprise, demand growth as known). The model is estimated on 2019–2022 only, on rows whose 10-day target was realised by 31 Dec 2022 (991 rows), frozen, then applied to 2023–2024 (492 rows). No random split.",
+      "In sample: R² 3.0 %, MAE 7.35 %, RMSE 9.69 %. Out of sample: MAE 6.21 %, RMSE 7.85 % — lower than in sample only because 2023–2024 was calmer, which is why errors must be compared with a baseline on the same period.",
+      "On the same 2023–2024 rows, predicting zero gives MAE 5.98 % / RMSE 7.56 %, and the training mean 6.06 % / 7.63 %: the model is worse than both baselines; its direction is right 52 % of the time.",
+      "Walk-forward (re-estimated at each quarter of 2023–2024 on all rows whose target was known before the origin): MAE 6.17 %, RMSE 7.81 % — still worse than zero; the surprise coefficient shrinks from −0.51 % to −0.38 % per mb as 2023–2024 enters the sample. The relationship was a feature of the training period (concentrated in 2020–2022), not a stable law.",
+      "In-sample R² and t-stats measure fit to the past; out-of-sample error against a baseline measures usefulness. A weak out-of-sample result is a valid finding, not a failed test. A good one would not have proved causality or guaranteed profits either.",
+      "Purging matters: rows from late December 2022 have targets ending in January 2023 — using them would let test-period prices into the estimation."
+    ]
+  }
+}

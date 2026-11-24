@@ -1,0 +1,19 @@
+{
+  "number": "3.7",
+  "title": "Project debrief: could the desk have used this in real time?",
+  "type": "open",
+  "project": "p3",
+  "step": 7,
+  "difficulty": 4,
+  "architectures": ["A04"],
+  "concepts": ["point-in-time vs pseudo point-in-time", "publication lags", "vintages", "fake predictability", "truncation test", "what can be claimed"],
+  "rubric": [
+    "Conclusion first: once the data are aligned on what was available, the weekly-stock 'signal' disappears and the demand–crack relationship is real but much weaker than the revised chart suggests.",
+    "Explains the five dates and uses them correctly: observation for the economics, availability for joins; release calendar with holiday delays; ingestion date useless for backfilled history.",
+    "Quantifies the stock case: week_ending join uses unpublished reports on ≈ 630 of 1,042 days and creates a −0.19 correlation; on available_at it is ≈ 0.02; the reaction is on the release day (≈ −0.53).",
+    "Quantifies the demand case: 0.83 with final data on the observation month vs 0.59 in real time; first prints revised up ≈ 145 kb/d on average; real-time growth has the wrong sign in 10 of 46 months.",
+    "Describes the safeguards: backward merge_asof on availability with tolerance and assertions; as-of views from vintages; a truncation test at several cutoffs.",
+    "Uses the vocabulary precisely: point-in-time only where vintages exist; otherwise 'pseudo point-in-time' with lags respected — and says which applies to each dataset.",
+    "States limits and next steps: daily data cannot show intraday reactions, synthetic data, few independent monthly observations; keep storing own vintages."
+  ]
+}

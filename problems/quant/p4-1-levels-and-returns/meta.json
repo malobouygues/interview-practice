@@ -1,0 +1,23 @@
+{
+  "number": "4.1",
+  "title": "Brent, WTI and an unrelated price: levels, returns, fat tails and changing volatility",
+  "type": "code",
+  "project": "p4",
+  "step": 1,
+  "difficulty": 2,
+  "level": "technical",
+  "architectures": ["A05", "A01"],
+  "data": ["p4_crude_research_daily_synthetic.csv"],
+  "concepts": ["levels vs log returns", "correlation of trending series", "Pearson vs Spearman", "mean vs median", "skewness and kurtosis", "histogram", "rolling volatility", "volatility regimes", "spread by year"],
+  "previous_ids": ["quant/p1-5-describe", "quant/p1-6-returns-and-spreads", "quant/p1-7-correlation", "quant/case1-1-first-look", "quant/case1-2-returns", "quant/case2-2-correlation"],
+  "explain": {
+    "prompt": "The trader says: “Brent and WTI have a correlation of 0.996 — they're basically the same thing. And coffee is at 0.82, funny.” In 4–6 sentences with your numbers: what level correlations and return correlations each tell you, what the distribution and volatility of Brent returns look like, and what the spread table already suggests.",
+    "rubric": [
+      "Level correlations measure shared trends: Brent–WTI 0.996, but WTI–coffee 0.82 for two unrelated markets. A high correlation of levels is not evidence of a relationship.",
+      "Daily log returns answer a different question — do the prices move together day by day? Brent–WTI 0.82 (Pearson) / 0.80 (Spearman); WTI–coffee 0.006: coffee's 0.82 was only two trends.",
+      "Pearson and Spearman are close for Brent–WTI returns: no handful of days drives the co-movement; Spearman is the safer check with fat tails.",
+      "Brent returns: mean −0.023 %, median −0.014 %, std 1.77 % a day, excess kurtosis 0.98 — moderately fat tails. Volatility is not constant: 60-day annualised volatility ranges from 15 % (late 2012) to 48 % (September 2014); 19 % in 2012 vs 38 % in 2015.",
+      "The Brent–WTI spread averages 19.7 $/bbl in 2012 and 21.4 in 2013, then about 1.5–4 from 2016 on: the relationship between the two levels changed — something to test before assuming one stable equilibrium (4.4)."
+    ]
+  }
+}

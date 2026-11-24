@@ -8,10 +8,10 @@ def minmax(s):
 def liquidity_scores(prices: pd.DataFrame, requests: pd.DataFrame) -> dict:
     assets = [c for c in prices.columns if c != "timestamp"]
 
-    vol = pd.Series({a: prices[a].pct_change().std() for a in assets})
+    vol = prices[assets].pct_change().std()
 
     share = requests["asset"].value_counts(normalize=True)
-    freq = pd.Series({a: share.get(a, 0.0) for a in assets})
+    freq = share.reindex(assets, fill_value=0.0)     # never requested = 0, not missing
 
     vol_norm = minmax(vol)
     freq_norm = minmax(freq)

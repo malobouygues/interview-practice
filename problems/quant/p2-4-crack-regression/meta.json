@@ -1,0 +1,23 @@
+{
+  "number": "2.4",
+  "title": "Stocks, outages and the crack: OLS, residuals, White's test and HC3 standard errors",
+  "type": "code",
+  "project": "p2",
+  "step": 4,
+  "difficulty": 3,
+  "level": "mixed",
+  "architectures": ["A08", "A10"],
+  "data": ["p2_monthly_table_synthetic.csv"],
+  "concepts": ["economically motivated OLS", "coefficients in units", "residual analysis", "heteroskedasticity", "White test (H0: constant variance)", "HC3 robust standard errors", "what robust SEs do not fix", "VIF", "Durbin-Watson"],
+  "explain": {
+    "prompt": "The trader asks: “So is the widening physical? And can I trust the numbers?” Answer in 5–7 sentences: interpret the stocks and outage coefficients in their units, say what the White test rejects and what HC3 changes — and what it does not change — and name one way the model is still wrong.",
+    "rubric": [
+      "Stocks coefficient: −1.09 $/bbl of monthly gasoil crack per percentage point of stocks below their 5-year average — a 20 % deficit, as in 2022, is worth about +22 $/bbl. Strongly significant with either standard error.",
+      "Outages: +2.8 $/bbl per 1,000 kb/d offline; p = 0.046 with conventional SEs but 0.21 with HC3 — the evidence rests on a few large-outage months and does not survive robust inference.",
+      "White's LM statistic is 26.6 (p = 0.002): we reject constant error variance. The residual standard deviation is 4.95 $/bbl when stocks are more than 15 % below average against 1.67 near average — a tight market is a volatile market.",
+      "HC3 changes the standard errors (× 1.5 for stocks, × 1.6 for outages), hence t-statistics, p-values and intervals. It does not change the coefficients, the fitted values, the residuals or R² (0.93).",
+      "HC3 does not fix a misspecified model: residuals average +0.99 when stocks are below −15 % and −1.42 between −15 % and −5 % — the crack responds convexly to scarcity and a straight line misses it. Durbin-Watson 1.36 also signals autocorrelated residuals, which HC3 ignores.",
+      "Conclusion: the widening is consistent with a physical stock deficit (a robust coefficient), the outage effect is not robustly established, and the model's form — not just its standard errors — needs work before it is used for sizing. VIFs of 1.0–1.2 rule out multicollinearity as the explanation."
+    ]
+  }
+}

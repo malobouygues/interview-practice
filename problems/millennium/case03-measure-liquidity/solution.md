@@ -7,7 +7,7 @@ Deux signaux par actif — volatilité des rendements (inversée) et part de flu
 ### Points à défendre à l'oral
 
 - `pct_change().std()` : `std()` de pandas ignore le premier NaN, pas besoin de `dropna()`.
-- `share.get(a, 0.0)` : un actif coté mais jamais demandé a une fréquence de 0, il ne doit pas disparaître du dictionnaire.
+- `share.reindex(assets, fill_value=0.0)` : un actif coté mais jamais demandé a une fréquence de 0, il ne doit pas disparaître du dictionnaire.
 - `value_counts(normalize=True)` divise par le total des requêtes, ce qui est bien la définition de « share of all requests ».
 - Le cas « range nul » (tous les actifs ont la même vol, ou le même flux) renvoie 0.5 : le signal ne discrimine pas, il reste neutre au lieu de produire une division par zéro.
 - Le plancher `0.1 + 0.9 * (...)` garantit un score strictement positif : l'actif le moins liquide reste cotable, simplement plus large.

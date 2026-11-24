@@ -1,0 +1,24 @@
+{
+  "number": "4.2",
+  "title": "What kind of non-stationary? Stochastic trend, deterministic trend and seasonality — ADF with justified terms",
+  "type": "code",
+  "project": "p4",
+  "step": 2,
+  "difficulty": 3,
+  "level": "mixed",
+  "architectures": ["A06", "A05"],
+  "data": ["p4_crude_research_daily_synthetic.csv", "p4_diesel_demand_monthly_synthetic.csv"],
+  "concepts": ["stationarity", "unit root / I(1) vs I(0)", "ADF: H0 unit root", "deterministic terms n / c / ct", "do not shop for p-values", "first difference", "seasonal difference", "detrending", "over-differencing", "ACF before and after transformation", "low power"],
+  "previous_ids": ["quant/p4-4-adf", "quant/p4-5-detrend-or-difference", "quant/case1-4-adf", "quant/case1-6-trend-or-random-walk"],
+  "explain": {
+    "prompt": "A colleague ran ADF on the diesel demand level with the default constant, got p = 0.98 and differenced it. In 5–7 sentences with your table: why was that the wrong conclusion, what do the Brent results say (and not say), how did you choose n / c / ct, and how do the ACFs show which transformation is right?",
+    "rubric": [
+      "ADF's null hypothesis is a unit root. Non-rejection (log Brent: stat −0.99, p 0.76 with a constant) means the data cannot reject a random walk — not proof of one; the test has little power against very persistent alternatives.",
+      "The deterministic terms come from the picture and the economics, chosen before the test: a constant for log prices (no reason for a deterministic trend; the 'ct' version, p 0.99, is not an alternative to shop for), none for returns (mean ≈ 0: stat −9.97, p < 0.001), constant + trend for demand, which has a visible linear trend.",
+      "Diesel demand: with 'c' the test cannot account for the trend and wrongly suggests a unit root (p 0.98); with 'ct' it rejects strongly (stat −7.6, p < 0.001): the series is trend-stationary with a fixed seasonal pattern, not a random walk.",
+      "First-differencing demand leaves the seasonality (ACF at lag 12 = 0.40); the seasonal difference over-differences a deterministic pattern (ACF at lag 12 = −0.49, the signature of over-differencing); removing the trend and month effects leaves almost white noise (ACF 0.09 at lag 1, −0.05 at lag 12).",
+      "Log Brent's ACF is 0.999 at lag 1 and 0.985 at lag 20: a slowly decaying ACF is what a trend or unit root looks like, not evidence of a high-order autoregressive model.",
+      "Structural breaks (the 2014–2015 slump, the 2016 regime) and changing volatility weaken ADF in both directions — a reason to look at sub-periods, not to run more specifications until one gives the desired p-value."
+    ]
+  }
+}

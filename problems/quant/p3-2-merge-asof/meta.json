@@ -1,22 +1,41 @@
 {
   "number": "3.2",
-  "title": "Join weekly stocks to daily prices with merge_asof — backward, on availability",
+  "title": "Attach the stock report to each settlement — on availability, backward — and see what the wrong join invents",
   "type": "code",
   "project": "p3",
   "step": 2,
   "difficulty": 3,
-  "architectures": ["A04"],
-  "data": ["p3_us_crude_stocks_weekly_synthetic.csv", "p3_wti_daily_synthetic.csv"],
-  "concepts": ["decision time", "merge_asof direction='backward'", "tolerance", "age of the matched value", "assertions against future information", "different frequencies"],
+  "level": "mixed",
+  "architectures": [
+    "A04",
+    "A05"
+  ],
+  "data": [
+    "p3_us_crude_stocks_weekly_synthetic.csv",
+    "p3_wti_daily_synthetic.csv"
+  ],
+  "concepts": [
+    "decision time",
+    "merge_asof direction='backward'",
+    "join on availability, not observation",
+    "tolerance",
+    "age of the matched value",
+    "no-lookahead assertion",
+    "manual check of rows",
+    "fake predictability from a wrong join"
+  ],
+  "previous_ids": [
+    "quant/p3-3-fake-predictability"
+  ],
   "explain": {
-    "prompt": "In 4–6 sentences: why must the join be done on `available_at` with `direction='backward'`, and what would `week_ending` as the key do? Why is a backward join on the right key still only a necessary condition for point-in-time correctness? What do `age_days` and the tolerance protect you from?",
+    "prompt": "A colleague joined the stocks on week_ending and found that “the latest stock surprise predicts tomorrow's WTI return, t = −4.4”. In 4–6 sentences with your numbers: why is that result an artefact, what does your join do differently, and what do the age of the matched report and the tolerance protect against?",
     "rubric": [
-      "Backward on available_at = for each decision, the last report already published before the 14:30 settlement — never a later one.",
-      "Keyed on week_ending, the stock level of a week would be attached to prices from the Friday it describes, 5–6 days before its release: on about 630 of 1,042 days the join uses a report not yet published.",
-      "Backward + availability key + right vintage = point-in-time. A backward join only guarantees right key ≤ left key: if the key is the observation date, or the value is a later revision, it still leaks.",
-      "age_days (decision − week_ending, here 5 to 12 days) shows how stale the matched information is; a growing age signals an interrupted series.",
-      "The tolerance (10 days) prevents matching a value that is too old (e.g. after a missed release) — better NaN than a silently stale number; the first two days of 2016 have no report yet and stay NaN.",
-      "Different frequencies (weekly vs daily) are aligned without interpolation: the weekly value is carried until the next release, as a trader would."
+      "Joined on week_ending, a report is attached from the Friday it describes, five days or more before its publication: on 929 of 1,510 days the join uses a report not yet published.",
+      "On the eve of each release (Tuesday), the wrong join already 'knows' the surprise that will be published the next day at 10:30, so it 'predicts' the release-day move: correlation −0.245, slope t = −4.4, R² 6 %. With the backward join on available_at the same test gives −0.077 (t = −1.35).",
+      "The fake signal is the price reaction to the release itself, relabelled as a forecast: a release-time mismatch creates a false lead-lag.",
+      "The correct join takes, for each 14:30 New York settlement (converted to UTC), the last report with available_at ≤ decision time; the assertion checks that no matched report is from the future — it would fail on the week_ending join.",
+      "age_days (5 to 14 days here; 13–14 after the 12-day publication delay of June 2022) shows how stale the information is; the 10-day tolerance leaves a value blank rather than silently using a report that is too old (27–28 June 2022, when the last published report was 12 days old).",
+      "A backward join on the right key is necessary, not sufficient: the value must also be the vintage known at that time (3.3), and the features built on it must pass a truncation test (3.4)."
     ]
   }
 }

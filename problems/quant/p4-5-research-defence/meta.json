@@ -1,0 +1,22 @@
+{
+  "number": "4.5",
+  "title": "On the desk: is there a defensible Brent–WTI relationship, and what would you be comfortable saying?",
+  "type": "open",
+  "project": "p4",
+  "step": 5,
+  "difficulty": 4,
+  "level": "desk",
+  "architectures": ["A06", "A11", "A13"],
+  "data": [],
+  "concepts": ["statistical vs economic relationship", "trending prices", "mechanism before test", "returns vs levels", "structural break", "what the evidence supports", "what it does not establish"],
+  "previous_ids": ["quant/p4-11-research-defence", "quant/p4-1-hypothesis", "quant/case4-3-debrief", "quant/case3-4-trade-the-gap", "quant/case2-1-economic-link"],
+  "rubric": [
+    "Opens with a clear answer: yes, there is a defensible economic relationship — Brent and WTI are tied by physical arbitrage — and the data support it; but its parameters changed at the end of 2015.",
+    "Explains why the level correlation (0.996) proves nothing on its own: two trending prices correlate whether or not they are linked — coffee shows 0.82 with WTI, a t-stat of 69 in levels and nothing in daily changes (R² 0.000), with Engle-Granger p = 0.17.",
+    "Says why the mechanism matters before testing: arbitrage (transport, refinery substitution, export capacity) is the reason to expect a stationary gap; without it, a significant test is a coincidence waiting to break.",
+    "Distinguishes returns from levels: daily returns answer 'do they move together' (correlation 0.82, pass-through 0.59 → 0.90); levels and cointegration answer 'do they come back together' (Engle-Granger rejects in each regime).",
+    "Explains the structural break: the end of the export ban narrowed the discount from 15.9 to 2.9 $/bbl and doubled the speed of adjustment; the full-sample average (9.4 $/bbl) describes neither period (Chow F 113).",
+    "States the stationarity facts correctly: prices behave like I(1) (ADF cannot reject; non-rejection is not proof), returns are stationary, and differencing is not automatic (the demand series was trend-stationary).",
+    "States what is NOT established: no causal claim beyond the arbitrage story, no guarantee the post-2016 regime persists (export capacity, pipelines, disruptions), synthetic single history — and names what to monitor."
+  ]
+}

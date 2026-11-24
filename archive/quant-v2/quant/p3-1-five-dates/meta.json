@@ -1,0 +1,22 @@
+{
+  "number": "3.1",
+  "title": "Five dates for one number: observation, publication, availability, ingestion, vintage",
+  "type": "code",
+  "project": "p3",
+  "step": 1,
+  "difficulty": 2,
+  "architectures": ["A01", "A04"],
+  "data": ["p3_us_crude_stocks_weekly_synthetic.csv"],
+  "concepts": ["observation date", "publication date", "availability timestamp", "ingestion date", "vintage", "release calendar", "backfill"],
+  "explain": {
+    "prompt": "Take the stock level of the week ending Friday 15 January 2016. Give its observation date, its publication date and time, its availability, its ingestion date and its vintage, and explain in 4–6 sentences why each one answers a different question. Why can neither `week_ending` nor `ingested_at` be used as the 'known at' date for historical research?",
+    "rubric": [
+      "Observation date (week ending Fri 15 Jan 2016) = the period the value describes; it is the right index for the economic analysis, not for joins.",
+      "Publication = Thursday 21 Jan 2016, 10:30 New York — a day later than usual because Monday 18 Jan was a holiday (release calendar); availability = 21 Jan 10:30: the first moment a trader could use it.",
+      "Ingestion = 7 Jan 2019 09:00: our database was backfilled three years later; it says when WE stored the value, not when the market knew it.",
+      "Vintage: weekly stock reports are rarely revised, so one vintage is used here; for revised data the vintage date is a fifth, separate timestamp (step 3.4).",
+      "Using week_ending as 'known at' puts the value 5–6 days before it existed (look-ahead); using ingested_at for backfilled history puts 156 weekly values on a single day in 2019 — wrong the other way. Only available_at answers 'what was known when'.",
+      "All timestamps are on one clock (New York); mixing time zones would shift availability by hours and can move a value across a settlement."
+    ]
+  }
+}

@@ -10,9 +10,9 @@
     {
       "id": "quant",
       "title": "Quantitative Methods",
-      "subtitle": "Four crude and oil-products research projects: a trustworthy dataset, imperfect product data and features, point-in-time information, then econometric modelling and its defence",
+      "subtitle": "Four commodity-desk situations — Gas & Power, Oil Products, Crude: a trader's question, imperfect data, and an answer you can defend",
       "ordering": "project",
-      "intro": "Each project is one research question on a desk-like dataset, with its own data-preparation challenge, and ends with a written defence. Work through the steps in order inside a project; the projects can be read in order 1 → 4. All datasets are synthetic (fixed seeds) and deliberately imperfect where the project needs it — never presented as market observations. Training projects inspired by crude / oil-products desk work, not actual interview questions or internal methodologies of any firm."
+      "intro": "Each project starts with a trader's question and a deliberately imperfect synthetic dataset. Inside a project the steps go from knowing how to code (level 1) to knowing how to work on a desk (level 2): load and clean, analyse, test, then answer the trader. Charts are drawn by the Test code pads. All data are simulated with fixed seeds and never presented as market observations. Training projects inspired by commodity-desk work, not actual interview questions or internal methodologies of any firm."
     }
   ]
 }

@@ -1,0 +1,23 @@
+{
+  "number": "4.3",
+  "title": "Coffee explains WTI with t = 69? Spurious regression, Durbin-Watson and the right critical values",
+  "type": "code",
+  "project": "p4",
+  "step": 3,
+  "difficulty": 3,
+  "level": "mixed",
+  "architectures": ["A06", "A08", "A10"],
+  "data": ["p4_crude_research_daily_synthetic.csv"],
+  "concepts": ["spurious regression", "high R² between I(1) series", "invalid t-statistics", "Durbin-Watson as a warning sign", "regression in differences", "residual ADF with ordinary vs Engle-Granger critical values", "economic mechanism first"],
+  "previous_ids": ["quant/p4-6-spurious-regression", "quant/case2-4-spurious-regression", "quant/case2-5-debrief"],
+  "explain": {
+    "prompt": "An intern sends you: “log WTI on log coffee: coefficient 1.87, t = 69, R² = 0.69 — and the residuals pass an ADF at 6 %, so they're nearly cointegrated.” In 4–6 sentences with your table: why this is a spurious regression, what Durbin-Watson tells you (and does not prove), what the regression in differences shows, why the intern's residual test is wrong — and what is different about Brent.",
+    "rubric": [
+      "Both series are I(1) with unrelated stochastic trends; regressing one level on the other produces a large R² (0.69) and a huge t (68.6) by construction: the usual t distribution does not apply when the residuals are non-stationary.",
+      "Durbin-Watson 0.016 is a strong warning sign (residuals almost a random walk; the Granger-Newbold rule of thumb: R² > DW), but not a proof — a cointegrated pair also has low DW in levels (Brent: 0.046).",
+      "In daily changes the relationship vanishes: coefficient 0.005, t = 0.25, R² 0.000, DW 1.97 — coffee does not move WTI.",
+      "The residuals of an estimated regression are made as stationary-looking as possible by OLS, so ordinary ADF p-values are too optimistic (0.059 here); Engle-Granger critical values give p = 0.17 — no cointegration.",
+      "Brent passes both tests (Engle-Granger p = 0.001; in changes, t = 66, R² 0.68) — but statistics alone would not justify it either: what makes Brent–WTI worth testing is the arbitrage between two crude benchmarks (transport, quality, export capacity). Without a mechanism, a cointegration test is a fishing trip."
+    ]
+  }
+}

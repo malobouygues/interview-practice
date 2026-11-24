@@ -1,0 +1,24 @@
+{
+  "number": "1.6",
+  "title": "The spikes: cold and windless, or something else? Answer the trader",
+  "type": "code",
+  "project": "p1",
+  "step": 6,
+  "difficulty": 4,
+  "level": "desk",
+  "architectures": ["A05", "A10", "A11"],
+  "data": ["p1_power_hourly_treated_synthetic.csv", "p1_zone_daily_synthetic.csv"],
+  "concepts": ["residual load", "capacity margin", "merit order and scarcity", "rank correlation", "event annotation", "attribution rules", "correlation vs mechanism", "what the evidence supports"],
+  "explain": {
+    "prompt": "Now answer the trader's original question — “Do weather and renewables explain the price spikes, or is something else happening?” — in 6–8 sentences, as you would on the desk. Use your spike table and correlations, name the mechanism, say what the evidence supports and what it does not, and mention what the data cleaning in 1.1–1.2 changed.",
+    "rubric": [
+      "Of 14 spike days (daily maximum ≥ 300 €/MWh), 10 are cold and still (Feb–Mar 2023 and Jan 2024: national HDD 15.7–22.6, average wind 220–3,330 MW out of 22–24 GW installed) and 4 are not weather-driven (2–13 Oct 2023: mild, HDD 1.4–4.5).",
+      "The October spikes coincide with available capacity 18–20 % below the October norm (ratio 0.80–0.82): an outage, not the weather. The highest price of the two years, 2,026 €/MWh on 12 Oct 2023, happened in mild weather with a negative margin (−1,104 MW).",
+      "The mechanism is the merit order: prices jump when residual load (load − wind − solar) approaches available dispatchable capacity. Cold raises load, still air removes wind, an outage removes capacity — all three shrink the margin.",
+      "Rank correlations with the daily maximum price: capacity margin −0.80, wind −0.59, HDD +0.39. Cold is correlated with spikes, but the margin explains them far better: cold matters through residual load, not by itself.",
+      "Gas sets the level of ordinary prices, not the spikes: spikes occurred with gas near 50 €/MWh (Feb 2023) and near 30 (Jan 2024).",
+      "Cleaning mattered: the 772 €/MWh print of 21 Nov 2023 was a ×10 vendor error corrected two days later (1.1); filling wind or price gaps (1.2) would have invented conditions on exactly the days being analysed.",
+      "Limits: 14 days is a small sample; the classification thresholds (HDD ≥ 12, wind < 4,000 MW, capacity ratio < 0.9) are judgement calls; imports, hydro and demand response are not in the data. This is a well-supported description of what coincided with spikes — not a causal estimate or a forecast."
+    ]
+  }
+}

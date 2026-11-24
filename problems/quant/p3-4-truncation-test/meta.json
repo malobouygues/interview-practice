@@ -1,0 +1,24 @@
+{
+  "number": "3.4",
+  "title": "Prove there is no look-ahead: the truncation test",
+  "type": "code",
+  "project": "p3",
+  "step": 4,
+  "difficulty": 3,
+  "level": "mixed",
+  "architectures": ["A04", "A07"],
+  "data": ["p3_us_crude_stocks_weekly_synthetic.csv", "p3_wti_daily_synthetic.csv"],
+  "concepts": ["truncation test", "features vs labels", "full-sample statistics leak", "centred windows leak", "join-key leak", "choice of cutoffs", "no-lookahead assertions", "manual row checks"],
+  "previous_ids": ["quant/p3-6-truncation-test"],
+  "explain": {
+    "prompt": "The quant team says: “our features are fine, we used merge_asof.” In 4–6 sentences with your results: what the truncation test checks, which builders fail and why, why one cutoff is not enough, and why the 10-day target of 3.5 is allowed to fail it.",
+    "rubric": [
+      "A truncation test rebuilds the features from the database as it looked at a cutoff (reports published by then, prices settled by then) and compares them with the full build on the common dates: any difference means a past row used information from after the cutoff.",
+      "The correct builder (backward join on availability, trailing 52-report average) changes 0 of 878 rows at the 27 June 2022 cutoff.",
+      "Standardising the surprise with the full-sample standard deviation changes 868 of 878 rows: a single global statistic contaminates every row. The centred 52-week average changes 123 rows (from 29 Dec 2021): it uses the 26 reports that come after each date.",
+      "The week_ending join changes 6 rows at the Monday cutoff (from 17 June 2022) but 0 at the Thursday cutoff three days later: a join-key leak only shows when the cutoff falls between the end of a week and its publication. Test several cutoffs, including the eve of releases.",
+      "Labels are different: the 10-day forward return is supposed to use future prices; it is handled by purging (only rows whose target was realised before the estimation origin are used, 3.6), not by the truncation test.",
+      "merge_asof is necessary but not sufficient: the leaks here come from a wrong key, a global statistic and a centred window — all compatible with 'we used merge_asof'."
+    ]
+  }
+}

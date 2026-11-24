@@ -2,10 +2,7 @@ import pandas as pd
 import numpy as np
 
 def hedge_optimizer(prices, inventory):
-    if isinstance(prices, dict):
-        df = pd.DataFrame(prices["data"], columns=prices["columns"])
-    else:
-        df = prices.copy()
+    df = pd.DataFrame(prices["data"], columns=prices["columns"])
 
     hedge_assets = ["Asset_1", "Asset_2"]
     target_asset = "Asset_3"

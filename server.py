@@ -49,7 +49,7 @@ MAX_SUBMISSIONS_KEPT = 25
 EXT = {"code": "py", "sql": "sql"}
 TYPES = ("code", "sql", "open", "mcq")
 DIFFICULTY_LABELS = {1: "Warm-up", 2: "Foundations", 3: "Intermediate", 4: "Advanced", 5: "Expert"}
-APP_VERSION = 3          # bump together with APP_VERSION in web/app.js and the ?v= in web/index.html
+APP_VERSION = 4          # bump together with APP_VERSION in web/app.js and the ?v= in web/index.html
 
 
 # ----------------------------------------------------------------------------
@@ -385,12 +385,15 @@ def judge(mode, meta, path, code, scratch=""):
         returncode, output, timed_out = run_capped(
             [sys.executable, RUNNER, mode, path, code_file, result_file, scratch_file], tmp, timeout)
         result = read_json(result_file)
+        figures = read_json(os.path.join(tmp, "figures.json"))
     elapsed = round((time.time() - started) * 1000)
 
     if result is None:          # plain "run" of Python code, or the judge itself died
         if mode == "run" and meta["type"] == "code":
             return {"kind": "console", "output": output, "exit_code": returncode,
-                    "timed_out": timed_out, "elapsed_ms": elapsed}
+                    "timed_out": timed_out, "elapsed_ms": elapsed,
+                    "figures": (figures or {}).get("images", []),
+                    "figures_not_shown": (figures or {}).get("not_shown", 0)}
         message = ("Time limit exceeded — the run was stopped after %ss." % timeout) if timed_out \
             else "The judge stopped unexpectedly."
         return {"kind": "crash", "status": "error", "error": message, "output": output,
@@ -401,7 +404,7 @@ def judge(mode, meta, path, code, scratch=""):
     return result
 
 
-LIBS = ("pandas", "numpy", "statsmodels")
+LIBS = ("pandas", "numpy", "statsmodels", "matplotlib")
 
 
 def environment():
@@ -427,7 +430,7 @@ _env_cache = {}
 # ----------------------------------------------------------------------------
 LIST_FIELDS = ("id", "set", "track", "source", "number", "title", "type", "group", "difficulty",
                "book_difficulty", "debug", "time_limit_min", "project", "step", "sequence", "concepts",
-               "architectures")
+               "architectures", "level")
 
 
 def api_problems(_query, _body):

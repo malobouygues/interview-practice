@@ -1,0 +1,49 @@
+{
+  "title": "Quantitative Methods",
+  "source": "Carte mentale — séries temporelles & recherche quantitative énergie",
+  "track": "quant",
+  "subtitle": "Four crude / oil-products research projects on synthetic data: build a trustworthy dataset, clean and engineer features, respect point-in-time information, then model and defend a relationship",
+  "order": 3,
+  "projects": [
+    {
+      "id": "p1",
+      "number": "Project 1",
+      "title": "Crude oil: building and understanding a market dataset",
+      "question": "A vendor sends three years of Brent, WTI and Dubai settlements. Can you turn the raw file into a dataset you trust, and describe what the prices and spreads say — before any model?",
+      "commodity": "Brent, WTI, Dubai (USD/bbl), 2019–2021",
+      "data_focus": "CSV ingestion, data dictionary, types, timestamps, duplicates and corrections, calendars, quality assertions, a small SQLite store",
+      "data": "p1_crude_prices_vendor_synthetic.csv — raw vendor export, deliberately imperfect",
+      "concepts": ["what one row means", "dtypes & vendor codes", "duplicates vs corrections", "holiday calendars", "quality assertions", "SQLite primary key", "mean / median / quantiles", "skewness & kurtosis", "returns, log returns, differences", "spreads", "Pearson vs Spearman", "correlation ≠ causality"]
+    },
+    {
+      "id": "p2",
+      "number": "Project 2",
+      "title": "Oil products: missing data, outliers and features",
+      "question": "What moves the US diesel crack, and which explanatory variables can you build from imperfect product prices without using information you would not have had?",
+      "commodity": "ULSD, RBOB, ICE Gasoil, jet, Brent — cracks in USD/bbl; European diesel imports",
+      "data_focus": "unit conversion, gaps at the start / middle / end, stale feeds, zero vs missing, z-score / modified z-score / IQR, error vs genuine shock, lags, rolling and calendar features",
+      "data": "p2_products_daily_synthetic.csv (daily, wide) · p2_diesel_imports_monthly_synthetic.csv (monthly, long)",
+      "concepts": ["crack spreads & units", "forward fill vs NaN", "stale prices", "missing ≠ zero", "long vs wide", "z / modified z / IQR", "data error vs market event", "shift() and the information set", "rolling features", "calendar features", "lead-lag and settlement times"]
+    },
+    {
+      "id": "p3",
+      "number": "Project 3",
+      "title": "Crude and products: point-in-time data and temporal alignment",
+      "question": "Weekly stock reports and monthly demand data are published late and revised. Can you rebuild what a desk actually knew at each date — and show how much a misaligned dataset would mislead you?",
+      "commodity": "US crude stocks (weekly), WTI (daily), US oil demand (monthly vintages), diesel crack (monthly)",
+      "data_focus": "observation / publication / availability / ingestion dates, release calendars, backward merge_asof, vintages and as-of views, pseudo vs genuine point-in-time, truncation tests",
+      "data": "p3_us_crude_stocks_weekly · p3_wti_daily · p3_us_oil_demand_vintages · p3_diesel_crack_monthly (all synthetic)",
+      "concepts": ["five timestamps", "publication lag", "available_at", "merge_asof backward", "fake predictability", "vintages", "as-of view", "revisions", "pseudo point-in-time", "truncation test"]
+    },
+    {
+      "id": "p4",
+      "number": "Project 4",
+      "title": "Oil markets: econometric research and model selection",
+      "question": "Is WTI tied to Brent by a long-run equilibrium, which simple model describes the link best, and did the relationship survive the end of the US export ban?",
+      "commodity": "Brent, WTI, Dubai (USD/bbl) 2012–2019, an unrelated coffee price, US diesel demand (monthly)",
+      "data_focus": "clean research panel: the work is choosing transformations, specifications and tests",
+      "data": "p4_crude_research_daily_synthetic.csv · p4_diesel_demand_monthly_synthetic.csv",
+      "concepts": ["economic hypothesis", "OLS inference", "confidence intervals", "model selection & parsimony", "multicollinearity", "ADF (c / ct / n)", "I(0) / I(1)", "detrend vs difference", "spurious regression", "Engle-Granger", "ECM & half-life", "Chow test", "research defence"]
+    }
+  ]
+}

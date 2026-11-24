@@ -1,16 +1,19 @@
-### The situation
+> **Written question** — no code. Write your answer, submit it, then compare it with the reference answer and tick the self-review checklist.
 
-Two claims are circulating on the desk: *"stock builds predict WTI over the following week"* and *"US demand growth explains 70 % of the diesel crack's moves"* (0.83² ≈ 0.69). Your manager asks:
+### The desk asks
 
-> *"You've rebuilt the history properly. Which of these could we actually have used at the time, and what exactly can we claim? I need wording I can defend in front of the traders."*
+> “Wrap it up for me. What could we legitimately have known when the market moved, and is there anything in the stock reports we can actually use? Keep it short — I'll forward it to the head of desk.”
 
-### What to write
+### What you know (from 3.1–3.6)
 
-**12–16 sentences**, conclusion first:
+- Weekly reports are available at 10:30 New York, usually five days after the week they describe (twelve days once); 61 records were backfilled when the database was created.
+- Monthly demand is first published two months late and then revised; today's values are on average higher than what was seen.
+- Joining on the observation date “predicts” the release-day move (t −4.4); the correct join does not.
+- The release-day reaction is −0.30 % per million barrels of surprise (t −6.7). The 10-day drift has t −4.8 with OLS, −2.9 with HAC, and is uneven across sub-periods.
+- Out of sample (2023–2024) the drift model is worse than predicting zero, frozen or re-estimated quarterly.
 
-- what each claim becomes once the data are aligned on what was known at the time, with numbers;
-- why: the five dates, the release calendar, revisions;
-- which safeguards you applied, and how you would detect a leak in someone else's pipeline;
-- the exact vocabulary you would use (point-in-time vs pseudo point-in-time) and the limits.
+### What a good answer does
 
-**Submit** your note, then compare it with the reference answer and tick the key points you covered (self-review, not graded automatically).
+In 200–300 words: say what was knowable and when, how the database would have misled you, what the evidence supports (and how strongly), and what you recommend. Conclusion first.
+
+Answer in the editor, then **Submit answer**.

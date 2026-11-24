@@ -1,44 +1,45 @@
-> **Synthetic data** — simulated with fixed seeds; the release calendar is realistic, the values are invented.
+> **Synthetic data** — weekly stock levels, consensus and release calendar simulated with fixed seeds. The calendar rules imitate a US weekly release; the numbers are invented.
 
-### Context
+### The desk asks
 
-New project: you want to study how US crude inventories relate to WTI — **with only the information the desk actually had at each date**. The weekly stock report (`data/p3_us_crude_stocks_weekly_synthetic.csv`) has one row per week:
+> “Can we use the weekly stock reports to understand WTI price reactions? I need to know what information was available when the market moved — not what the database says today. Start with the stock file: what do all these dates mean?”
+
+### What you have
+
+`data/p3_us_crude_stocks_weekly_synthetic.csv`, one row per weekly report (2019–2024):
 
 | column | meaning |
 |---|---|
-| `week_ending` | the Friday the stock level refers to |
-| `release_date`, `release_time_et` | when the agency published it (usually the following Wednesday 10:30 New York, Thursday after a Monday holiday) |
-| `crude_stocks_mbbl` | US commercial crude stocks, million barrels |
-| `ingested_at` | when the value entered **your** database (history before 2019 was backfilled on 7 Jan 2019) |
+| `week_ending` | the week the figure describes (Friday) |
+| `release_date`, `release_time_et` | when the agency published it (New York time) |
+| `crude_stocks_mbbl` | US crude stocks at the end of that week, million barrels |
+| `consensus_change_mbbl` | analysts' expected weekly change, published before the release |
+| `ingested_at_utc` | when the desk's database stored the record (UTC) |
 
-### Objective
+### What to find out
 
-Make every timestamp of this dataset explicit and compute the moment each value became usable.
+For every report: when the market could first see it, in UTC; how long after the week it describes; which records' storage times are meaningless; and how much of each release was *news*.
 
-### Minimum theory (PDF, A04-A)
+### Minimum theory (PDF A04-A, the five timestamps)
 
-| timestamp | question it answers |
-|---|---|
-| observation | which period does the value describe? |
-| publication | when did the source release it? |
-| availability | when could I first use it? (publication + access delay) |
-| ingestion | when did it enter my database? |
-| vintage | which version of the value is it? (revised data have several) |
-
-Rule: **index the economics on the observation date, join and backtest on the availability date.**
+- **Observation date**: the period described. **Publication**: when the source releases it. **Availability**: when a user can act on it (here = publication, converted to UTC). **Ingestion**: when *your* system stored it. **Vintage**: which version of a revised value (3.3).
+- A **release calendar** has exceptions: holidays move releases, systems fail, data come late.
+- A **backfill** loads history in one go: its ingestion time is the load date, not the market's date.
+- Time zones: `pd.to_datetime(...).dt.tz_localize("America/New_York").dt.tz_convert("UTC")` — never a fixed `+5 h`.
+- **Surprise** = actual change − consensus change: the part of the release the market did not expect.
 
 ### Assumptions
 
-All times are New York time (the agency's and NYMEX's clock), kept as naive timestamps; the report is usable at its release time (no extra access delay); weekly stock reports are not revised (one vintage).
+Availability = publication instant. A record is “backfilled” if it was ingested more than 2 days after its availability.
 
 ### Your task
 
-Implement `add_availability(stocks)` for the raw `DataFrame` (strings as read by `pd.read_csv`, work on a copy):
+Implement `add_availability(stocks)` (on a copy):
 
-1. Convert `week_ending`, `release_date`, `ingested_at` to datetimes.
-2. `available_at = release_date + release_time` (use `pd.to_timedelta(stocks["release_time_et"] + ":00")`).
-3. `publication_lag_days` = days between `week_ending` and `release_date` (int).
-4. `backfilled` = `ingested_at − available_at` greater than 7 days (bool).
-5. Assert that every `available_at` is after its `week_ending`.
+1. `week_ending` → datetime.
+2. `available_at` = `release_date + release_time_et`, localised to New York, converted to UTC.
+3. `ingested_at` = `ingested_at_utc` parsed as UTC.
+4. `publication_lag_days` = days between the release date and `week_ending`; `backfilled` = `ingested_at − available_at > 2 days`.
+5. Sort by `week_ending`; `stocks_change_mbbl` = weekly change of `crude_stocks_mbbl`; `surprise_mbbl` = change − `consensus_change_mbbl`.
 
-Return the columns `week_ending`, `crude_stocks_mbbl`, `release_date`, `available_at`, `ingested_at`, `publication_lag_days`, `backfilled`. Answer in the **Explain** tab.
+Return the frame with a fresh index. Then the **Explain** tab.

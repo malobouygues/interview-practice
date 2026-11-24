@@ -1,0 +1,24 @@
+{
+  "number": "4.4",
+  "title": "A long-run equilibrium — before and after the export ban: Engle-Granger by sub-period and a Chow test",
+  "type": "code",
+  "project": "p4",
+  "step": 4,
+  "difficulty": 4,
+  "level": "mixed",
+  "architectures": ["A06", "A08", "A05"],
+  "data": ["p4_crude_research_daily_synthetic.csv"],
+  "concepts": ["economic mechanism (arbitrage)", "Engle-Granger", "long-run coefficient", "short-run pass-through", "structural change at a known date", "sub-period comparison", "Chow test", "placebo dates", "error-correction model and half-life (optional)"],
+  "previous_ids": ["quant/p4-7-engle-granger", "quant/p4-8-ecm", "quant/p4-9-regimes", "quant/p4-10-chow", "quant/case3-2-engle-granger", "quant/case3-3-ecm", "quant/case4-1-regimes", "quant/case4-2-chow"],
+  "explain": {
+    "prompt": "The trader asks: “So is there a Brent–WTI equilibrium I can trade around, and is it the same as in 2013?” In 5–7 sentences with your table: the economic reason to test, what Engle-Granger says over the full sample and by period, what changed at the end of 2015, what the Chow test and its placebos add, and why a full-sample average would mislead the desk.",
+    "rubric": [
+      "Mechanism first: Brent and WTI are two light sweet crudes linked by arbitrage — refiners can substitute, cargoes can move. Until end-2015 US crude exports were restricted, so the arbitrage was one-directional and the discount was set by pipeline and transport constraints; after the ban was lifted, exports could close the gap.",
+      "Engle-Granger rejects 'no cointegration' over the full sample (stat −4.53, p 0.001) and much more strongly within each regime (−5.34 before 2016, −8.88 after): an equilibrium exists, but its parameters differ.",
+      "The discount fell from 15.86 to 2.85 $/bbl on average; the short-run pass-through of Brent returns to WTI rose from 0.59 to 0.90 (SEs ≈ 0.015); the long-run coefficient is close to 1 in both (0.97, 0.99).",
+      "Chow test at 1 Jan 2016 on the returns regression: F = 113 (p ≈ 0): the coefficients changed. Placebo dates inside the post-2016 regime do not reject (F 0.14 and 0.07); inside the pre-2016 regime one placebo does (2014-01, F 3.84, p 0.02) because volatility doubled in 2014 and Chow assumes equal error variance — the test is a guide, not a verdict.",
+      "The full-sample 'equilibrium' discount (9.36 $/bbl) belongs to neither regime: trading mean reversion around it after 2016 would have bet on a gap that no longer existed.",
+      "Optional ECM: WTI closes about 5.5 % of the gap per day before 2016 (half-life 12 days) and 12 % after (half-life 5.5 days) — faster adjustment once exports were possible."
+    ]
+  }
+}

@@ -1,22 +1,38 @@
 {
   "number": "3.1",
-  "title": "Five dates for one number: observation, publication, availability, ingestion, vintage",
+  "title": "Five dates for one number: observation, publication, availability, ingestion — and the time zone",
   "type": "code",
   "project": "p3",
   "step": 1,
   "difficulty": 2,
-  "architectures": ["A01", "A04"],
-  "data": ["p3_us_crude_stocks_weekly_synthetic.csv"],
-  "concepts": ["observation date", "publication date", "availability timestamp", "ingestion date", "vintage", "release calendar", "backfill"],
+  "level": "technical",
+  "architectures": [
+    "A04"
+  ],
+  "data": [
+    "p3_us_crude_stocks_weekly_synthetic.csv"
+  ],
+  "concepts": [
+    "observation date",
+    "publication date and time",
+    "availability timestamp (UTC)",
+    "ingestion timestamp",
+    "vintage",
+    "release calendar",
+    "holiday delays",
+    "late publication",
+    "backfilled records",
+    "New York vs UTC",
+    "surprise vs consensus"
+  ],
   "explain": {
-    "prompt": "Take the stock level of the week ending Friday 15 January 2016. Give its observation date, its publication date and time, its availability, its ingestion date and its vintage, and explain in 4–6 sentences why each one answers a different question. Why can neither `week_ending` nor `ingested_at` be used as the 'known at' date for historical research?",
+    "prompt": "The trader asks: “The stocks for the week ending 17 June 2022 are in our database — when could we actually have traded on that number?” In 4–6 sentences with your numbers: explain the dates attached to each weekly figure, the publication lags you found, why ingested_at cannot be used as the availability time for 2019, and why the UTC hour of the release changes during the year.",
     "rubric": [
-      "Observation date (week ending Fri 15 Jan 2016) = the period the value describes; it is the right index for the economic analysis, not for joins.",
-      "Publication = Thursday 21 Jan 2016, 10:30 New York — a day later than usual because Monday 18 Jan was a holiday (release calendar); availability = 21 Jan 10:30: the first moment a trader could use it.",
-      "Ingestion = 7 Jan 2019 09:00: our database was backfilled three years later; it says when WE stored the value, not when the market knew it.",
-      "Vintage: weekly stock reports are rarely revised, so one vintage is used here; for revised data the vintage date is a fifth, separate timestamp (step 3.4).",
-      "Using week_ending as 'known at' puts the value 5–6 days before it existed (look-ahead); using ingested_at for backfilled history puts 156 weekly values on a single day in 2019 — wrong the other way. Only available_at answers 'what was known when'.",
-      "All timestamps are on one clock (New York); mixing time zones would shift availability by hours and can move a value across a settlement."
+      "Each figure has an observation date (the week ending Friday), a publication time (release date at 10:30 New York), an availability time (the same instant in UTC — when the desk could act), an ingestion time (when our database stored it) and, for revised data, a vintage.",
+      "Usual lag: 5 days (Friday → Wednesday) for 278 of 314 reports; 6 days for 35 (a Monday holiday, or a holiday on the Wednesday, pushes it to Thursday); 12 days once — the week ending 17 Jun 2022 was published on 29 Jun 2022, so it was not tradable for 12 days.",
+      "61 records were ingested on 2 Mar 2020 when the database was created (backfill): their ingested_at says nothing about when the market knew them; for those, availability must come from the release calendar.",
+      "10:30 New York is 15:30 UTC in winter and 14:30 UTC in summer (110 vs 204 releases): converting with the time zone, not a fixed offset, keeps the availability exact across US DST changes.",
+      "The surprise (actual change − consensus) is the new information of a release; the level of stocks is mostly known in advance — this is what moves prices at 10:30 and what 3.2–3.5 use."
     ]
   }
 }

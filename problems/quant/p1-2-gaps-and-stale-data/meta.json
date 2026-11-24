@@ -1,0 +1,23 @@
+{
+  "number": "1.2",
+  "title": "Fill the gaps? Variable by variable: structural zeros, feed failures and a stale daily state",
+  "type": "code",
+  "project": "p1",
+  "step": 2,
+  "difficulty": 3,
+  "level": "mixed",
+  "architectures": ["A03", "A01"],
+  "data": ["p1_power_hourly_clean_synthetic.csv"],
+  "concepts": ["structural missingness vs data failure", "groupby transform", "solar follows UTC, not the clock", "ffill(limit=...)", "age of the last value", "stale flag", "never fill a price"],
+  "explain": {
+    "prompt": "The trader suggests: “just forward-fill everything so we can compute residual load”. Answer variable by variable (solar, wind, capacity, price), in 5–7 sentences, with your counts: what you filled, what you left empty, and why. Include one sentence on why the daylight test groups by UTC hour.",
+    "rubric": [
+      "Solar: 8,850 blanks, of which 8,845 are the vendor's convention for zero output at night (set to 0) and 5 are a feed failure on 12 Jun 2024, 10:00–14:00 local, at hours that normally produce several GW — left NaN and flagged.",
+      "The daylight test groups by UTC hour because the sun follows solar time: after the October clock change 17:00 local becomes dark, and grouping by local hour would flag 13 hours instead of 5 (8 false failures at dusk).",
+      "Wind: 15 blanks (12 hours on 14 Nov 2023, 3 hours on 6 Feb 2024) are failures — wind blows at night. Forward-filling would invent wind on exactly the kind of day the trader is investigating; they stay NaN, flagged.",
+      "Capacity is a daily state sent with the first hour of the day: carrying it forward is defensible, but for 48 hours at most. 16,819 blanks become 95; 144 hours carry a value sent on an earlier local day (the 2–6 Sep 2024 publication outage reaches an age of 143 h); a plain 24-hour age limit would also flag the last hour of the two 25-hour days, whose value is current.",
+      "Price is an auction result: a missing hour (2, on 16 May 2024 03:00–04:00) cannot be inferred from its neighbours and is never filled.",
+      "The rule is economic, not statistical: fill only what is a state or a convention, keep failures visible with a flag, and report counts so the trader knows how much of the analysis rests on filled values."
+    ]
+  }
+}

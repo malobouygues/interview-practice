@@ -1,0 +1,41 @@
+{
+  "number": "3.5",
+  "title": "Reaction at 10:30, drift afterwards: OLS, overlapping windows and Newey-West (HAC) standard errors",
+  "type": "code",
+  "project": "p3",
+  "step": 5,
+  "difficulty": 4,
+  "level": "mixed",
+  "architectures": [
+    "A08",
+    "A10",
+    "A04",
+    "A05"
+  ],
+  "data": [
+    "p3_release_events_synthetic.csv",
+    "p3_decision_table_daily_synthetic.csv"
+  ],
+  "concepts": [
+    "event study",
+    "reaction window",
+    "information already in the price",
+    "overlapping returns",
+    "serial correlation by construction",
+    "Durbin-Watson",
+    "Newey-West HAC (maxlags)",
+    "what HAC changes and does not change",
+    "research sample vs untouched test period"
+  ],
+  "explain": {
+    "prompt": "Tell the trader what the stock reports do to WTI, in 5–7 sentences with your numbers: the reaction on release days, the apparent drift over the following ten days, why the ordinary standard errors of the drift regression are wrong, what HAC changes — and the three things HAC does not fix.",
+    "rubric": [
+      "Reaction: between the 10:29 snapshot and the 14:30 settlement, WTI moves −0.30 % per million barrels of surprise (t = −6.7, R² ≈ 0.18, 208 releases 2019–2022): the information is priced within hours of the release.",
+      "Durbin-Watson 2.08 and HAC t −7.2 vs OLS −6.7: with one non-overlapping observation per week, HAC changes almost nothing — it is not needed there.",
+      "Drift: daily rows with a 10-day forward return overlap by 9 days, so errors are autocorrelated by construction (Durbin-Watson 0.18). The ordinary SEs treat 991 overlapping rows as 991 independent ones and overstate the evidence.",
+      "Newey-West (HAC, maxlags 9 = overlap − 1) roughly doubles the standard errors: the surprise coefficient (−0.51 % per mb over 10 days) goes from t = −4.8 to −2.9; demand growth from −2.6 to −1.35; the constant from 2.2 to 0.85.",
+      "HAC changes standard errors, t-statistics and intervals — not the coefficients or the fit. It does not cure look-ahead (a mis-timed feature would get a 'robust' t-stat just as easily), it does not fix a spurious regression between trending series, and it does not make a relationship stable over time.",
+      "The 2023–2024 period was not used for any of this: it is kept for the out-of-sample test of 3.6. The drift result is in-sample evidence only."
+    ]
+  }
+}

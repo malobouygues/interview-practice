@@ -1,0 +1,22 @@
+{
+  "number": "2.5",
+  "title": "Desk decision: is the diesel crack widening physical, a data problem, or a statistical illusion?",
+  "type": "open",
+  "project": "p2",
+  "step": 5,
+  "difficulty": 4,
+  "level": "desk",
+  "architectures": ["A11", "A13"],
+  "data": [],
+  "concepts": ["physical tightening vs data problem", "outlier vs market event", "correlation vs mechanism", "robust coefficient vs robust inference", "what to keep in the data", "communicating uncertainty"],
+  "previous_ids": ["quant/p2-8-debrief"],
+  "rubric": [
+    "States the conclusion first: the widening is mainly physical — the crack tracks a distillate stock deficit (about −1.1 $/bbl per point vs the 5-year average; −23 % in September 2022), robust to heteroskedasticity-consistent errors.",
+    "Separates the data problems that were found and fixed (cents unit error on RBOB, a 0.00 gasoil print, a frozen gasoil feed, non-reported import months written as zeros) from the market, and shows that none of them creates the 2022 widening.",
+    "Distinguishes statistical outliers from market events: the hurricane, the 2020 collapse and the New York Harbor squeeze were kept with a label; the 2022 level is a regime, not an outlier, and no score flags it.",
+    "Explains why deleting or winsorising the 2022-style events would remove exactly the information the trader needs (how the crack behaves when supply is short) and would understate tail risk.",
+    "Distinguishes correlation from mechanism: low stocks → scarcity of prompt barrels → refiners' margin rises; imports changed origin after the embargo but not much volume; outages add spikes but their effect is not robustly established (p 0.05 → 0.21 with HC3).",
+    "Separates a robust coefficient from robust inference: HC3 widened the standard errors (× 1.5) without changing the estimates, and does not fix the curvature (residuals +1 $/bbl when stocks are very low) or the autocorrelation (DW 1.36).",
+    "Ends with what would change the view and what to monitor: stock rebuild vs the 5-year average, outage announcements, and a non-linear specification before using the relationship for sizing."
+  ]
+}

@@ -409,3 +409,5 @@ table.result th { background: var(--panel-2); }
 @media (max-width: 600px) {
   .top .meta { display: none; }
 }
+.chart { margin: 0; padding: 8px 16px 12px; border-top: 1px solid var(--line); }
+.chart img { display: block; max-width: 100%; height: auto; background: #fff; border-radius: 6px; }

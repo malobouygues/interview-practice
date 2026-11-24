@@ -1,0 +1,23 @@
+{
+  "number": "1.4",
+  "title": "Weather sensitivity by zone and weather-adjusted load: was it the cold, or demand?",
+  "type": "code",
+  "project": "p1",
+  "step": 4,
+  "difficulty": 3,
+  "level": "mixed",
+  "architectures": ["A05", "A08", "A11"],
+  "data": ["p1_zone_daily_synthetic.csv", "p1_weather_normals_synthetic.csv"],
+  "concepts": ["OLS: load on HDD and CDD", "coefficients in MW per degree day", "confidence intervals", "Durbin-Watson: are the intervals too narrow?", "identification (few CDD days)", "reference weather = 30-year normal", "weather-adjusted load", "comparing periods with different weather"],
+  "explain": {
+    "prompt": "Answer the trader's question — “North load was up this January: more demand, or just colder?” — in 5–7 sentences. Use the coefficients (with their units and intervals), the January–February comparison of actual and weather-adjusted load, and say clearly what a weather-adjusted load is and is not.",
+    "rubric": [
+      "Coefficients read as MW of average daily load per degree day: NORTH +261 MW per HDD [259, 263], CENTRAL +174 [170, 178], SOUTH +60 [58, 63]; cooling: SOUTH +321 MW per CDD [312, 330], CENTRAL +112 [54, 170]. Signs are as expected (more heating or cooling degree days, more load) and the weekend dummy is NORTH −1,067, CENTRAL −1,665, SOUTH −822 MW. The intervals are too narrow: Durbin-Watson is 0.61–0.78, the daily errors are autocorrelated.",
+      "NORTH's cooling coefficient (+130 MW per CDD) rests on 4 warm days: its interval [−142, +401] says the data cannot measure it — a coefficient with no support should not be used, whatever its point value.",
+      "January–February 2024 was much colder than 2023 (NORTH HDD 18.8 vs 15.5 per day). Actual NORTH load rose 5.4 % (12,689 → 13,379 MW); weather-adjusted load fell 1.4 % (12,879 → 12,697). CENTRAL: +0.9 % actual, −3.7 % adjusted; SOUTH: +1.1 % actual, −2.8 % adjusted.",
+      "So the January increase is a weather effect; underlying demand was lower in every zone. The trader's 'growth' is the cold.",
+      "Weather-adjusted load = actual load − estimated effect of the actual weather relative to normal weather (the zone's 30-year mean HDD/CDD for that calendar month). It is a model-based counterfactual, not an observed load and not a forecast.",
+      "Limits: the adjustment is only as good as the regression (linear degree days, one station per zone, a constant level over two years); what remains after adjustment mixes genuine demand change, holidays, prices and noise — the adjustment does not explain every change in demand."
+    ]
+  }
+}
